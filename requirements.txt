@@ -1,0 +1,8 @@
+mujoco==3.6.0
+numpy==2.2.6
+trimesh==4.11.5
+pycollada==0.9.3
+networkx==3.4.2
+scipy==1.15.3
+glfw==2.10.0
+pyopengl==3.1.10
