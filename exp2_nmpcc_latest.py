@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 """exp2_nmpcc_latest.py —— 最新地面场景的实验二 NMPCC（Holding 偏转修复版）
 
-严格使用最新 exp2_slender_scene.py（不改几何/不重标定接触）：
-  - 地面双臂、BASE_X=0.65、Z_MOUNT=0.06、箱中心 z=0.11；
-  - 箱 0.50 x 0.12 x 0.08 m，4 罐沿 x；K_stiff=2793.166 N/m、rest_gap=0.507537 m；
-  - x 轴 eta_f=0.8、y 轴 eta_cop=0.8、z/姿态跟踪；acados 每 6ms 求解一次。
+使用 exp2_slender_scene.py 的地面双臂场景（BASE_X=0.65、Z_MOUNT=0.06、箱中心 z=0.11；
+箱 0.50 x 0.12 x 0.08 m，4 罐沿 x；K_stiff=2793.166 N/m、rest_gap=0.507537 m；
+x 轴 eta_f=0.8、y 轴 eta_cop=0.8、z/姿态跟踪；acados 每 6ms 求解一次）：
+  - 摆式稳定夹持：垫片接触相对箱体重心上偏 GRIP_Z_OFFSET=+0.02 m，箱体重心悬挂在
+    夹持线下方 → 重力对绕夹持轴(x)的滚转提供恢复力矩（中性稳定 → 摆式稳定），
+    同时约束箱体 y 漂移；x 向 K_STIFF/REST_GAP 标定不变。
 
 针对 Holding 偏转的修复（控制律不动：nmpcc_cart.py 仅恢复过一次并发工作流误写损坏并合并其求解器调参改动，见交接说明）：
   1. 启动几何/FK 对账与接触测量等检测类函数已移到 exp2_diagnostics.py
@@ -54,13 +56,14 @@ import mujoco.viewer
 import numpy as np
 
 import nmpcc_cart as nc
+import exp2_slender_scene as scene_mod
 from exp2_diagnostics import (
     box_attitude, box_net_wrench, contact_forces,
     contact_wrench_on_arm, pad_box_wrench_3d,
 )
 from exp2_slender_scene import (
     BOX_CENTER, CAN_COUNT, CAN_HALF_H, CAN_OFFSETS_X,
-    IK_ITERS, SLENDER_HALF, build_scene, grasp_targets, make_arms, solve_end_grip,
+    IK_ITERS, SLENDER_HALF, build_grasped_scene, grasp_targets, make_arms, solve_end_grip,
 )
 from ik import clamp_qpos, get_ee_tip, name_to_id
 
@@ -367,12 +370,13 @@ def run_case(model, data, arms, ids, args, nmpc, ref_fn, t_hold_end,
         if step % 5 == 0:
             forces = contact_forces(model, data, arms, box_geom)
             w = pad_box_wrench_3d(model, data, arms, box_geom)
+            rv, quat = box_attitude(data, box_qpos)
 
-            print(f"t={t + DT:.3f}s  左臂对箱 F={-w['left'][0]} N | 力矩={-w['left'][1]} N·m")
+            print(f"t={t + DT:.3f}s  左臂对箱 F={-w['left'][0]} N | 力矩={-w['left'][1]} N·m"
+                  f" | boxz={data.xpos[box_body][2]:.4f} tiltx={np.degrees(rv[0]):+.2f}°")
 
             fb, tb = box_net_wrench(model, data, arms, box_geom,
                                     data.xpos[box_body].copy())
-            rv, quat = box_attitude(data, box_qpos)
             if step == 0:
                 print(f"[t0] FL={forces['left']:.4f} FR={forces['right']:.4f} "
                       f"boxz={data.xpos[box_body][2]:.6f} "
@@ -587,14 +591,14 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--steps", type=int, default=1200)
     parser.add_argument("--force", type=float, default=10, help="稳定夹持力参考 (N)")
-    parser.add_argument("--kf_scale", type=float, default=0.01, help="力误差增益 (nmpcc_cart 配置)")
+    parser.add_argument("--kf_scale", type=float, default=0.008, help="力误差增益 (nmpcc_cart 配置)")
     parser.add_argument("--Q", type=float, default=1.0,
                         help="论文式(31)阶段损失外部标量 Q")
     parser.add_argument("--P", type=float, default=2.0,
                         help="论文式(32)终端损失外部标量 P")
-    parser.add_argument("--eta_dev", type=float, default=800.0,
+    parser.add_argument("--eta_dev", type=float, default=3000.0,
                         help="论文式(31)误差导数相对权重 eta_dev")
-    parser.add_argument("--eta_u", type=float, default=0.5,
+    parser.add_argument("--eta_u", type=float, default=0.8,
                         help="论文式(31)输入相对权重 eta_u")
     parser.add_argument("--eta_cop_y", type=float, default=0.8,
                         help="论文合作映射 eta_cop 的 y 分量；0=绝对 y 跟踪，0.8=同步优先")
@@ -602,6 +606,9 @@ def main():
     parser.add_argument("--t_hold", type=float, default=1, help="固定 Holding 时间，结束后直接 Moving (s)")
     parser.add_argument("--f_start", type=float, default=10.0,
                         help="启动夹持力参考 (N)，同时用于初始 IK 压紧和控制器首拍")
+    parser.add_argument("--grip_z", type=float, default=0.02,
+                        help="垫片接触高度相对箱体重心的竖直偏移 (m)；正=重心上方（摆式稳定），"
+                             "负=重心下方（顶重倒摆，_probe_grip_z 实测放大滚转）")
     parser.add_argument("--v_y", type=float, default=-0.01)
     parser.add_argument("--y_dist", type=float, default=0.5)
     parser.add_argument("--hold_only", action="store_true")
@@ -641,10 +648,8 @@ def main():
     any_sweep = any(x is not None for x in (sweep_forces, sweep_kfs,
                                             sweep_tramps, sweep_tholds, sweep_fstarts))
 
-    scene_xml = build_scene()
-    model = mujoco.MjModel.from_xml_path(str(scene_xml))
-    data = mujoco.MjData(model)
-    arms = make_arms(model)
+    scene_mod.GRIP_Z_OFFSET = args.grip_z          # 摆式稳定偏移（场景模块全局常量，供两阶段构建读取）
+    scene_xml, model, data, arms = build_grasped_scene(IK_ITERS)
     for a in arms:
         joint_ids = a["joint_ids"]
         a["act_ids"] = [name_to_id(model, mujoco.mjtObj.mjOBJ_ACTUATOR,

@@ -8,6 +8,9 @@
     整条臂躺在同一水平面（l2..l7 平面偏差 0.119 m），箱在臂平面内低位平举，z 全程不变；
   - 垫片法向纯水平（TILT=0）：侧装后腕部不再顶 j7 限位（余量 0.450 rad @j4），
     垫片天然竖直贴箱端面，夹持力纯水平，不需要斜角转接板；
+  - 垫片接触相对箱体重心上偏 GRIP_Z_OFFSET=+0.02 m（摆式稳定）：箱体重心悬挂在
+    夹持线下方，重力对绕夹持轴(x)的滚转提供恢复力矩（中性稳定 → 摆式稳定），
+    同时约束箱体 y 漂移；_probe_grip_z.py 实测：上偏恢复滚转、下偏（顶重倒摆）放大滚转；
   - 细长板条箱（长轴 = x = 夹持轴），力轴与箱长轴共线，4 罐沿箱长 x 摆放。
 
 几何标定：箱长 L=0.50 m（L≥0.60 双臂够不到）；箱 0.8 kg → μ_eff≈1.5 时论文原文 10 N
@@ -41,6 +44,10 @@ MOUNT_YAW = np.radians(15.0)   # 基座偏航 +15°：y 行程双向均衡（_pr
 MOUNT_PITCH = 0.0
 TILT = 0.0                     # 杆身法向 = 纯水平：镜像侧装后腕部不再顶限位
                                # （余量 0.450 rad @j4），垫片天然竖直贴箱，无需斜角修正
+GRIP_Z_OFFSET = 0.02           # 垫片接触高度相对箱体重心的竖直偏移（m，正=接触在重心上方）
+                               # 正偏移 → 箱体重心悬挂在夹持线下方 → 重力成为恢复力矩（摆式稳定），
+                               # 同时约束箱体 y 漂移；负偏移 → 顶重倒摆（_probe_grip_z 实测放大滚转）。
+                               # 垫片半高 0.015、箱面半高 0.04 → 偏移须 ∈ [-0.025, +0.025] 才满接触。
 
 # ---------- 细长箱参数（论文 Fig.11 等比缩小版） ----------
 SLENDER_HALF = np.array([0.25, 0.06, 0.04], dtype=np.float64)  # 半尺寸：x=长(夹持轴) y=宽 z=厚
@@ -63,10 +70,11 @@ IK_ITERS = 1500
 
 
 def compute_pad_fix(model, data, arms) -> dict:
-    """由当前抓取姿态计算垫片斜角安装量（两阶段构建的第 1 阶段输出）。
+    """由当前抓取姿态计算垫片安装量（两阶段构建的第 1 阶段输出）。
 
     杆身（link7 +z）上仰 TILT 后，把垫片在 link7 局部系内反向旋转，使垫片面法向
-    = 世界系纯水平 (∓x)：n_local = R_link7ᵀ · n_world；垫片中心 = 杆端 + 半厚·n_local。
+    = 世界系纯水平 (∓x)：n_local = R_link7ᵀ · n_world；垫片中心 = 杆端 + 半厚·n_local，
+    并沿世界竖直方向额外偏移 GRIP_Z_OFFSET（摆式稳定：接触相对箱体重心上下移）。
     返回 {side: (quat_wxyz, pos_xyz)}，喂给 generate_floor_runtime_xml(pad_fix=...)。
     """
     fix = {}
@@ -75,9 +83,11 @@ def compute_pad_fix(model, data, arms) -> dict:
         n_world = np.array([-a["sign"], 0.0, 0.0])            # 期望垫片法向：纯水平指向箱内
         n_local = R.T @ n_world
         n_local /= np.linalg.norm(n_local)
-        # 局部旋转矩阵：z' = n_local，x' ⊥ z'（取 y 参考叉乘），y' = z'×x'
+        v_local = R.T @ np.array([0.0, 0.0, 1.0])             # 世界 +z 在 link7 局部系（竖直偏移方向）
+        v_local /= np.linalg.norm(v_local)
+        # 局部旋转矩阵：z' = n_local；板面竖直轴取世界竖直方向投影 → 垫片板面保持竖直
         zp = n_local
-        ref = np.array([0.0, 1.0, 0.0])
+        ref = v_local
         if abs(float(zp @ ref)) > 0.95:
             ref = np.array([1.0, 0.0, 0.0])
         xp = np.cross(ref, zp); xp /= np.linalg.norm(xp)
@@ -85,7 +95,7 @@ def compute_pad_fix(model, data, arms) -> dict:
         R_pad = np.column_stack([xp, yp, zp])
         quat = np.zeros(4)
         mujoco.mju_mat2Quat(quat, R_pad.reshape(-1))
-        pos = np.array([0.0, 0.0, EE_TIP_Z])   # 垫片中心 = 杆端（前半厚 0.004 即接触面，不再外偏）
+        pos = np.array([0.0, 0.0, EE_TIP_Z]) + GRIP_Z_OFFSET * v_local
         fix[a["side"]] = (quat, pos)
     return fix
 
@@ -221,6 +231,45 @@ def make_arms(model) -> list[dict]:
     return arms
 
 
+def load_scene(pad_fix=None):
+    """加载场景并把臂/箱/罐放到初始位（休息位 + 箱/罐初始坐标），返回 (scene_xml, model, data, arms)。"""
+    sc = build_scene(pad_fix)
+    m = mujoco.MjModel.from_xml_path(str(sc))
+    d = mujoco.MjData(m)
+    arm_list = make_arms(m)
+    for a in arm_list:
+        d.qpos[a["qpos"]] = a["q_rest"].copy()
+        clamp_qpos(m, d, a["qpos"], a["joint_ids"])
+    d.qvel[:] = 0.0
+    d.qacc[:] = 0.0
+    bq = int(m.jnt_qposadr[name_to_id(m, mujoco.mjtObj.mjOBJ_JOINT, "box_freejoint")])
+    d.qpos[bq:bq + 3] = BOX_CENTER
+    d.qpos[bq + 3:bq + 7] = [1.0, 0.0, 0.0, 0.0]
+    for k, ox in enumerate(CAN_OFFSETS_X):
+        cq = int(m.jnt_qposadr[name_to_id(m, mujoco.mjtObj.mjOBJ_JOINT, f"can{k}_freejoint")])
+        d.qpos[cq:cq + 3] = [BOX_CENTER[0] + ox, BOX_CENTER[1],
+                             BOX_CENTER[2] + SLENDER_HALF[2] + CAN_HALF_H + 0.002]
+        d.qpos[cq + 3:cq + 7] = [1.0, 0.0, 0.0, 0.0]
+    mujoco.mj_forward(m, d)
+    return sc, m, d, arm_list
+
+
+def build_grasped_scene(iters: int = IK_ITERS):
+    """两阶段构建 + 收敛端面对夹姿态，返回 (scene_xml, model, data, arms)。
+
+    pass1 先 IK 出抓取姿态；TILT≠0 或 GRIP_Z_OFFSET≠0 时计算垫片斜角/竖直修正
+    （pad_fix），再重建场景并重新收敛。主程序与诊断工具共用，保证接触几何一致。
+    """
+    scene_xml, model, data, arms = load_scene(None)
+    targets = grasp_targets(arms)
+    solve_end_grip(model, data, arms, targets, iters)
+    if abs(TILT) > 1e-6 or abs(GRIP_Z_OFFSET) > 1e-9:
+        pad_fix = compute_pad_fix(model, data, arms)
+        scene_xml, model, data, arms = load_scene(pad_fix)
+        solve_end_grip(model, data, arms, targets, iters)
+    return scene_xml, model, data, arms
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="实验二·地面安装细长箱端面对夹场景（论文 Fig.11）。")
     parser.add_argument("--headless", action="store_true", help="无 GUI：IK 收敛后打印贴合报表")
@@ -228,36 +277,9 @@ def main() -> None:
     parser.add_argument("--iters", type=int, default=IK_ITERS)
     args = parser.parse_args()
 
-    def load_scene(pad_fix=None):
-        sc = build_scene(pad_fix)
-        m = mujoco.MjModel.from_xml_path(str(sc))
-        d = mujoco.MjData(m)
-        arm_list = make_arms(m)
-        for a in arm_list:
-            d.qpos[a["qpos"]] = a["q_rest"].copy()
-            clamp_qpos(m, d, a["qpos"], a["joint_ids"])
-        d.qvel[:] = 0.0
-        d.qacc[:] = 0.0
-        bq = int(m.jnt_qposadr[name_to_id(m, mujoco.mjtObj.mjOBJ_JOINT, "box_freejoint")])
-        d.qpos[bq:bq + 3] = BOX_CENTER
-        d.qpos[bq + 3:bq + 7] = [1.0, 0.0, 0.0, 0.0]
-        for k, ox in enumerate(CAN_OFFSETS_X):
-            cq = int(m.jnt_qposadr[name_to_id(m, mujoco.mjtObj.mjOBJ_JOINT, f"can{k}_freejoint")])
-            d.qpos[cq:cq + 3] = [BOX_CENTER[0] + ox, BOX_CENTER[1],
-                                 BOX_CENTER[2] + SLENDER_HALF[2] + CAN_HALF_H + 0.002]
-            d.qpos[cq + 3:cq + 7] = [1.0, 0.0, 0.0, 0.0]
-        mujoco.mj_forward(m, d)
-        return sc, m, d, arm_list
-
-    # ---- 两阶段构建：pass1 先 IK 出抓取姿态；TILT>0 时计算垫片斜角修正再重建 ----
-    scene_xml, model, data, arms = load_scene(None)
+    # ---- 两阶段构建：pass1 先 IK 出抓取姿态；TILT/GRIP_Z_OFFSET 非零时重建带垫片修正的场景 ----
+    scene_xml, model, data, arms = build_grasped_scene(args.iters)
     targets = grasp_targets(arms)
-    solve_end_grip(model, data, arms, targets, args.iters)
-    if abs(TILT) > 1e-6:
-        pad_fix = compute_pad_fix(model, data, arms)
-        scene_xml, model, data, arms = load_scene(pad_fix)
-        targets = grasp_targets(arms)
-        solve_end_grip(model, data, arms, targets, args.iters)
     box_id = name_to_id(model, mujoco.mjtObj.mjOBJ_BODY, "box")
 
     def reset() -> None:
@@ -282,7 +304,8 @@ def main() -> None:
           f"箱: 长 {2*SLENDER_HALF[0]:.2f} × 宽 {2*SLENDER_HALF[1]:.2f} × 厚 {2*SLENDER_HALF[2]:.2f} m, "
           f"{BOX_MASS} kg, 中心 {np.round(BOX_CENTER, 3)}")
     print(f"   罐: {CAN_COUNT} 个沿箱长 x (offsets {CAN_OFFSETS_X}) | "
-          f"垫片法向纯水平（tilt={np.degrees(TILT):.0f}°）")
+          f"垫片法向纯水平（tilt={np.degrees(TILT):.0f}°）| "
+          f"接触高度偏移 grip_z={GRIP_Z_OFFSET*1000:+.0f} mm（重心{'+上方' if GRIP_Z_OFFSET>0 else '下方/同高'}）")
 
     if args.check:
         return

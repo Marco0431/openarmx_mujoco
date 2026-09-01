@@ -3,39 +3,39 @@
   <compiler angle="radian" />
 
   <asset>
-    <mesh name="body_link0_part0" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\body\v10\visual\body_link0\body_link0_part0.obj" />
-    <mesh name="link0_mirror_pnp_part0" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link0_mirror_pnp\link0_mirror_pnp_part0.obj" />
-    <mesh name="link0_mirror_pnp_part1" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link0_mirror_pnp\link0_mirror_pnp_part1.obj" />
-    <mesh name="link1_mirror_pnp_part0" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link1_mirror_pnp\link1_mirror_pnp_part0.obj" />
-    <mesh name="link1_mirror_pnp_part1" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link1_mirror_pnp\link1_mirror_pnp_part1.obj" />
-    <mesh name="link2_mirror_pnp_part0" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link2_mirror_pnp\link2_mirror_pnp_part0.obj" />
-    <mesh name="link2_mirror_pnp_part1" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link2_mirror_pnp\link2_mirror_pnp_part1.obj" />
-    <mesh name="link3_mirror_pnp_part0" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link3_mirror_pnp\link3_mirror_pnp_part0.obj" />
-    <mesh name="link3_mirror_pnp_part1" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link3_mirror_pnp\link3_mirror_pnp_part1.obj" />
-    <mesh name="link4_part0" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link4\link4_part0.obj" />
-    <mesh name="link4_part1" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link4\link4_part1.obj" />
-    <mesh name="link5_mirror_pnp_part0" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link5_mirror_pnp\link5_mirror_pnp_part0.obj" />
-    <mesh name="link5_mirror_pnp_part1" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link5_mirror_pnp\link5_mirror_pnp_part1.obj" />
-    <mesh name="link6_mirror_pnp_part0" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link6_mirror_pnp\link6_mirror_pnp_part0.obj" />
-    <mesh name="link6_mirror_pnp_part1" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link6_mirror_pnp\link6_mirror_pnp_part1.obj" />
-    <mesh name="link7_mirror_pnp_part0" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link7_mirror_pnp\link7_mirror_pnp_part0.obj" />
-    <mesh name="link7_mirror_pnp_part1" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link7_mirror_pnp\link7_mirror_pnp_part1.obj" />
-    <mesh name="link0_part0" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link0\link0_part0.obj" />
-    <mesh name="link0_part1" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link0\link0_part1.obj" />
-    <mesh name="link1_part0" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link1\link1_part0.obj" />
-    <mesh name="link1_part1" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link1\link1_part1.obj" />
-    <mesh name="link2_part0" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link2\link2_part0.obj" />
-    <mesh name="link2_part1" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link2\link2_part1.obj" />
-    <mesh name="link3_part0" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link3\link3_part0.obj" />
-    <mesh name="link3_part1" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link3\link3_part1.obj" />
-    <mesh name="link5_part0" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link5\link5_part0.obj" />
-    <mesh name="link5_part1" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link5\link5_part1.obj" />
-    <mesh name="link6_part0" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link6\link6_part0.obj" />
-    <mesh name="link6_part1" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link6\link6_part1.obj" />
-    <mesh name="link7_part0" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link7\link7_part0.obj" />
-    <mesh name="link7_part1" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link7\link7_part1.obj" />
-    <mesh name="hand_part0" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\ee\openarmx_hand\visual\hand\hand_part0.obj" scale="0.001 0.001 0.001" />
-    <mesh name="hand_part1" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\ee\openarmx_hand\visual\hand\hand_part1.obj" scale="0.001 0.001 0.001" />
+    <mesh name="body_link0_part0" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\body\v10\visual\body_link0\body_link0_part0.obj" />
+    <mesh name="link0_mirror_pnp_part0" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link0_mirror_pnp\link0_mirror_pnp_part0.obj" />
+    <mesh name="link0_mirror_pnp_part1" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link0_mirror_pnp\link0_mirror_pnp_part1.obj" />
+    <mesh name="link1_mirror_pnp_part0" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link1_mirror_pnp\link1_mirror_pnp_part0.obj" />
+    <mesh name="link1_mirror_pnp_part1" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link1_mirror_pnp\link1_mirror_pnp_part1.obj" />
+    <mesh name="link2_mirror_pnp_part0" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link2_mirror_pnp\link2_mirror_pnp_part0.obj" />
+    <mesh name="link2_mirror_pnp_part1" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link2_mirror_pnp\link2_mirror_pnp_part1.obj" />
+    <mesh name="link3_mirror_pnp_part0" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link3_mirror_pnp\link3_mirror_pnp_part0.obj" />
+    <mesh name="link3_mirror_pnp_part1" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link3_mirror_pnp\link3_mirror_pnp_part1.obj" />
+    <mesh name="link4_part0" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link4\link4_part0.obj" />
+    <mesh name="link4_part1" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link4\link4_part1.obj" />
+    <mesh name="link5_mirror_pnp_part0" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link5_mirror_pnp\link5_mirror_pnp_part0.obj" />
+    <mesh name="link5_mirror_pnp_part1" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link5_mirror_pnp\link5_mirror_pnp_part1.obj" />
+    <mesh name="link6_mirror_pnp_part0" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link6_mirror_pnp\link6_mirror_pnp_part0.obj" />
+    <mesh name="link6_mirror_pnp_part1" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link6_mirror_pnp\link6_mirror_pnp_part1.obj" />
+    <mesh name="link7_mirror_pnp_part0" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link7_mirror_pnp\link7_mirror_pnp_part0.obj" />
+    <mesh name="link7_mirror_pnp_part1" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link7_mirror_pnp\link7_mirror_pnp_part1.obj" />
+    <mesh name="link0_part0" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link0\link0_part0.obj" />
+    <mesh name="link0_part1" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link0\link0_part1.obj" />
+    <mesh name="link1_part0" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link1\link1_part0.obj" />
+    <mesh name="link1_part1" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link1\link1_part1.obj" />
+    <mesh name="link2_part0" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link2\link2_part0.obj" />
+    <mesh name="link2_part1" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link2\link2_part1.obj" />
+    <mesh name="link3_part0" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link3\link3_part0.obj" />
+    <mesh name="link3_part1" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link3\link3_part1.obj" />
+    <mesh name="link5_part0" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link5\link5_part0.obj" />
+    <mesh name="link5_part1" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link5\link5_part1.obj" />
+    <mesh name="link6_part0" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link6\link6_part0.obj" />
+    <mesh name="link6_part1" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link6\link6_part1.obj" />
+    <mesh name="link7_part0" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link7\link7_part0.obj" />
+    <mesh name="link7_part1" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link7\link7_part1.obj" />
+    <mesh name="hand_part0" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\ee\openarmx_hand\visual\hand\hand_part0.obj" scale="0.001 0.001 0.001" />
+    <mesh name="hand_part1" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\ee\openarmx_hand\visual\hand\hand_part1.obj" scale="0.001 0.001 0.001" />
   </asset>
 
   <worldbody>

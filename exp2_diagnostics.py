@@ -240,10 +240,7 @@ def _load_slender(f_start):
     import exp2_slender_scene as sc
     import nmpcc_cart as nc
 
-    scene_xml = sc.build_scene()
-    model = mujoco.MjModel.from_xml_path(str(scene_xml))
-    data = mujoco.MjData(model)
-    arms = sc.make_arms(model)
+    scene_xml, model, data, arms = sc.build_grasped_scene(sc.IK_ITERS)
     box_qpos = int(model.jnt_qposadr[
         name_to_id(model, mujoco.mjtObj.mjOBJ_JOINT, "box_freejoint")])
     exp.reset_world(model, data, arms, box_qpos)
