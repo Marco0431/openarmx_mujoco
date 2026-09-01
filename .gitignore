@@ -1,0 +1,26 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+
+# ---- acados codegen（运行时自动生成） ----
+codegen_ocp_*/
+c_generated_code/
+
+# ---- 仿真输出 / 日志 / 图纸 ----
+results/
+scratch/
+*.log
+*.npz
+*.out
+*.csv
+*.png
+*.svg
+
+# ---- 论文草稿与内部笔记 ----
+*paper*.txt
+*_paper_text.txt
+Zhao2024_translation.html
+
+# ---- 系统 ----
+Thumbs.db
+.DS_Store

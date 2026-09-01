@@ -18,10 +18,10 @@
   <visual name="openarmx_body_link0_visual_part0">
       <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0" />
       <geometry>
-        <mesh filename="/home/openarmx/VLA_new/src/openarmx_mujoco/ros2_visual_meshes/body/v10/visual/body_link0/body_link0_part0.obj" scale="1.0 1.0 1.0" />
+        <mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\body\v10\visual\body_link0\body_link0_part0.obj" scale="1.0 1.0 1.0" />
       </geometry>
     <material name="openarmx_body_link0_mat_0"><color rgba="0.30 0.32 0.35 1.0" /></material></visual>
-    </link>
+    <collision name="openarmx_body_link0_visual_part0_collision"><geometry><mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\body\v10\visual\body_link0\body_link0_part0.obj" scale="1.0 1.0 1.0" /></geometry></collision></link>
   <joint name="openarmx_left_openarmx_body_link0_joint" type="fixed">
     <parent link="openarmx_body_link0" />
     <child link="openarmx_left_link0" />
@@ -37,17 +37,17 @@
       <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0" />
       <geometry>
         
-        <mesh filename="/home/openarmx/VLA_new/src/openarmx_mujoco/ros2_visual_meshes/arm/v10/visual/link0_mirror_pnp/link0_mirror_pnp_part0.obj" scale="1.0 1.0 1.0" />
+        <mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link0_mirror_pnp\link0_mirror_pnp_part0.obj" scale="1.0 1.0 1.0" />
       </geometry>
     <material name="openarmx_left_link0_mat_0"><color rgba="0.50 0.50 0.55 1.0" /></material></visual>
-    <visual name="openarmx_left_link0_visual_part1">
+    <collision name="openarmx_left_link0_visual_part0_collision"><geometry><mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link0_mirror_pnp\link0_mirror_pnp_part0.obj" scale="1.0 1.0 1.0" /></geometry></collision><visual name="openarmx_left_link0_visual_part1">
       <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0" />
       <geometry>
         
-        <mesh filename="/home/openarmx/VLA_new/src/openarmx_mujoco/ros2_visual_meshes/arm/v10/visual/link0_mirror_pnp/link0_mirror_pnp_part1.obj" scale="1.0 1.0 1.0" />
+        <mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link0_mirror_pnp\link0_mirror_pnp_part1.obj" scale="1.0 1.0 1.0" />
       </geometry>
     <material name="openarmx_left_link0_mat_1"><color rgba="0.92 0.92 0.95 1.0" /></material></visual>
-    </link>
+    <collision name="openarmx_left_link0_visual_part1_collision"><geometry><mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link0_mirror_pnp\link0_mirror_pnp_part1.obj" scale="1.0 1.0 1.0" /></geometry></collision></link>
   <link name="openarmx_left_link1">
     <inertial>
       <origin rpy="0.0 0.0 0.0" xyz="0.004452 2.5e-05 0.073323" />
@@ -58,17 +58,17 @@
       <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0" />
       <geometry>
         
-        <mesh filename="/home/openarmx/VLA_new/src/openarmx_mujoco/ros2_visual_meshes/arm/v10/visual/link1_mirror_pnp/link1_mirror_pnp_part0.obj" scale="1.0 1.0 1.0" />
+        <mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link1_mirror_pnp\link1_mirror_pnp_part0.obj" scale="1.0 1.0 1.0" />
       </geometry>
     <material name="openarmx_left_link1_mat_0"><color rgba="0.50 0.50 0.55 1.0" /></material></visual>
-    <visual name="openarmx_left_link1_visual_part1">
+    <collision name="openarmx_left_link1_visual_part0_collision"><geometry><mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link1_mirror_pnp\link1_mirror_pnp_part0.obj" scale="1.0 1.0 1.0" /></geometry></collision><visual name="openarmx_left_link1_visual_part1">
       <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0" />
       <geometry>
         
-        <mesh filename="/home/openarmx/VLA_new/src/openarmx_mujoco/ros2_visual_meshes/arm/v10/visual/link1_mirror_pnp/link1_mirror_pnp_part1.obj" scale="1.0 1.0 1.0" />
+        <mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link1_mirror_pnp\link1_mirror_pnp_part1.obj" scale="1.0 1.0 1.0" />
       </geometry>
     <material name="openarmx_left_link1_mat_1"><color rgba="0.92 0.92 0.95 1.0" /></material></visual>
-    </link>
+    <collision name="openarmx_left_link1_visual_part1_collision"><geometry><mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link1_mirror_pnp\link1_mirror_pnp_part1.obj" scale="1.0 1.0 1.0" /></geometry></collision></link>
   <joint name="openarmx_left_joint1" type="revolute">
     <origin rpy="-0.0 -0.0 -0.0" xyz="0.0 0.0 0.058" />
     <parent link="openarmx_left_link0" />
@@ -86,17 +86,17 @@
       <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0" />
       <geometry>
         
-        <mesh filename="/home/openarmx/VLA_new/src/openarmx_mujoco/ros2_visual_meshes/arm/v10/visual/link2_mirror_pnp/link2_mirror_pnp_part0.obj" scale="1.0 1.0 1.0" />
+        <mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link2_mirror_pnp\link2_mirror_pnp_part0.obj" scale="1.0 1.0 1.0" />
       </geometry>
     <material name="openarmx_left_link2_mat_0"><color rgba="0.50 0.50 0.55 1.0" /></material></visual>
-    <visual name="openarmx_left_link2_visual_part1">
+    <collision name="openarmx_left_link2_visual_part0_collision"><geometry><mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link2_mirror_pnp\link2_mirror_pnp_part0.obj" scale="1.0 1.0 1.0" /></geometry></collision><visual name="openarmx_left_link2_visual_part1">
       <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0" />
       <geometry>
         
-        <mesh filename="/home/openarmx/VLA_new/src/openarmx_mujoco/ros2_visual_meshes/arm/v10/visual/link2_mirror_pnp/link2_mirror_pnp_part1.obj" scale="1.0 1.0 1.0" />
+        <mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link2_mirror_pnp\link2_mirror_pnp_part1.obj" scale="1.0 1.0 1.0" />
       </geometry>
     <material name="openarmx_left_link2_mat_1"><color rgba="0.15 0.65 0.70 1.0" /></material></visual>
-    </link>
+    <collision name="openarmx_left_link2_visual_part1_collision"><geometry><mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link2_mirror_pnp\link2_mirror_pnp_part1.obj" scale="1.0 1.0 1.0" /></geometry></collision></link>
   <joint name="openarmx_left_joint2" type="revolute">
     <origin rpy="-1.5708 -0.0 -0.0" xyz="-0.0205 0.0 0.081" />
     <parent link="openarmx_left_link1" />
@@ -114,17 +114,17 @@
       <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0" />
       <geometry>
         
-        <mesh filename="/home/openarmx/VLA_new/src/openarmx_mujoco/ros2_visual_meshes/arm/v10/visual/link3_mirror_pnp/link3_mirror_pnp_part0.obj" scale="1.0 1.0 1.0" />
+        <mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link3_mirror_pnp\link3_mirror_pnp_part0.obj" scale="1.0 1.0 1.0" />
       </geometry>
     <material name="openarmx_left_link3_mat_0"><color rgba="0.50 0.50 0.55 1.0" /></material></visual>
-    <visual name="openarmx_left_link3_visual_part1">
+    <collision name="openarmx_left_link3_visual_part0_collision"><geometry><mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link3_mirror_pnp\link3_mirror_pnp_part0.obj" scale="1.0 1.0 1.0" /></geometry></collision><visual name="openarmx_left_link3_visual_part1">
       <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0" />
       <geometry>
         
-        <mesh filename="/home/openarmx/VLA_new/src/openarmx_mujoco/ros2_visual_meshes/arm/v10/visual/link3_mirror_pnp/link3_mirror_pnp_part1.obj" scale="1.0 1.0 1.0" />
+        <mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link3_mirror_pnp\link3_mirror_pnp_part1.obj" scale="1.0 1.0 1.0" />
       </geometry>
     <material name="openarmx_left_link3_mat_1"><color rgba="0.92 0.92 0.95 1.0" /></material></visual>
-    </link>
+    <collision name="openarmx_left_link3_visual_part1_collision"><geometry><mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link3_mirror_pnp\link3_mirror_pnp_part1.obj" scale="1.0 1.0 1.0" /></geometry></collision></link>
   <joint name="openarmx_left_joint3" type="revolute">
     <origin rpy="0.0 0.0 0.0" xyz="0.02 0.0 0.099" />
     <parent link="openarmx_left_link2" />
@@ -142,17 +142,17 @@
       <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0" />
       <geometry>
         
-        <mesh filename="/home/openarmx/VLA_new/src/openarmx_mujoco/ros2_visual_meshes/arm/v10/visual/link4/link4_part0.obj" scale="1.0 1.0 1.0" />
+        <mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link4\link4_part0.obj" scale="1.0 1.0 1.0" />
       </geometry>
     <material name="openarmx_left_link4_mat_0"><color rgba="0.50 0.50 0.55 1.0" /></material></visual>
-    <visual name="openarmx_left_link4_visual_part1">
+    <collision name="openarmx_left_link4_visual_part0_collision"><geometry><mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link4\link4_part0.obj" scale="1.0 1.0 1.0" /></geometry></collision><visual name="openarmx_left_link4_visual_part1">
       <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0" />
       <geometry>
         
-        <mesh filename="/home/openarmx/VLA_new/src/openarmx_mujoco/ros2_visual_meshes/arm/v10/visual/link4/link4_part1.obj" scale="1.0 1.0 1.0" />
+        <mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link4\link4_part1.obj" scale="1.0 1.0 1.0" />
       </geometry>
     <material name="openarmx_left_link4_mat_1"><color rgba="0.15 0.65 0.70 1.0" /></material></visual>
-    </link>
+    <collision name="openarmx_left_link4_visual_part1_collision"><geometry><mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link4\link4_part1.obj" scale="1.0 1.0 1.0" /></geometry></collision></link>
   <joint name="openarmx_left_joint4" type="revolute">
     <origin rpy="0.0 0.0 0.0" xyz="0.0 0.031002 0.14181" />
     <parent link="openarmx_left_link3" />
@@ -176,17 +176,17 @@
       <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0" />
       <geometry>
         
-        <mesh filename="/home/openarmx/VLA_new/src/openarmx_mujoco/ros2_visual_meshes/arm/v10/visual/link5_mirror_pnp/link5_mirror_pnp_part0.obj" scale="1.0 1.0 1.0" />
+        <mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link5_mirror_pnp\link5_mirror_pnp_part0.obj" scale="1.0 1.0 1.0" />
       </geometry>
     <material name="openarmx_left_link5_mat_0"><color rgba="0.50 0.50 0.55 1.0" /></material></visual>
-    <visual name="openarmx_left_link5_visual_part1">
+    <collision name="openarmx_left_link5_visual_part0_collision"><geometry><mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link5_mirror_pnp\link5_mirror_pnp_part0.obj" scale="1.0 1.0 1.0" /></geometry></collision><visual name="openarmx_left_link5_visual_part1">
       <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0" />
       <geometry>
         
-        <mesh filename="/home/openarmx/VLA_new/src/openarmx_mujoco/ros2_visual_meshes/arm/v10/visual/link5_mirror_pnp/link5_mirror_pnp_part1.obj" scale="1.0 1.0 1.0" />
+        <mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link5_mirror_pnp\link5_mirror_pnp_part1.obj" scale="1.0 1.0 1.0" />
       </geometry>
     <material name="openarmx_left_link5_mat_1"><color rgba="0.92 0.92 0.95 1.0" /></material></visual>
-    </link>
+    <collision name="openarmx_left_link5_visual_part1_collision"><geometry><mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link5_mirror_pnp\link5_mirror_pnp_part1.obj" scale="1.0 1.0 1.0" /></geometry></collision></link>
   <joint name="openarmx_left_joint5" type="revolute">
     <origin rpy="0.0 0.0 0.0" xyz="0.0 -0.0309 0.126" />
     <parent link="openarmx_left_link4" />
@@ -204,17 +204,17 @@
       <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0" />
       <geometry>
         
-        <mesh filename="/home/openarmx/VLA_new/src/openarmx_mujoco/ros2_visual_meshes/arm/v10/visual/link6_mirror_pnp/link6_mirror_pnp_part0.obj" scale="1.0 1.0 1.0" />
+        <mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link6_mirror_pnp\link6_mirror_pnp_part0.obj" scale="1.0 1.0 1.0" />
       </geometry>
     <material name="openarmx_left_link6_mat_0"><color rgba="0.50 0.50 0.55 1.0" /></material></visual>
-    <visual name="openarmx_left_link6_visual_part1">
+    <collision name="openarmx_left_link6_visual_part0_collision"><geometry><mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link6_mirror_pnp\link6_mirror_pnp_part0.obj" scale="1.0 1.0 1.0" /></geometry></collision><visual name="openarmx_left_link6_visual_part1">
       <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0" />
       <geometry>
         
-        <mesh filename="/home/openarmx/VLA_new/src/openarmx_mujoco/ros2_visual_meshes/arm/v10/visual/link6_mirror_pnp/link6_mirror_pnp_part1.obj" scale="1.0 1.0 1.0" />
+        <mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link6_mirror_pnp\link6_mirror_pnp_part1.obj" scale="1.0 1.0 1.0" />
       </geometry>
     <material name="openarmx_left_link6_mat_1"><color rgba="0.80 0.80 0.82 1.0" /></material></visual>
-    </link>
+    <collision name="openarmx_left_link6_visual_part1_collision"><geometry><mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link6_mirror_pnp\link6_mirror_pnp_part1.obj" scale="1.0 1.0 1.0" /></geometry></collision></link>
   <joint name="openarmx_left_joint6" type="revolute">
     <origin rpy="0.0 0.0 0.0" xyz="0.037426 0.0 0.131" />
     <parent link="openarmx_left_link5" />
@@ -232,17 +232,17 @@
       <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0" />
       <geometry>
         
-        <mesh filename="/home/openarmx/VLA_new/src/openarmx_mujoco/ros2_visual_meshes/arm/v10/visual/link7_mirror_pnp/link7_mirror_pnp_part0.obj" scale="1.0 1.0 1.0" />
+        <mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link7_mirror_pnp\link7_mirror_pnp_part0.obj" scale="1.0 1.0 1.0" />
       </geometry>
     <material name="openarmx_left_link7_mat_0"><color rgba="0.50 0.50 0.55 1.0" /></material></visual>
-    <visual name="openarmx_left_link7_visual_part1">
+    <collision name="openarmx_left_link7_visual_part0_collision"><geometry><mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link7_mirror_pnp\link7_mirror_pnp_part0.obj" scale="1.0 1.0 1.0" /></geometry></collision><visual name="openarmx_left_link7_visual_part1">
       <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0" />
       <geometry>
         
-        <mesh filename="/home/openarmx/VLA_new/src/openarmx_mujoco/ros2_visual_meshes/arm/v10/visual/link7_mirror_pnp/link7_mirror_pnp_part1.obj" scale="1.0 1.0 1.0" />
+        <mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link7_mirror_pnp\link7_mirror_pnp_part1.obj" scale="1.0 1.0 1.0" />
       </geometry>
     <material name="openarmx_left_link7_mat_1"><color rgba="0.30 0.70 1.00 1.0" /></material></visual>
-    </link>
+    <collision name="openarmx_left_link7_visual_part1_collision"><geometry><mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link7_mirror_pnp\link7_mirror_pnp_part1.obj" scale="1.0 1.0 1.0" /></geometry></collision></link>
   <joint name="openarmx_left_joint7" type="revolute">
     <origin rpy="0.0 0.0 0.0" xyz="-0.0375 0.0 0.0" />
     <parent link="openarmx_left_link6" />
@@ -272,17 +272,17 @@
       <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0" />
       <geometry>
         
-        <mesh filename="/home/openarmx/VLA_new/src/openarmx_mujoco/ros2_visual_meshes/arm/v10/visual/link0/link0_part0.obj" scale="1.0 1.0 1.0" />
+        <mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link0\link0_part0.obj" scale="1.0 1.0 1.0" />
       </geometry>
     <material name="openarmx_right_link0_mat_0"><color rgba="0.50 0.50 0.55 1.0" /></material></visual>
-    <visual name="openarmx_right_link0_visual_part1">
+    <collision name="openarmx_right_link0_visual_part0_collision"><geometry><mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link0\link0_part0.obj" scale="1.0 1.0 1.0" /></geometry></collision><visual name="openarmx_right_link0_visual_part1">
       <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0" />
       <geometry>
         
-        <mesh filename="/home/openarmx/VLA_new/src/openarmx_mujoco/ros2_visual_meshes/arm/v10/visual/link0/link0_part1.obj" scale="1.0 1.0 1.0" />
+        <mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link0\link0_part1.obj" scale="1.0 1.0 1.0" />
       </geometry>
     <material name="openarmx_right_link0_mat_1"><color rgba="0.92 0.92 0.95 1.0" /></material></visual>
-    </link>
+    <collision name="openarmx_right_link0_visual_part1_collision"><geometry><mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link0\link0_part1.obj" scale="1.0 1.0 1.0" /></geometry></collision></link>
   <link name="openarmx_right_link1">
     <inertial>
       <origin rpy="0.0 0.0 0.0" xyz="0.004452 -2.5e-05 0.073323" />
@@ -293,17 +293,17 @@
       <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0" />
       <geometry>
         
-        <mesh filename="/home/openarmx/VLA_new/src/openarmx_mujoco/ros2_visual_meshes/arm/v10/visual/link1/link1_part0.obj" scale="1.0 1.0 1.0" />
+        <mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link1\link1_part0.obj" scale="1.0 1.0 1.0" />
       </geometry>
     <material name="openarmx_right_link1_mat_0"><color rgba="0.50 0.50 0.55 1.0" /></material></visual>
-    <visual name="openarmx_right_link1_visual_part1">
+    <collision name="openarmx_right_link1_visual_part0_collision"><geometry><mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link1\link1_part0.obj" scale="1.0 1.0 1.0" /></geometry></collision><visual name="openarmx_right_link1_visual_part1">
       <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0" />
       <geometry>
         
-        <mesh filename="/home/openarmx/VLA_new/src/openarmx_mujoco/ros2_visual_meshes/arm/v10/visual/link1/link1_part1.obj" scale="1.0 1.0 1.0" />
+        <mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link1\link1_part1.obj" scale="1.0 1.0 1.0" />
       </geometry>
     <material name="openarmx_right_link1_mat_1"><color rgba="0.92 0.92 0.95 1.0" /></material></visual>
-    </link>
+    <collision name="openarmx_right_link1_visual_part1_collision"><geometry><mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link1\link1_part1.obj" scale="1.0 1.0 1.0" /></geometry></collision></link>
   <joint name="openarmx_right_joint1" type="revolute">
     <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.058" />
     <parent link="openarmx_right_link0" />
@@ -321,17 +321,17 @@
       <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0" />
       <geometry>
         
-        <mesh filename="/home/openarmx/VLA_new/src/openarmx_mujoco/ros2_visual_meshes/arm/v10/visual/link2/link2_part0.obj" scale="1.0 1.0 1.0" />
+        <mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link2\link2_part0.obj" scale="1.0 1.0 1.0" />
       </geometry>
     <material name="openarmx_right_link2_mat_0"><color rgba="0.50 0.50 0.55 1.0" /></material></visual>
-    <visual name="openarmx_right_link2_visual_part1">
+    <collision name="openarmx_right_link2_visual_part0_collision"><geometry><mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link2\link2_part0.obj" scale="1.0 1.0 1.0" /></geometry></collision><visual name="openarmx_right_link2_visual_part1">
       <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0" />
       <geometry>
         
-        <mesh filename="/home/openarmx/VLA_new/src/openarmx_mujoco/ros2_visual_meshes/arm/v10/visual/link2/link2_part1.obj" scale="1.0 1.0 1.0" />
+        <mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link2\link2_part1.obj" scale="1.0 1.0 1.0" />
       </geometry>
     <material name="openarmx_right_link2_mat_1"><color rgba="0.15 0.65 0.70 1.0" /></material></visual>
-    </link>
+    <collision name="openarmx_right_link2_visual_part1_collision"><geometry><mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link2\link2_part1.obj" scale="1.0 1.0 1.0" /></geometry></collision></link>
   <joint name="openarmx_right_joint2" type="revolute">
     <origin rpy="1.5708 0.0 0.0" xyz="-0.0205 0.0 0.081" />
     <parent link="openarmx_right_link1" />
@@ -349,17 +349,17 @@
       <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0" />
       <geometry>
         
-        <mesh filename="/home/openarmx/VLA_new/src/openarmx_mujoco/ros2_visual_meshes/arm/v10/visual/link3/link3_part0.obj" scale="1.0 1.0 1.0" />
+        <mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link3\link3_part0.obj" scale="1.0 1.0 1.0" />
       </geometry>
     <material name="openarmx_right_link3_mat_0"><color rgba="0.50 0.50 0.55 1.0" /></material></visual>
-    <visual name="openarmx_right_link3_visual_part1">
+    <collision name="openarmx_right_link3_visual_part0_collision"><geometry><mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link3\link3_part0.obj" scale="1.0 1.0 1.0" /></geometry></collision><visual name="openarmx_right_link3_visual_part1">
       <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0" />
       <geometry>
         
-        <mesh filename="/home/openarmx/VLA_new/src/openarmx_mujoco/ros2_visual_meshes/arm/v10/visual/link3/link3_part1.obj" scale="1.0 1.0 1.0" />
+        <mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link3\link3_part1.obj" scale="1.0 1.0 1.0" />
       </geometry>
     <material name="openarmx_right_link3_mat_1"><color rgba="0.92 0.92 0.95 1.0" /></material></visual>
-    </link>
+    <collision name="openarmx_right_link3_visual_part1_collision"><geometry><mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link3\link3_part1.obj" scale="1.0 1.0 1.0" /></geometry></collision></link>
   <joint name="openarmx_right_joint3" type="revolute">
     <origin rpy="0.0 0.0 0.0" xyz="0.02 0.0 0.099" />
     <parent link="openarmx_right_link2" />
@@ -377,17 +377,17 @@
       <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0" />
       <geometry>
         
-        <mesh filename="/home/openarmx/VLA_new/src/openarmx_mujoco/ros2_visual_meshes/arm/v10/visual/link4/link4_part0.obj" scale="1.0 1.0 1.0" />
+        <mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link4\link4_part0.obj" scale="1.0 1.0 1.0" />
       </geometry>
     <material name="openarmx_right_link4_mat_0"><color rgba="0.50 0.50 0.55 1.0" /></material></visual>
-    <visual name="openarmx_right_link4_visual_part1">
+    <collision name="openarmx_right_link4_visual_part0_collision"><geometry><mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link4\link4_part0.obj" scale="1.0 1.0 1.0" /></geometry></collision><visual name="openarmx_right_link4_visual_part1">
       <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0" />
       <geometry>
         
-        <mesh filename="/home/openarmx/VLA_new/src/openarmx_mujoco/ros2_visual_meshes/arm/v10/visual/link4/link4_part1.obj" scale="1.0 1.0 1.0" />
+        <mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link4\link4_part1.obj" scale="1.0 1.0 1.0" />
       </geometry>
     <material name="openarmx_right_link4_mat_1"><color rgba="0.15 0.65 0.70 1.0" /></material></visual>
-    </link>
+    <collision name="openarmx_right_link4_visual_part1_collision"><geometry><mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link4\link4_part1.obj" scale="1.0 1.0 1.0" /></geometry></collision></link>
   <joint name="openarmx_right_joint4" type="revolute">
     <origin rpy="0.0 0.0 0.0" xyz="0.0 0.031002 0.14181" />
     <parent link="openarmx_right_link3" />
@@ -411,17 +411,17 @@
       <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0" />
       <geometry>
         
-        <mesh filename="/home/openarmx/VLA_new/src/openarmx_mujoco/ros2_visual_meshes/arm/v10/visual/link5/link5_part0.obj" scale="1.0 1.0 1.0" />
+        <mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link5\link5_part0.obj" scale="1.0 1.0 1.0" />
       </geometry>
     <material name="openarmx_right_link5_mat_0"><color rgba="0.50 0.50 0.55 1.0" /></material></visual>
-    <visual name="openarmx_right_link5_visual_part1">
+    <collision name="openarmx_right_link5_visual_part0_collision"><geometry><mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link5\link5_part0.obj" scale="1.0 1.0 1.0" /></geometry></collision><visual name="openarmx_right_link5_visual_part1">
       <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0" />
       <geometry>
         
-        <mesh filename="/home/openarmx/VLA_new/src/openarmx_mujoco/ros2_visual_meshes/arm/v10/visual/link5/link5_part1.obj" scale="1.0 1.0 1.0" />
+        <mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link5\link5_part1.obj" scale="1.0 1.0 1.0" />
       </geometry>
     <material name="openarmx_right_link5_mat_1"><color rgba="0.92 0.92 0.95 1.0" /></material></visual>
-    </link>
+    <collision name="openarmx_right_link5_visual_part1_collision"><geometry><mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link5\link5_part1.obj" scale="1.0 1.0 1.0" /></geometry></collision></link>
   <joint name="openarmx_right_joint5" type="revolute">
     <origin rpy="0.0 0.0 0.0" xyz="0.0 -0.0309 0.126" />
     <parent link="openarmx_right_link4" />
@@ -439,17 +439,17 @@
       <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0" />
       <geometry>
         
-        <mesh filename="/home/openarmx/VLA_new/src/openarmx_mujoco/ros2_visual_meshes/arm/v10/visual/link6/link6_part0.obj" scale="1.0 1.0 1.0" />
+        <mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link6\link6_part0.obj" scale="1.0 1.0 1.0" />
       </geometry>
     <material name="openarmx_right_link6_mat_0"><color rgba="0.50 0.50 0.55 1.0" /></material></visual>
-    <visual name="openarmx_right_link6_visual_part1">
+    <collision name="openarmx_right_link6_visual_part0_collision"><geometry><mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link6\link6_part0.obj" scale="1.0 1.0 1.0" /></geometry></collision><visual name="openarmx_right_link6_visual_part1">
       <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0" />
       <geometry>
         
-        <mesh filename="/home/openarmx/VLA_new/src/openarmx_mujoco/ros2_visual_meshes/arm/v10/visual/link6/link6_part1.obj" scale="1.0 1.0 1.0" />
+        <mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link6\link6_part1.obj" scale="1.0 1.0 1.0" />
       </geometry>
     <material name="openarmx_right_link6_mat_1"><color rgba="0.80 0.80 0.82 1.0" /></material></visual>
-    </link>
+    <collision name="openarmx_right_link6_visual_part1_collision"><geometry><mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link6\link6_part1.obj" scale="1.0 1.0 1.0" /></geometry></collision></link>
   <joint name="openarmx_right_joint6" type="revolute">
     <origin rpy="0.0 0.0 0.0" xyz="0.037426 0.0 0.131" />
     <parent link="openarmx_right_link5" />
@@ -467,17 +467,17 @@
       <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0" />
       <geometry>
         
-        <mesh filename="/home/openarmx/VLA_new/src/openarmx_mujoco/ros2_visual_meshes/arm/v10/visual/link7/link7_part0.obj" scale="1.0 1.0 1.0" />
+        <mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link7\link7_part0.obj" scale="1.0 1.0 1.0" />
       </geometry>
     <material name="openarmx_right_link7_mat_0"><color rgba="0.50 0.50 0.55 1.0" /></material></visual>
-    <visual name="openarmx_right_link7_visual_part1">
+    <collision name="openarmx_right_link7_visual_part0_collision"><geometry><mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link7\link7_part0.obj" scale="1.0 1.0 1.0" /></geometry></collision><visual name="openarmx_right_link7_visual_part1">
       <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0" />
       <geometry>
         
-        <mesh filename="/home/openarmx/VLA_new/src/openarmx_mujoco/ros2_visual_meshes/arm/v10/visual/link7/link7_part1.obj" scale="1.0 1.0 1.0" />
+        <mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link7\link7_part1.obj" scale="1.0 1.0 1.0" />
       </geometry>
     <material name="openarmx_right_link7_mat_1"><color rgba="0.30 0.70 1.00 1.0" /></material></visual>
-    </link>
+    <collision name="openarmx_right_link7_visual_part1_collision"><geometry><mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link7\link7_part1.obj" scale="1.0 1.0 1.0" /></geometry></collision></link>
   <joint name="openarmx_right_joint7" type="revolute">
     <origin rpy="0.0 0.0 0.0" xyz="-0.0375 0.0 0.0" />
     <parent link="openarmx_right_link6" />
@@ -498,19 +498,7 @@
       <mass value="0.35" />
       <inertia ixx="0.0002473" ixy="1e-06" ixz="1e-06" iyy="1.763e-05" iyz="1e-06" izz="0.0002521" />
     </inertial>
-  <visual name="openarmx_left_hand_visual_part0">
-      <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 -0.6585" />
-      <geometry>
-        <mesh filename="/home/openarmx/VLA_new/src/openarmx_mujoco/ros2_visual_meshes/ee/openarmx_hand/visual/hand/hand_part0.obj" scale="0.001 0.001 0.001" />
-      </geometry>
-    <material name="openarmx_left_hand_mat_0"><color rgba="0.50 0.50 0.55 1.0" /></material></visual>
-    <visual name="openarmx_left_hand_visual_part1">
-      <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 -0.6585" />
-      <geometry>
-        <mesh filename="/home/openarmx/VLA_new/src/openarmx_mujoco/ros2_visual_meshes/ee/openarmx_hand/visual/hand/hand_part1.obj" scale="0.001 0.001 0.001" />
-      </geometry>
-    <material name="openarmx_left_hand_mat_1"><color rgba="0.92 0.92 0.95 1.0" /></material></visual>
-    </link>
+  <collision name="openarmx_left_hand_visual_part0_collision"><geometry><mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\ee\openarmx_hand\visual\hand\hand_part0.obj" scale="0.001 0.001 0.001" /></geometry></collision><collision name="openarmx_left_hand_visual_part1_collision"><geometry><mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\ee\openarmx_hand\visual\hand\hand_part1.obj" scale="0.001 0.001 0.001" /></geometry></collision></link>
   
   
   <joint name="left_openarmx_hand_joint" type="fixed">
@@ -525,78 +513,13 @@
     <parent link="openarmx_left_hand" />
     <child link="openarmx_left_hand_tcp" />
   </joint>
-  <link name="openarmx_left_left_finger">
-    <inertial>
-      <origin rpy="0 0 0" xyz="0.0064528 0.01702 0.0219685" />
-      <mass value="0.03602545343277134" />
-      <inertia ixx="2.3749999999999997e-06" ixy="0" ixz="0" iyy="2.3749999999999997e-06" iyz="0" izz="7.5e-07" />
-    </inertial>
-  <visual name="openarmx_left_left_finger_visual_part0">
-      <origin rpy="0.0 0.0 0.0" xyz="0.0 -0.05 -0.673001" />
-      <geometry>
-        <mesh filename="/home/openarmx/VLA_new/src/openarmx_mujoco/ros2_visual_meshes/ee/openarmx_hand/visual/finger/finger_part0.obj" scale="0.001 0.001 0.001" />
-      </geometry>
-    <material name="openarmx_left_left_finger_mat_0"><color rgba="0.50 0.50 0.55 1.0" /></material></visual>
-    <visual name="openarmx_left_left_finger_visual_part1">
-      <origin rpy="0.0 0.0 0.0" xyz="0.0 -0.05 -0.673001" />
-      <geometry>
-        <mesh filename="/home/openarmx/VLA_new/src/openarmx_mujoco/ros2_visual_meshes/ee/openarmx_hand/visual/finger/finger_part1.obj" scale="0.001 0.001 0.001" />
-      </geometry>
-    <material name="openarmx_left_left_finger_mat_1"><color rgba="0.25 0.25 0.25 1.0" /></material></visual>
-    </link>
-  <link name="openarmx_left_right_finger">
-    <inertial>
-      <origin rpy="0 0 0" xyz="0.0064528 -0.01702 0.0219685" />
-      <mass value="0.03602545343277134" />
-      <inertia ixx="2.3749999999999997e-06" ixy="0" ixz="0" iyy="2.3749999999999997e-06" iyz="0" izz="7.5e-07" />
-    </inertial>
-  <visual name="openarmx_left_right_finger_visual_part0">
-      <origin rpy="0.0 0.0 0.0" xyz="0.0 0.05 -0.673001" />
-      <geometry>
-        <mesh filename="/home/openarmx/VLA_new/src/openarmx_mujoco/ros2_visual_meshes/ee/openarmx_hand/visual/finger_mirror_pnp/finger_mirror_pnp_part0.obj" scale="0.001 0.001 0.001" />
-      </geometry>
-    <material name="openarmx_left_right_finger_mat_0"><color rgba="0.50 0.50 0.55 1.0" /></material></visual>
-    <visual name="openarmx_left_right_finger_visual_part1">
-      <origin rpy="0.0 0.0 0.0" xyz="0.0 0.05 -0.673001" />
-      <geometry>
-        <mesh filename="/home/openarmx/VLA_new/src/openarmx_mujoco/ros2_visual_meshes/ee/openarmx_hand/visual/finger_mirror_pnp/finger_mirror_pnp_part1.obj" scale="0.001 0.001 0.001" />
-      </geometry>
-    <material name="openarmx_left_right_finger_mat_1"><color rgba="0.25 0.25 0.25 1.0" /></material></visual>
-    </link>
-  <joint name="openarmx_left_finger_joint1" type="prismatic">
-    <parent link="openarmx_left_hand" />
-    <child link="openarmx_left_right_finger" />
-    <origin rpy="0 0 0" xyz="0 -0.006 0.015" />
-    <axis xyz="0 -1 0" />
-    <limit effort="333" lower="0.0" upper="0.044" velocity="10.0" />
-  </joint>
-  <joint name="openarmx_left_finger_joint2" type="prismatic">
-    <parent link="openarmx_left_hand" />
-    <child link="openarmx_left_left_finger" />
-    <origin rpy="0 0 0" xyz="0 0.006 0.015" />
-    <axis xyz="0 1 0" />
-    <limit effort="333" lower="0.0" upper="0.044" velocity="10.0" />
-    <mimic joint="openarmx_left_finger_joint1" />
-  </joint>
   <link name="openarmx_right_hand">
     <inertial>
       <origin rpy="0 0 0" xyz="0.0 0.002 0.03" />
       <mass value="0.35" />
       <inertia ixx="0.0002473" ixy="1e-06" ixz="1e-06" iyy="1.763e-05" iyz="1e-06" izz="0.0002521" />
     </inertial>
-  <visual name="openarmx_right_hand_visual_part0">
-      <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 -0.6585" />
-      <geometry>
-        <mesh filename="/home/openarmx/VLA_new/src/openarmx_mujoco/ros2_visual_meshes/ee/openarmx_hand/visual/hand/hand_part0.obj" scale="0.001 0.001 0.001" />
-      </geometry>
-    <material name="openarmx_right_hand_mat_0"><color rgba="0.50 0.50 0.55 1.0" /></material></visual>
-    <visual name="openarmx_right_hand_visual_part1">
-      <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 -0.6585" />
-      <geometry>
-        <mesh filename="/home/openarmx/VLA_new/src/openarmx_mujoco/ros2_visual_meshes/ee/openarmx_hand/visual/hand/hand_part1.obj" scale="0.001 0.001 0.001" />
-      </geometry>
-    <material name="openarmx_right_hand_mat_1"><color rgba="0.92 0.92 0.95 1.0" /></material></visual>
-    </link>
+  <collision name="openarmx_right_hand_visual_part0_collision"><geometry><mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\ee\openarmx_hand\visual\hand\hand_part0.obj" scale="0.001 0.001 0.001" /></geometry></collision><collision name="openarmx_right_hand_visual_part1_collision"><geometry><mesh filename="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\ee\openarmx_hand\visual\hand\hand_part1.obj" scale="0.001 0.001 0.001" /></geometry></collision></link>
   
   
   <joint name="right_openarmx_hand_joint" type="fixed">
@@ -611,57 +534,4 @@
     <parent link="openarmx_right_hand" />
     <child link="openarmx_right_hand_tcp" />
   </joint>
-  <link name="openarmx_right_left_finger">
-    <inertial>
-      <origin rpy="0 0 0" xyz="0.0064528 0.01702 0.0219685" />
-      <mass value="0.03602545343277134" />
-      <inertia ixx="2.3749999999999997e-06" ixy="0" ixz="0" iyy="2.3749999999999997e-06" iyz="0" izz="7.5e-07" />
-    </inertial>
-  <visual name="openarmx_right_left_finger_visual_part0">
-      <origin rpy="0.0 0.0 0.0" xyz="0.0 -0.05 -0.673001" />
-      <geometry>
-        <mesh filename="/home/openarmx/VLA_new/src/openarmx_mujoco/ros2_visual_meshes/ee/openarmx_hand/visual/finger/finger_part0.obj" scale="0.001 0.001 0.001" />
-      </geometry>
-    <material name="openarmx_right_left_finger_mat_0"><color rgba="0.50 0.50 0.55 1.0" /></material></visual>
-    <visual name="openarmx_right_left_finger_visual_part1">
-      <origin rpy="0.0 0.0 0.0" xyz="0.0 -0.05 -0.673001" />
-      <geometry>
-        <mesh filename="/home/openarmx/VLA_new/src/openarmx_mujoco/ros2_visual_meshes/ee/openarmx_hand/visual/finger/finger_part1.obj" scale="0.001 0.001 0.001" />
-      </geometry>
-    <material name="openarmx_right_left_finger_mat_1"><color rgba="0.25 0.25 0.25 1.0" /></material></visual>
-    </link>
-  <link name="openarmx_right_right_finger">
-    <inertial>
-      <origin rpy="0 0 0" xyz="0.0064528 -0.01702 0.0219685" />
-      <mass value="0.03602545343277134" />
-      <inertia ixx="2.3749999999999997e-06" ixy="0" ixz="0" iyy="2.3749999999999997e-06" iyz="0" izz="7.5e-07" />
-    </inertial>
-  <visual name="openarmx_right_right_finger_visual_part0">
-      <origin rpy="0.0 0.0 0.0" xyz="0.0 0.05 -0.673001" />
-      <geometry>
-        <mesh filename="/home/openarmx/VLA_new/src/openarmx_mujoco/ros2_visual_meshes/ee/openarmx_hand/visual/finger_mirror_pnp/finger_mirror_pnp_part0.obj" scale="0.001 0.001 0.001" />
-      </geometry>
-    <material name="openarmx_right_right_finger_mat_0"><color rgba="0.50 0.50 0.55 1.0" /></material></visual>
-    <visual name="openarmx_right_right_finger_visual_part1">
-      <origin rpy="0.0 0.0 0.0" xyz="0.0 0.05 -0.673001" />
-      <geometry>
-        <mesh filename="/home/openarmx/VLA_new/src/openarmx_mujoco/ros2_visual_meshes/ee/openarmx_hand/visual/finger_mirror_pnp/finger_mirror_pnp_part1.obj" scale="0.001 0.001 0.001" />
-      </geometry>
-    <material name="openarmx_right_right_finger_mat_1"><color rgba="0.25 0.25 0.25 1.0" /></material></visual>
-    </link>
-  <joint name="openarmx_right_finger_joint1" type="prismatic">
-    <parent link="openarmx_right_hand" />
-    <child link="openarmx_right_right_finger" />
-    <origin rpy="0 0 0" xyz="0 -0.006 0.015" />
-    <axis xyz="0 -1 0" />
-    <limit effort="333" lower="0.0" upper="0.044" velocity="10.0" />
-  </joint>
-  <joint name="openarmx_right_finger_joint2" type="prismatic">
-    <parent link="openarmx_right_hand" />
-    <child link="openarmx_right_left_finger" />
-    <origin rpy="0 0 0" xyz="0 0.006 0.015" />
-    <axis xyz="0 1 0" />
-    <limit effort="333" lower="0.0" upper="0.044" velocity="10.0" />
-    <mimic joint="openarmx_right_finger_joint1" />
-  </joint>
-</robot>
+  </robot>

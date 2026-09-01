@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mujoco model="openarmx">
+  <compiler angle="radian" />
+
+  <asset>
+    <mesh name="body_link0_part0" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\body\v10\visual\body_link0\body_link0_part0.obj" />
+    <mesh name="link0_mirror_pnp_part0" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link0_mirror_pnp\link0_mirror_pnp_part0.obj" />
+    <mesh name="link0_mirror_pnp_part1" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link0_mirror_pnp\link0_mirror_pnp_part1.obj" />
+    <mesh name="link1_mirror_pnp_part0" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link1_mirror_pnp\link1_mirror_pnp_part0.obj" />
+    <mesh name="link1_mirror_pnp_part1" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link1_mirror_pnp\link1_mirror_pnp_part1.obj" />
+    <mesh name="link2_mirror_pnp_part0" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link2_mirror_pnp\link2_mirror_pnp_part0.obj" />
+    <mesh name="link2_mirror_pnp_part1" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link2_mirror_pnp\link2_mirror_pnp_part1.obj" />
+    <mesh name="link3_mirror_pnp_part0" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link3_mirror_pnp\link3_mirror_pnp_part0.obj" />
+    <mesh name="link3_mirror_pnp_part1" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link3_mirror_pnp\link3_mirror_pnp_part1.obj" />
+    <mesh name="link4_part0" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link4\link4_part0.obj" />
+    <mesh name="link4_part1" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link4\link4_part1.obj" />
+    <mesh name="link5_mirror_pnp_part0" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link5_mirror_pnp\link5_mirror_pnp_part0.obj" />
+    <mesh name="link5_mirror_pnp_part1" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link5_mirror_pnp\link5_mirror_pnp_part1.obj" />
+    <mesh name="link6_mirror_pnp_part0" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link6_mirror_pnp\link6_mirror_pnp_part0.obj" />
+    <mesh name="link6_mirror_pnp_part1" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link6_mirror_pnp\link6_mirror_pnp_part1.obj" />
+    <mesh name="link7_mirror_pnp_part0" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link7_mirror_pnp\link7_mirror_pnp_part0.obj" />
+    <mesh name="link7_mirror_pnp_part1" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link7_mirror_pnp\link7_mirror_pnp_part1.obj" />
+    <mesh name="link0_part0" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link0\link0_part0.obj" />
+    <mesh name="link0_part1" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link0\link0_part1.obj" />
+    <mesh name="link1_part0" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link1\link1_part0.obj" />
+    <mesh name="link1_part1" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link1\link1_part1.obj" />
+    <mesh name="link2_part0" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link2\link2_part0.obj" />
+    <mesh name="link2_part1" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link2\link2_part1.obj" />
+    <mesh name="link3_part0" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link3\link3_part0.obj" />
+    <mesh name="link3_part1" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link3\link3_part1.obj" />
+    <mesh name="link5_part0" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link5\link5_part0.obj" />
+    <mesh name="link5_part1" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link5\link5_part1.obj" />
+    <mesh name="link6_part0" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link6\link6_part0.obj" />
+    <mesh name="link6_part1" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link6\link6_part1.obj" />
+    <mesh name="link7_part0" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link7\link7_part0.obj" />
+    <mesh name="link7_part1" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\arm\v10\visual\link7\link7_part1.obj" />
+    <mesh name="hand_part0" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\ee\openarmx_hand\visual\hand\hand_part0.obj" scale="0.001 0.001 0.001" />
+    <mesh name="hand_part1" content_type="model/obj" file="D:\RobotSim\openarmx_mujoco\ros2_visual_meshes\ee\openarmx_hand\visual\hand\hand_part1.obj" scale="0.001 0.001 0.001" />
+  </asset>
+
+  <worldbody>
+    <body name="openarmx_left_floor_base" pos="-0.6500 0 0" euler="0 0 -1.308997"><geom name="left_base_plate" type="box" pos="0 0 0.012" size="0.11 0.11 0.012" rgba="0.22 0.24 0.28 1" contype="0" conaffinity="0" group="1" /><geom name="left_base_post" type="cylinder" pos="0 0 0.0300" size="0.055 0.0300" rgba="0.30 0.32 0.36 1" contype="0" conaffinity="0" group="1" /><geom name="openarmx_left_link0_visual_part0" pos="0 -0.0580 0.0600" quat="0.707105 -0.707108 0 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.5 0.5 0.55 1" density="0" mesh="link0_mirror_pnp_part0" />
+    <geom name="openarmx_left_link0_visual_part1" pos="0 -0.0580 0.0600" quat="0.707105 -0.707108 0 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.92 0.92 0.95 1" density="0" mesh="link0_mirror_pnp_part1" />
+    <body name="left_arm_mount" pos="0 0 0" euler="1.570796 0.000000 0"><body name="openarmx_left_link1" pos="0 0 0.0600" quat="0.707105 -0.707108 0 0">
+      <inertial pos="0.004452 2.5e-05 0.073323" quat="0.999503 0.000644393 -0.0315003 0.00114209" mass="1.68876" diaginertia="0.00346919 0.002551 0.00190982" />
+      <joint name="openarmx_left_joint1" range="-3.3444 0.905604" actuatorfrcrange="-120 120" />
+      <geom name="openarmx_left_link1_visual_part0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.5 0.5 0.55 1" density="0" mesh="link1_mirror_pnp_part0" />
+      <geom name="openarmx_left_link1_visual_part1" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.92 0.92 0.95 1" density="0" mesh="link1_mirror_pnp_part1" />
+      <body name="openarmx_left_link2" pos="-0.0205 0 0.081" quat="0.707105 -0.707108 0 0">
+        <inertial pos="-0.003787 -0.000221 0.04901" quat="0.986716 -0.00145381 -0.161354 -0.0188355" mass="0.396704" diaginertia="0.000891196 0.000821946 0.000327857" />
+        <joint name="openarmx_left_joint2" range="-3.2708 0.129204" actuatorfrcrange="-120 120" axis="-1 0 0" />
+        <geom name="openarmx_left_link2_visual_part0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.5 0.5 0.55 1" density="0" mesh="link2_mirror_pnp_part0" />
+        <geom name="openarmx_left_link2_visual_part1" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.15 0.65 0.7 1" density="0" mesh="link2_mirror_pnp_part1" />
+        <body name="openarmx_left_link3" pos="0.02 0 0.099">
+          <inertial pos="-0.000828 -0.000236 0.083336" quat="0.946133 0.00530809 0.00424656 -0.323707" mass="2.49278" diaginertia="0.0103641 0.0103322 0.00300164" />
+          <joint name="openarmx_left_joint3" range="-1.57 1.57" actuatorfrcrange="-60 60" />
+          <geom name="openarmx_left_link3_visual_part0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.5 0.5 0.55 1" density="0" mesh="link3_mirror_pnp_part0" />
+          <geom name="openarmx_left_link3_visual_part1" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.92 0.92 0.95 1" density="0" mesh="link3_mirror_pnp_part1" />
+          <body name="openarmx_left_link4" pos="0 0.031002 0.14181">
+            <inertial pos="-0.002591 -0.030135 0.07147" quat="0.999683 -0.0233783 -0.00922341 -0.00115143" mass="0.779755" diaginertia="0.00201543 0.00162187 0.000765704" />
+            <joint name="openarmx_left_joint4" range="0 1.8" actuatorfrcrange="-60 60" axis="0 1 0" />
+            <geom name="openarmx_left_link4_visual_part0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.5 0.5 0.55 1" density="0" mesh="link4_part0" />
+            <geom name="openarmx_left_link4_visual_part1" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.15 0.65 0.7 1" density="0" mesh="link4_part1" />
+            <body name="openarmx_left_link5" pos="0 -0.0309 0.126">
+              <inertial pos="-0.002256 -0.000305 0.0533" quat="0.714458 -0.0122081 -0.0110113 0.699485" mass="0.687255" diaginertia="0.00106611 0.000831256 0.000495637" />
+              <joint name="openarmx_left_joint5" range="-1.5 1.5" actuatorfrcrange="-14 14" />
+              <geom name="openarmx_left_link5_visual_part0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.5 0.5 0.55 1" density="0" mesh="link5_mirror_pnp_part0" />
+              <geom name="openarmx_left_link5_visual_part1" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.92 0.92 0.95 1" density="0" mesh="link5_mirror_pnp_part1" />
+              <body name="openarmx_left_link6" pos="0.037426 0 0.131">
+                <inertial pos="-0.03564 0.005114 -0.003582" quat="0.945265 0.038546 0.187709 -0.26411" mass="0.384836" diaginertia="0.000317632 0.000265263 0.000212105" />
+                <joint name="openarmx_left_joint6" range="-0.75 0.75" actuatorfrcrange="-14 14" axis="1 0 0" />
+                <geom name="openarmx_left_link6_visual_part0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.5 0.5 0.55 1" density="0" mesh="link6_mirror_pnp_part0" />
+                <geom name="openarmx_left_link6_visual_part1" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.8 0.8 0.82 1" density="0" mesh="link6_mirror_pnp_part1" />
+                <body name="openarmx_left_link7" pos="-0.0375 0 0">
+                  <inertial pos="-1.92305e-06 -0.000646111 0.105652" quat="0.988895 -0.14497 0.000864695 -0.0326993" mass="0.974972" diaginertia="0.00217866 0.00144407 0.00100363" />
+                  <joint name="openarmx_left_joint7" range="-1.4 1.4" actuatorfrcrange="-14 14" axis="0 -1 0" />
+                  <geom name="openarmx_left_link7_visual_part0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.5 0.5 0.55 1" density="0" mesh="link7_mirror_pnp_part0" />
+                  <geom name="openarmx_left_link7_visual_part1" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.3 0.7 1 1" density="0" mesh="link7_mirror_pnp_part1" />
+                  <geom name="openarmx_left_ee_pad" type="box" pos="0 0 0.1001" size="0.030 0.030 0.004" rgba="0 1 1 0.35" contype="1" conaffinity="1" condim="3" friction="5 0.05 0.005" /></body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+    </body></body><body name="openarmx_right_floor_base" pos="0.6500 0 0" euler="0 0 -1.308997"><geom name="right_base_plate" type="box" pos="0 0 0.012" size="0.11 0.11 0.012" rgba="0.22 0.24 0.28 1" contype="0" conaffinity="0" group="1" /><geom name="right_base_post" type="cylinder" pos="0 0 0.0300" size="0.055 0.0300" rgba="0.30 0.32 0.36 1" contype="0" conaffinity="0" group="1" /><geom name="openarmx_right_link0_visual_part0" pos="0 0.0580 0.0600" quat="0.707105 0.707108 0 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.5 0.5 0.55 1" density="0" mesh="link0_part0" />
+    <geom name="openarmx_right_link0_visual_part1" pos="0 0.0580 0.0600" quat="0.707105 0.707108 0 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.92 0.92 0.95 1" density="0" mesh="link0_part1" />
+    <body name="right_arm_mount" pos="0 0 0" euler="-1.570796 0.000000 0"><body name="openarmx_right_link1" pos="0 0 0.0600" quat="0.707105 0.707108 0 0">
+      <inertial pos="0.004452 -2.5e-05 0.073323" quat="0.999503 0.000644393 -0.0315003 0.00114209" mass="1.68876" diaginertia="0.00346919 0.002551 0.00190982" />
+      <joint name="openarmx_right_joint1" range="-1.25 3" actuatorfrcrange="-120 120" />
+      <geom name="openarmx_right_link1_visual_part0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.5 0.5 0.55 1" density="0" mesh="link1_part0" />
+      <geom name="openarmx_right_link1_visual_part1" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.92 0.92 0.95 1" density="0" mesh="link1_part1" />
+      <body name="openarmx_right_link2" pos="-0.0205 0 0.081" quat="0.707105 0.707108 0 0">
+        <inertial pos="-0.003787 0.000221 0.04901" quat="0.986716 -0.00145381 -0.161354 -0.0188355" mass="0.396704" diaginertia="0.000891196 0.000821946 0.000327857" />
+        <joint name="openarmx_right_joint2" range="-0.129204 3.2708" actuatorfrcrange="-120 120" axis="-1 0 0" />
+        <geom name="openarmx_right_link2_visual_part0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.5 0.5 0.55 1" density="0" mesh="link2_part0" />
+        <geom name="openarmx_right_link2_visual_part1" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.15 0.65 0.7 1" density="0" mesh="link2_part1" />
+        <body name="openarmx_right_link3" pos="0.02 0 0.099">
+          <inertial pos="-0.000828 0.000236 0.083336" quat="0.946133 0.00530809 0.00424656 -0.323707" mass="2.49278" diaginertia="0.0103641 0.0103322 0.00300164" />
+          <joint name="openarmx_right_joint3" range="-1.57 1.57" actuatorfrcrange="-60 60" />
+          <geom name="openarmx_right_link3_visual_part0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.5 0.5 0.55 1" density="0" mesh="link3_part0" />
+          <geom name="openarmx_right_link3_visual_part1" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.92 0.92 0.95 1" density="0" mesh="link3_part1" />
+          <body name="openarmx_right_link4" pos="0 0.031002 0.14181">
+            <inertial pos="-0.002591 -0.030135 0.07147" quat="0.999683 -0.0233783 -0.00922341 -0.00115143" mass="0.779755" diaginertia="0.00201543 0.00162187 0.000765704" />
+            <joint name="openarmx_right_joint4" range="0 1.8" actuatorfrcrange="-60 60" axis="0 1 0" />
+            <geom name="openarmx_right_link4_visual_part0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.5 0.5 0.55 1" density="0" mesh="link4_part0" />
+            <geom name="openarmx_right_link4_visual_part1" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.15 0.65 0.7 1" density="0" mesh="link4_part1" />
+            <body name="openarmx_right_link5" pos="0 -0.0309 0.126">
+              <inertial pos="-0.002256 0.000305 0.0533" quat="0.714458 -0.0122081 -0.0110113 0.699485" mass="0.687255" diaginertia="0.00106611 0.000831256 0.000495637" />
+              <joint name="openarmx_right_joint5" range="-1.5 1.5" actuatorfrcrange="-14 14" />
+              <geom name="openarmx_right_link5_visual_part0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.5 0.5 0.55 1" density="0" mesh="link5_part0" />
+              <geom name="openarmx_right_link5_visual_part1" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.92 0.92 0.95 1" density="0" mesh="link5_part1" />
+              <body name="openarmx_right_link6" pos="0.037426 0 0.131">
+                <inertial pos="-0.03564 -0.005114 -0.003582" quat="0.945265 0.038546 0.187709 -0.26411" mass="0.384836" diaginertia="0.000317632 0.000265263 0.000212105" />
+                <joint name="openarmx_right_joint6" range="-0.75 0.75" actuatorfrcrange="-14 14" axis="1 0 0" />
+                <geom name="openarmx_right_link6_visual_part0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.5 0.5 0.55 1" density="0" mesh="link6_part0" />
+                <geom name="openarmx_right_link6_visual_part1" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.8 0.8 0.82 1" density="0" mesh="link6_part1" />
+                <body name="openarmx_right_link7" pos="-0.0375 0 0">
+                  <inertial pos="-1.92305e-06 0.00208205 0.105652" quat="0.993763 -0.106682 0.000629691 -0.0324572" mass="0.974972" diaginertia="0.00217483 0.0014262 0.00101769" />
+                  <joint name="openarmx_right_joint7" range="-1.4 1.4" actuatorfrcrange="-14 14" axis="0 1 0" />
+                  <geom name="openarmx_right_link7_visual_part0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.5 0.5 0.55 1" density="0" mesh="link7_part0" />
+                  <geom name="openarmx_right_link7_visual_part1" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.3 0.7 1 1" density="0" mesh="link7_part1" />
+                  <geom name="openarmx_right_ee_pad" type="box" pos="0 0 0.1001" size="0.030 0.030 0.004" rgba="0 1 1 0.35" contype="1" conaffinity="1" condim="3" friction="5 0.05 0.005" /></body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </body></body></worldbody>
+<actuator><motor name="openarmx_left_joint1_motor" joint="openarmx_left_joint1" forcerange="-120 120" ctrlrange="-120 120" /><motor name="openarmx_left_joint2_motor" joint="openarmx_left_joint2" forcerange="-120 120" ctrlrange="-120 120" /><motor name="openarmx_left_joint3_motor" joint="openarmx_left_joint3" forcerange="-60 60" ctrlrange="-60 60" /><motor name="openarmx_left_joint4_motor" joint="openarmx_left_joint4" forcerange="-60 60" ctrlrange="-60 60" /><motor name="openarmx_left_joint5_motor" joint="openarmx_left_joint5" forcerange="-14 14" ctrlrange="-14 14" /><motor name="openarmx_left_joint6_motor" joint="openarmx_left_joint6" forcerange="-14 14" ctrlrange="-14 14" /><motor name="openarmx_left_joint7_motor" joint="openarmx_left_joint7" forcerange="-14 14" ctrlrange="-14 14" /><motor name="openarmx_right_joint1_motor" joint="openarmx_right_joint1" forcerange="-120 120" ctrlrange="-120 120" /><motor name="openarmx_right_joint2_motor" joint="openarmx_right_joint2" forcerange="-120 120" ctrlrange="-120 120" /><motor name="openarmx_right_joint3_motor" joint="openarmx_right_joint3" forcerange="-60 60" ctrlrange="-60 60" /><motor name="openarmx_right_joint4_motor" joint="openarmx_right_joint4" forcerange="-60 60" ctrlrange="-60 60" /><motor name="openarmx_right_joint5_motor" joint="openarmx_right_joint5" forcerange="-14 14" ctrlrange="-14 14" /><motor name="openarmx_right_joint6_motor" joint="openarmx_right_joint6" forcerange="-14 14" ctrlrange="-14 14" /><motor name="openarmx_right_joint7_motor" joint="openarmx_right_joint7" forcerange="-14 14" ctrlrange="-14 14" /></actuator></mujoco>

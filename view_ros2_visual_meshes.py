@@ -1,10 +1,21 @@
 #!/usr/bin/env python3
 import argparse
 import copy
+import os
 import shutil
+import sys
 import time
 import xml.etree.ElementTree as ET
 from pathlib import Path
+
+# Windows console defaults to a legacy code page; keep generated-scene diagnostics
+# printable when the caller did not explicitly choose an encoding.
+if sys.platform == "win32" and not os.environ.get("PYTHONIOENCODING"):
+    try:
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+        sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+    except AttributeError:
+        pass
 
 import mujoco
 import mujoco.viewer
@@ -16,6 +27,9 @@ SOURCE_URDF = ROOT / "openarmx_robot.urdf"
 OUTPUT_URDF = ROOT / "openarmx_ros2_visual_mujoco.urdf"
 VISUAL_MESH_DIR = ROOT / "ros2_visual_meshes"
 PACKAGE_PREFIX = "package://openarmx_description/"
+
+# ---------- 末端结构常量（单一事实来源，ik.py 从这里导入） ----------
+EE_HAND_OFFSET = 0.1001   # link7 原点 -> 端面（原 hand 法兰连接面）偏移 (m)
 
 
 def ensure_mujoco_compiler(root):
@@ -132,18 +146,41 @@ def set_visual_material(visual: ET.Element, color: str | None, name: str) -> Non
     visual.append(material)
 
 
+def strip_hand_and_fingers(root):
+    """清理末端：删除两片手指的 prismatic 关节与 mesh、hand 的视觉 mesh。
+
+    目标是无夹具直末端：link7 端面（原 hand 法兰面）直接作为顶夹面，
+    由 ik.py 用 EE_HAND_OFFSET 定位。本文件只负责把 URDF 里的夹爪清掉。
+    """
+    for side in ("left", "right"):
+        finger_joint_names = {f"openarmx_{side}_finger_joint1", f"openarmx_{side}_finger_joint2"}
+        finger_link_names = {f"openarmx_{side}_left_finger", f"openarmx_{side}_right_finger"}
+
+        for element in list(root):
+            if element.tag == "joint" and element.attrib.get("name") in finger_joint_names:
+                root.remove(element)
+            elif element.tag == "link" and element.attrib.get("name") in finger_link_names:
+                root.remove(element)
+
+        hand_link = root.find(f"link[@name='openarmx_{side}_hand']")
+        if hand_link is not None:
+            for visual in list(hand_link.findall("visual")):
+                hand_link.remove(visual)
+
+
 def generate_visual_urdf(source_urdf: Path, output_urdf: Path) -> Path:
     tree = ET.parse(source_urdf)
     root = tree.getroot()
     ensure_mujoco_compiler(root)
 
-    removed_collisions = 0
+    kept_collisions = 0
     visual_meshes = 0
 
     for link in root.findall("link"):
+        # 弃用源 URDF 的简化碰撞网格（比视觉 mesh 小，视觉仍会穿箱）；
+        # 实体即视觉：下面给每个视觉零件生成同名 collision（同 mesh）。
         for collision in list(link.findall("collision")):
             link.remove(collision)
-            removed_collisions += 1
 
         for visual in list(link.findall("visual")):
             mesh = visual.find("geometry/mesh")
@@ -165,9 +202,22 @@ def generate_visual_urdf(source_urdf: Path, output_urdf: Path) -> Path:
                     link.append(visual_part)
                     visual_meshes += 1
 
+                    # 实体即视觉：同 mesh 再挂一个 collision，所见即所撞
+                    coll = ET.SubElement(
+                        link,
+                        "collision",
+                        {"name": f"{visual_part.attrib.get('name', 'visual')}_collision"},
+                    )
+                    coll_geom = ET.SubElement(ET.SubElement(coll, "geometry"), "mesh")
+                    coll_geom.set("filename", mesh_path)
+                    coll_geom.set("scale", " ".join(str(abs(value)) for value in scale))
+                    kept_collisions += 1
+
+    strip_hand_and_fingers(root)  # 删手指/手部视觉，圆柱末端由 ik.py 挂载
+
     tree.write(output_urdf, encoding="utf-8", xml_declaration=True)
     print(f"✅ 已生成 ROS2 visual 专用 MuJoCo URDF: {output_urdf}")
-    print(f"visual_meshes = {visual_meshes} | removed_collisions = {removed_collisions}")
+    print(f"visual_meshes = {visual_meshes} | kept_collisions = {kept_collisions}")
     return output_urdf
 
 
