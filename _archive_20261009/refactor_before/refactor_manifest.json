@@ -1,0 +1,72 @@
+[
+  {
+    "source": "D:\\RobotSim\\openarmx_mujoco\\nmpcc_cart.py",
+    "target": "D:\\RobotSim\\openarmx_mujoco\\_archive_20261009\\refactor_before\\nmpcc_cart.py",
+    "sha256": "1c024e83371a27292b5136fd24ef12dc150616d6788776d7b9a24623dbc3f001"
+  },
+  {
+    "source": "D:\\RobotSim\\openarmx_mujoco\\nmpcc_cart_grasp_pose.py",
+    "target": "D:\\RobotSim\\openarmx_mujoco\\_archive_20261009\\refactor_before\\nmpcc_cart_grasp_pose.py",
+    "sha256": "5457d517a1f19088f62ed50e1e328967c17a966518940bca3363f1ae54b5010b"
+  },
+  {
+    "source": "D:\\RobotSim\\openarmx_mujoco\\exp2_diagnostics.py",
+    "target": "D:\\RobotSim\\openarmx_mujoco\\_archive_20261009\\refactor_before\\exp2_diagnostics.py",
+    "sha256": "486618ee352c739f7fde1af67c06834563c97a76a77aa6be1acc088a91f889c7"
+  },
+  {
+    "source": "D:\\RobotSim\\openarmx_mujoco\\diagnostics\\flat_observation.py",
+    "target": "D:\\RobotSim\\openarmx_mujoco\\_archive_20261009\\refactor_before\\diagnostics\\flat_observation.py",
+    "sha256": "12b005d542184707e9380375b83a988b5c17a3da40473d40bb38333abecb40d2"
+  },
+  {
+    "source": "D:\\RobotSim\\openarmx_mujoco\\diagnostics\\handheld_observation.py",
+    "target": "D:\\RobotSim\\openarmx_mujoco\\_archive_20261009\\refactor_before\\diagnostics\\handheld_observation.py",
+    "sha256": "67dc95e25341ff630e2ce3d4af849b0df73e90a19e0f826c7e01754e83742c2b"
+  },
+  {
+    "source": "D:\\RobotSim\\openarmx_mujoco\\diagnostics\\legacy_reconciliation.py",
+    "target": "D:\\RobotSim\\openarmx_mujoco\\_archive_20261009\\refactor_before\\diagnostics\\legacy_reconciliation.py",
+    "sha256": "e6cd547756fe0653e28c234b5ece6202ed78374a73850953daf858dbc0c124fa"
+  },
+  {
+    "source": "D:\\RobotSim\\openarmx_mujoco\\exp2_experiments",
+    "target": "D:\\RobotSim\\openarmx_mujoco\\_archive_20261009\\refactor_before\\exp2_experiments",
+    "directory": true
+  },
+  {
+    "source": "D:\\RobotSim\\openarmx_mujoco\\diagnostics\\tests\\test_nmpcc_contact_residual.py",
+    "target": "D:\\RobotSim\\openarmx_mujoco\\_archive_20261009\\refactor_before\\diagnostics\\tests\\test_nmpcc_contact_residual.py",
+    "sha256": "7a2a348c370c090fc64983398f63468ef13aa9284cf997451f2c792d2582cb4c"
+  },
+  {
+    "source": "D:\\RobotSim\\openarmx_mujoco\\diagnostics\\tests\\test_nmpcc_dynamics_diag.py",
+    "target": "D:\\RobotSim\\openarmx_mujoco\\_archive_20261009\\refactor_before\\diagnostics\\tests\\test_nmpcc_dynamics_diag.py",
+    "sha256": "0a8e212530b5cdd1b27d374dd8b0dfa1328561ce7096c01597491cbe62947246"
+  },
+  {
+    "source": "D:\\RobotSim\\openarmx_mujoco\\diagnostics\\tests\\test_nmpcc_handheld.py",
+    "target": "D:\\RobotSim\\openarmx_mujoco\\_archive_20261009\\refactor_before\\diagnostics\\tests\\test_nmpcc_handheld.py",
+    "sha256": "0c08712002589a83bfe336125bee7033437e3a4d2aea079aacb7bd528cc76080"
+  },
+  {
+    "source": "D:\\RobotSim\\openarmx_mujoco\\diagnostics\\tests\\test_nmpcc_limits.py",
+    "target": "D:\\RobotSim\\openarmx_mujoco\\_archive_20261009\\refactor_before\\diagnostics\\tests\\test_nmpcc_limits.py",
+    "sha256": "47957fda15d92473fbc83ac85c229d7d2a9521493274c2b55e2df9038a54ee26"
+  },
+  {
+    "source": "D:\\RobotSim\\openarmx_mujoco\\diagnostics\\tests\\test_nmpcc_revision.py",
+    "target": "D:\\RobotSim\\openarmx_mujoco\\_archive_20261009\\refactor_before\\diagnostics\\tests\\test_nmpcc_revision.py",
+    "sha256": "dfe33461fd458e63a6dc34a797ef5d84fc8139ef43709b9eab488f6766b4a54a"
+  },
+  {
+    "source": "D:\\RobotSim\\openarmx_mujoco\\diagnostics\\tests\\test_nmpcc_sampling.py",
+    "target": "D:\\RobotSim\\openarmx_mujoco\\_archive_20261009\\refactor_before\\diagnostics\\tests\\test_nmpcc_sampling.py",
+    "sha256": "043ff204c9b129b178205880414790ca9c85967e8d66e9cd018aeef1a7698647"
+  },
+  {
+    "source": "D:\\RobotSim\\openarmx_mujoco\\diagnostics\\tests\\test_nmpcc_startup.py",
+    "target": "D:\\RobotSim\\openarmx_mujoco\\_archive_20261009\\refactor_before\\diagnostics\\tests\\test_nmpcc_startup.py",
+    "sha256": "d9da2994097607a17a12a6332cdf657f1edd8927b885c2a90999d64f15147623"
+  }
+]
