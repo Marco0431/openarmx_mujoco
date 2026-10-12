@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from typing import Any
 import casadi as ca
 from .config import ControllerConfig, NormalForceLaw
-from .parameters import FULL_SIZE, view
+from .parameters import parameter_size, view
 
 
 @dataclass(slots=True)
@@ -21,20 +21,25 @@ class SymbolicModel:
     dynamics_fn: ca.Function
     residual_fn: ca.Function
     diagnostic_fn: ca.Function
+    predicted_force: ca.Function
+    contact_gap: ca.Function
+    force_rate_fn: ca.Function
 
 
 def build_model(cfg: ControllerConfig, fk: dict[str, Any]) -> SymbolicModel:
     if fk["n_arm"] != 7:
         raise ValueError("the shared model requires seven joints per arm")
-    x, u, p = ca.SX.sym("x", 28), ca.SX.sym("u", 14), ca.SX.sym("p", FULL_SIZE)
+    x, u, p = ca.SX.sym("x", 28), ca.SX.sym("u", 14), ca.SX.sym("p", parameter_size(cfg))
     params = view(p)
     q, dq = (x[:7], x[14:21]), (x[7:14], x[21:28])
     source = fk["tips_qt"]
     tips = ca.substitute([fk["tips"]], [source[:7], source[7:]], list(q))[0]
     contact_expr = fk.get("contact_tips", ca.vertcat(fk["tips"][:3], fk["tips"][6:9]))
     contacts = ca.substitute([contact_expr], [source[:7], source[7:]], list(q))[0]
-    compression = cfg.rest_gap - (contacts[3] - contacts[0])
-    if cfg.normal_force_law == NormalForceLaw.IDEAL_UNILATERAL:
+    gap = contacts[3] - contacts[0]
+    compression = cfg.rest_gap - gap
+    anchored_ideal = cfg.normal_force_law == NormalForceLaw.MEASURED_ANCHORED_IDEAL
+    if cfg.normal_force_law == NormalForceLaw.IDEAL_UNILATERAL or anchored_ideal:
         # 严格 c>0 分支：c=0 选择零导数，避免 fmax 在折点采用 1/2。
         compressed = ca.if_else(compression > 0., compression, 0.)
     else:
@@ -42,6 +47,11 @@ def build_model(cfg: ControllerConfig, fk: dict[str, Any]) -> SymbolicModel:
     left = ca.vertcat(-cfg.kx * compressed, ca.SX.zeros(5))
     nominal = (left, -left)
     predicted = tuple(nominal[i] + params.bias[i] for i in range(2))
+    if anchored_ideal:
+        # 两侧独立阈值，测量锚定在截断内部；旧 bias 的 x 槽位仅保留日志原义。
+        raw = tuple(params.anchor_normal[i] + cfg.kx*(params.anchor_gap-gap) for i in range(2))
+        predicted = tuple(ca.vertcat(sign*ca.if_else(raw[i] > 0., raw[i], 0.), params.bias[i][1:])
+                          for i, sign in enumerate((-1., 1.)))
     # 只有世界 x 方向法向力进入预测动力学；剩余负载由冻结残差包含。
     normal_load = tuple(ca.jacobian(contacts[3*i:3*i+3], q[i]).T @
                         ca.vertcat(predicted[i][0], 0., 0.) for i in range(2))
@@ -54,6 +64,9 @@ def build_model(cfg: ControllerConfig, fk: dict[str, Any]) -> SymbolicModel:
     rate = compression_gradient[:7] @ dq[0] + compression_gradient[14:21] @ dq[1]
     left_rate = ca.vertcat(-cfg.kx * rate, ca.SX.zeros(5))
     force_rates = (left_rate, -left_rate)
+    if anchored_ideal:
+        # 对实际总预测 wrench 求导，包含每侧截断；冻结测量余项的导数为零。
+        force_rates = tuple(ca.jacobian(force, x) @ dynamics for force in predicted)
     errors, error_rates = [], []
     for i in range(2):
         j = 1 - i
@@ -76,4 +89,7 @@ def build_model(cfg: ControllerConfig, fk: dict[str, Any]) -> SymbolicModel:
                          ca.Function("shared_normal_load", [x, p], [ca.vertcat(*normal_load)]),
                          ca.Function("shared_dynamics", [x, u, p], [dynamics]),
                          ca.Function("shared_residual", [x, u, p], [residual]),
-                         ca.Function("shared_diagnostic", [x, p], diagnostics))
+                         ca.Function("shared_diagnostic", [x, p], diagnostics),
+                         ca.Function("shared_predicted", [x, p], [ca.vertcat(*predicted)]),
+                         ca.Function("shared_gap", [x], [gap]),
+                         ca.Function("shared_force_rate", [x, p], [ca.vertcat(*force_rates)]))

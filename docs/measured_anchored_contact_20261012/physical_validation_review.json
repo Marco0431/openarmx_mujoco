@@ -1,0 +1,560 @@
+{
+  "task": "fixed measured-anchored contact comparison",
+  "basis": "offline physics, prediction, and failure-record audit",
+  "runs": [
+    {
+      "case_id": "smooth_positive_flat_hold",
+      "validation_failure": false,
+      "physical_safety_failure": false,
+      "reasons": {
+        "exitcode_nonzero": false,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "actual_contact_loss_steps_lt_0p1N": 0,
+        "new_law_actual_limit_active_steps": null,
+        "critical_nonfinite_npz_fields": []
+      },
+      "physical_safety_reasons": {
+        "actual_limit_active_steps": 0,
+        "actual_contact_loss_steps_lt_0p1N": 0,
+        "actual_no_contact_steps_contact_count_eq_0": 0,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "critical_nonfinite_npz_fields": []
+      },
+      "first_solver_failure_time_s": null,
+      "first_solver_failure_status": null
+    },
+    {
+      "case_id": "smooth_positive_flat_move01",
+      "validation_failure": false,
+      "physical_safety_failure": false,
+      "reasons": {
+        "exitcode_nonzero": false,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "actual_contact_loss_steps_lt_0p1N": 0,
+        "new_law_actual_limit_active_steps": null,
+        "critical_nonfinite_npz_fields": []
+      },
+      "physical_safety_reasons": {
+        "actual_limit_active_steps": 0,
+        "actual_contact_loss_steps_lt_0p1N": 0,
+        "actual_no_contact_steps_contact_count_eq_0": 0,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "critical_nonfinite_npz_fields": []
+      },
+      "first_solver_failure_time_s": null,
+      "first_solver_failure_status": null
+    },
+    {
+      "case_id": "smooth_positive_flat_move10",
+      "validation_failure": false,
+      "physical_safety_failure": false,
+      "reasons": {
+        "exitcode_nonzero": false,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "actual_contact_loss_steps_lt_0p1N": 0,
+        "new_law_actual_limit_active_steps": null,
+        "critical_nonfinite_npz_fields": []
+      },
+      "physical_safety_reasons": {
+        "actual_limit_active_steps": 0,
+        "actual_contact_loss_steps_lt_0p1N": 0,
+        "actual_no_contact_steps_contact_count_eq_0": 0,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "critical_nonfinite_npz_fields": []
+      },
+      "first_solver_failure_time_s": null,
+      "first_solver_failure_status": null
+    },
+    {
+      "case_id": "smooth_positive_handheld_hold",
+      "validation_failure": false,
+      "physical_safety_failure": false,
+      "reasons": {
+        "exitcode_nonzero": false,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "actual_contact_loss_steps_lt_0p1N": 0,
+        "new_law_actual_limit_active_steps": null,
+        "critical_nonfinite_npz_fields": []
+      },
+      "physical_safety_reasons": {
+        "actual_limit_active_steps": 0,
+        "actual_contact_loss_steps_lt_0p1N": 0,
+        "actual_no_contact_steps_contact_count_eq_0": 0,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "critical_nonfinite_npz_fields": []
+      },
+      "first_solver_failure_time_s": null,
+      "first_solver_failure_status": null
+    },
+    {
+      "case_id": "smooth_positive_handheld_move01",
+      "validation_failure": false,
+      "physical_safety_failure": false,
+      "reasons": {
+        "exitcode_nonzero": false,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "actual_contact_loss_steps_lt_0p1N": 0,
+        "new_law_actual_limit_active_steps": null,
+        "critical_nonfinite_npz_fields": []
+      },
+      "physical_safety_reasons": {
+        "actual_limit_active_steps": 0,
+        "actual_contact_loss_steps_lt_0p1N": 0,
+        "actual_no_contact_steps_contact_count_eq_0": 0,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "critical_nonfinite_npz_fields": []
+      },
+      "first_solver_failure_time_s": null,
+      "first_solver_failure_status": null
+    },
+    {
+      "case_id": "smooth_positive_handheld_move05",
+      "validation_failure": false,
+      "physical_safety_failure": false,
+      "reasons": {
+        "exitcode_nonzero": false,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "actual_contact_loss_steps_lt_0p1N": 0,
+        "new_law_actual_limit_active_steps": null,
+        "critical_nonfinite_npz_fields": []
+      },
+      "physical_safety_reasons": {
+        "actual_limit_active_steps": 0,
+        "actual_contact_loss_steps_lt_0p1N": 0,
+        "actual_no_contact_steps_contact_count_eq_0": 0,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "critical_nonfinite_npz_fields": []
+      },
+      "first_solver_failure_time_s": null,
+      "first_solver_failure_status": null
+    },
+    {
+      "case_id": "smooth_positive_handheld_cop08_f02_move05",
+      "validation_failure": false,
+      "physical_safety_failure": false,
+      "reasons": {
+        "exitcode_nonzero": false,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "actual_contact_loss_steps_lt_0p1N": 0,
+        "new_law_actual_limit_active_steps": null,
+        "critical_nonfinite_npz_fields": []
+      },
+      "physical_safety_reasons": {
+        "actual_limit_active_steps": 0,
+        "actual_contact_loss_steps_lt_0p1N": 0,
+        "actual_no_contact_steps_contact_count_eq_0": 0,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "critical_nonfinite_npz_fields": []
+      },
+      "first_solver_failure_time_s": null,
+      "first_solver_failure_status": null
+    },
+    {
+      "case_id": "smooth_positive_handheld_cop00_f00_move05_hold0",
+      "validation_failure": false,
+      "physical_safety_failure": true,
+      "reasons": {
+        "exitcode_nonzero": false,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "actual_contact_loss_steps_lt_0p1N": 0,
+        "new_law_actual_limit_active_steps": null,
+        "critical_nonfinite_npz_fields": []
+      },
+      "physical_safety_reasons": {
+        "actual_limit_active_steps": 46,
+        "actual_contact_loss_steps_lt_0p1N": 0,
+        "actual_no_contact_steps_contact_count_eq_0": 0,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "critical_nonfinite_npz_fields": []
+      },
+      "first_solver_failure_time_s": null,
+      "first_solver_failure_status": null
+    },
+    {
+      "case_id": "ideal_unilateral_flat_hold",
+      "validation_failure": false,
+      "physical_safety_failure": false,
+      "reasons": {
+        "exitcode_nonzero": false,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "actual_contact_loss_steps_lt_0p1N": 0,
+        "new_law_actual_limit_active_steps": null,
+        "critical_nonfinite_npz_fields": []
+      },
+      "physical_safety_reasons": {
+        "actual_limit_active_steps": 0,
+        "actual_contact_loss_steps_lt_0p1N": 0,
+        "actual_no_contact_steps_contact_count_eq_0": 0,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "critical_nonfinite_npz_fields": []
+      },
+      "first_solver_failure_time_s": null,
+      "first_solver_failure_status": null
+    },
+    {
+      "case_id": "ideal_unilateral_flat_move01",
+      "validation_failure": false,
+      "physical_safety_failure": false,
+      "reasons": {
+        "exitcode_nonzero": false,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "actual_contact_loss_steps_lt_0p1N": 0,
+        "new_law_actual_limit_active_steps": null,
+        "critical_nonfinite_npz_fields": []
+      },
+      "physical_safety_reasons": {
+        "actual_limit_active_steps": 0,
+        "actual_contact_loss_steps_lt_0p1N": 0,
+        "actual_no_contact_steps_contact_count_eq_0": 0,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "critical_nonfinite_npz_fields": []
+      },
+      "first_solver_failure_time_s": null,
+      "first_solver_failure_status": null
+    },
+    {
+      "case_id": "ideal_unilateral_flat_move10",
+      "validation_failure": false,
+      "physical_safety_failure": false,
+      "reasons": {
+        "exitcode_nonzero": false,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "actual_contact_loss_steps_lt_0p1N": 0,
+        "new_law_actual_limit_active_steps": null,
+        "critical_nonfinite_npz_fields": []
+      },
+      "physical_safety_reasons": {
+        "actual_limit_active_steps": 0,
+        "actual_contact_loss_steps_lt_0p1N": 0,
+        "actual_no_contact_steps_contact_count_eq_0": 0,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "critical_nonfinite_npz_fields": []
+      },
+      "first_solver_failure_time_s": null,
+      "first_solver_failure_status": null
+    },
+    {
+      "case_id": "ideal_unilateral_handheld_hold",
+      "validation_failure": false,
+      "physical_safety_failure": false,
+      "reasons": {
+        "exitcode_nonzero": false,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "actual_contact_loss_steps_lt_0p1N": 0,
+        "new_law_actual_limit_active_steps": null,
+        "critical_nonfinite_npz_fields": []
+      },
+      "physical_safety_reasons": {
+        "actual_limit_active_steps": 0,
+        "actual_contact_loss_steps_lt_0p1N": 0,
+        "actual_no_contact_steps_contact_count_eq_0": 0,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "critical_nonfinite_npz_fields": []
+      },
+      "first_solver_failure_time_s": null,
+      "first_solver_failure_status": null
+    },
+    {
+      "case_id": "ideal_unilateral_handheld_move01",
+      "validation_failure": false,
+      "physical_safety_failure": false,
+      "reasons": {
+        "exitcode_nonzero": false,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "actual_contact_loss_steps_lt_0p1N": 0,
+        "new_law_actual_limit_active_steps": null,
+        "critical_nonfinite_npz_fields": []
+      },
+      "physical_safety_reasons": {
+        "actual_limit_active_steps": 0,
+        "actual_contact_loss_steps_lt_0p1N": 0,
+        "actual_no_contact_steps_contact_count_eq_0": 0,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "critical_nonfinite_npz_fields": []
+      },
+      "first_solver_failure_time_s": null,
+      "first_solver_failure_status": null
+    },
+    {
+      "case_id": "ideal_unilateral_handheld_move05",
+      "validation_failure": false,
+      "physical_safety_failure": false,
+      "reasons": {
+        "exitcode_nonzero": false,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "actual_contact_loss_steps_lt_0p1N": 0,
+        "new_law_actual_limit_active_steps": null,
+        "critical_nonfinite_npz_fields": []
+      },
+      "physical_safety_reasons": {
+        "actual_limit_active_steps": 0,
+        "actual_contact_loss_steps_lt_0p1N": 0,
+        "actual_no_contact_steps_contact_count_eq_0": 0,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "critical_nonfinite_npz_fields": []
+      },
+      "first_solver_failure_time_s": null,
+      "first_solver_failure_status": null
+    },
+    {
+      "case_id": "ideal_unilateral_handheld_cop08_f02_move05",
+      "validation_failure": false,
+      "physical_safety_failure": true,
+      "reasons": {
+        "exitcode_nonzero": false,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "actual_contact_loss_steps_lt_0p1N": 0,
+        "new_law_actual_limit_active_steps": null,
+        "critical_nonfinite_npz_fields": []
+      },
+      "physical_safety_reasons": {
+        "actual_limit_active_steps": 28,
+        "actual_contact_loss_steps_lt_0p1N": 0,
+        "actual_no_contact_steps_contact_count_eq_0": 0,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "critical_nonfinite_npz_fields": []
+      },
+      "first_solver_failure_time_s": null,
+      "first_solver_failure_status": null
+    },
+    {
+      "case_id": "ideal_unilateral_handheld_cop00_f00_move05_hold0",
+      "validation_failure": true,
+      "physical_safety_failure": true,
+      "reasons": {
+        "exitcode_nonzero": false,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "actual_contact_loss_steps_lt_0p1N": 2,
+        "new_law_actual_limit_active_steps": null,
+        "critical_nonfinite_npz_fields": []
+      },
+      "physical_safety_reasons": {
+        "actual_limit_active_steps": 104,
+        "actual_contact_loss_steps_lt_0p1N": 2,
+        "actual_no_contact_steps_contact_count_eq_0": 2,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "critical_nonfinite_npz_fields": []
+      },
+      "first_solver_failure_time_s": null,
+      "first_solver_failure_status": null
+    },
+    {
+      "case_id": "measured_anchored_ideal_flat_hold",
+      "validation_failure": false,
+      "physical_safety_failure": false,
+      "reasons": {
+        "exitcode_nonzero": false,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "actual_contact_loss_steps_lt_0p1N": 0,
+        "new_law_actual_limit_active_steps": 0,
+        "critical_nonfinite_npz_fields": []
+      },
+      "physical_safety_reasons": {
+        "actual_limit_active_steps": 0,
+        "actual_contact_loss_steps_lt_0p1N": 0,
+        "actual_no_contact_steps_contact_count_eq_0": 0,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "critical_nonfinite_npz_fields": []
+      },
+      "first_solver_failure_time_s": null,
+      "first_solver_failure_status": null
+    },
+    {
+      "case_id": "measured_anchored_ideal_flat_move01",
+      "validation_failure": false,
+      "physical_safety_failure": false,
+      "reasons": {
+        "exitcode_nonzero": false,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "actual_contact_loss_steps_lt_0p1N": 0,
+        "new_law_actual_limit_active_steps": 0,
+        "critical_nonfinite_npz_fields": []
+      },
+      "physical_safety_reasons": {
+        "actual_limit_active_steps": 0,
+        "actual_contact_loss_steps_lt_0p1N": 0,
+        "actual_no_contact_steps_contact_count_eq_0": 0,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "critical_nonfinite_npz_fields": []
+      },
+      "first_solver_failure_time_s": null,
+      "first_solver_failure_status": null
+    },
+    {
+      "case_id": "measured_anchored_ideal_flat_move10",
+      "validation_failure": false,
+      "physical_safety_failure": false,
+      "reasons": {
+        "exitcode_nonzero": false,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "actual_contact_loss_steps_lt_0p1N": 0,
+        "new_law_actual_limit_active_steps": 0,
+        "critical_nonfinite_npz_fields": []
+      },
+      "physical_safety_reasons": {
+        "actual_limit_active_steps": 0,
+        "actual_contact_loss_steps_lt_0p1N": 0,
+        "actual_no_contact_steps_contact_count_eq_0": 0,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "critical_nonfinite_npz_fields": []
+      },
+      "first_solver_failure_time_s": null,
+      "first_solver_failure_status": null
+    },
+    {
+      "case_id": "measured_anchored_ideal_handheld_hold",
+      "validation_failure": false,
+      "physical_safety_failure": false,
+      "reasons": {
+        "exitcode_nonzero": false,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "actual_contact_loss_steps_lt_0p1N": 0,
+        "new_law_actual_limit_active_steps": 0,
+        "critical_nonfinite_npz_fields": []
+      },
+      "physical_safety_reasons": {
+        "actual_limit_active_steps": 0,
+        "actual_contact_loss_steps_lt_0p1N": 0,
+        "actual_no_contact_steps_contact_count_eq_0": 0,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "critical_nonfinite_npz_fields": []
+      },
+      "first_solver_failure_time_s": null,
+      "first_solver_failure_status": null
+    },
+    {
+      "case_id": "measured_anchored_ideal_handheld_move01",
+      "validation_failure": false,
+      "physical_safety_failure": false,
+      "reasons": {
+        "exitcode_nonzero": false,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "actual_contact_loss_steps_lt_0p1N": 0,
+        "new_law_actual_limit_active_steps": 0,
+        "critical_nonfinite_npz_fields": []
+      },
+      "physical_safety_reasons": {
+        "actual_limit_active_steps": 0,
+        "actual_contact_loss_steps_lt_0p1N": 0,
+        "actual_no_contact_steps_contact_count_eq_0": 0,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "critical_nonfinite_npz_fields": []
+      },
+      "first_solver_failure_time_s": null,
+      "first_solver_failure_status": null
+    },
+    {
+      "case_id": "measured_anchored_ideal_handheld_move05",
+      "validation_failure": false,
+      "physical_safety_failure": false,
+      "reasons": {
+        "exitcode_nonzero": false,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "actual_contact_loss_steps_lt_0p1N": 0,
+        "new_law_actual_limit_active_steps": 0,
+        "critical_nonfinite_npz_fields": []
+      },
+      "physical_safety_reasons": {
+        "actual_limit_active_steps": 0,
+        "actual_contact_loss_steps_lt_0p1N": 0,
+        "actual_no_contact_steps_contact_count_eq_0": 0,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "critical_nonfinite_npz_fields": []
+      },
+      "first_solver_failure_time_s": null,
+      "first_solver_failure_status": null
+    },
+    {
+      "case_id": "measured_anchored_ideal_handheld_cop08_f02_move05",
+      "validation_failure": true,
+      "physical_safety_failure": true,
+      "reasons": {
+        "exitcode_nonzero": false,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "actual_contact_loss_steps_lt_0p1N": 0,
+        "new_law_actual_limit_active_steps": 25,
+        "critical_nonfinite_npz_fields": []
+      },
+      "physical_safety_reasons": {
+        "actual_limit_active_steps": 25,
+        "actual_contact_loss_steps_lt_0p1N": 0,
+        "actual_no_contact_steps_contact_count_eq_0": 0,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "critical_nonfinite_npz_fields": []
+      },
+      "first_solver_failure_time_s": null,
+      "first_solver_failure_status": null
+    },
+    {
+      "case_id": "measured_anchored_ideal_handheld_cop00_f00_move05_hold0",
+      "validation_failure": true,
+      "physical_safety_failure": true,
+      "reasons": {
+        "exitcode_nonzero": false,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "actual_contact_loss_steps_lt_0p1N": 0,
+        "new_law_actual_limit_active_steps": 18,
+        "critical_nonfinite_npz_fields": []
+      },
+      "physical_safety_reasons": {
+        "actual_limit_active_steps": 18,
+        "actual_contact_loss_steps_lt_0p1N": 0,
+        "actual_no_contact_steps_contact_count_eq_0": 0,
+        "solver_status_bad_count": 0,
+        "recovered_or_terminal_solver_failure": false,
+        "critical_nonfinite_npz_fields": []
+      },
+      "first_solver_failure_time_s": null,
+      "first_solver_failure_status": null
+    }
+  ],
+  "validation_failure_count": 3,
+  "physical_safety_failure_count": 5
+}

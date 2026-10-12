@@ -1,6 +1,7 @@
 """平放场景命令行：保留历史默认，并支持显式指定静态协作/力系数。"""
 import argparse
 import math
+from nmpcc.config import NormalForceLaw
 from experiments.legacy import flat_output as experiment_tools
 from experiments import disturbance as disturbance_tools
 K_STIFF = 2793.166
@@ -22,7 +23,11 @@ def make_parser():
                         help="力误差增益，直接乘力误差；当前验证值为 0.003")
     parser.add_argument("--kx", type=float, default=None,
                         help="OCP 夹持弹簧刚度 (N/m)；None=用标定 K_STIFF；"
-                             "模型力=kx*max(0,rest_gap-接触间距)，与 MuJoCo 软接触刚度标定对齐")
+                             "用于所选法向力预测模型，不改变 MuJoCo 的物理接触参数")
+    parser.add_argument("--normal_force_law", choices=[law.value for law in NormalForceLaw],
+                        default='smooth_positive',
+                        help="法向力预测：smooth_positive=旧平滑；ideal_unilateral=旧截断；"
+                             "measured_anchored_ideal=测量预载加间距增量后截断。默认保留旧平滑")
     parser.add_argument("--qp_solver", type=str, default="PARTIAL_CONDENSING_HPIPM",
                         help="QP 求解器（PARTIAL_CONDENSING_HPIPM/FULL_CONDENSING_HPIPM/"
                              "FULL_CONDENSING_QPOASES 等）")

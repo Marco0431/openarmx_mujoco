@@ -1,0 +1,30 @@
+{
+  "repository": "Marco0431/openarmx_mujoco",
+  "base_head": "f75ef69eb78d4a19268c3080e91c5d026c5a5649",
+  "source_files": 158,
+  "local_archive": "D:\\RobotSim\\_archive_20261012\\measured_anchored_contact_before\\source_before.zip",
+  "local_crc": "passed",
+  "main_index_preserved": true,
+  "main_head_preserved": true,
+  "backups": [
+    {
+      "law": "smooth_positive",
+      "branch": "backup/contact-smooth-20261012",
+      "commit": "717f79bfb5a89ec8d07299b2fb3336e9c610162a",
+      "remote_verified_sha": "717f79bfb5a89ec8d07299b2fb3336e9c610162a",
+      "url": "https://github.com/Marco0431/openarmx_mujoco/tree/backup/contact-smooth-20261012",
+      "initial_snapshot_commit": "dc35ed9c700bac27c0cc20b702ee830234241ca9",
+      "frozen_regression_fixture_files": 25
+    },
+    {
+      "law": "ideal_unilateral",
+      "branch": "backup/contact-ideal-unilateral-20261012",
+      "commit": "72425610b109bc1035054a4ed40265cbdd1d0492",
+      "remote_verified_sha": "72425610b109bc1035054a4ed40265cbdd1d0492",
+      "url": "https://github.com/Marco0431/openarmx_mujoco/tree/backup/contact-ideal-unilateral-20261012",
+      "initial_snapshot_commit": "9605dbb2149b3260e42f4ee347793c2052dcebf1",
+      "frozen_regression_fixture_files": 25
+    }
+  ],
+  "regression_fixtures_included": true
+}

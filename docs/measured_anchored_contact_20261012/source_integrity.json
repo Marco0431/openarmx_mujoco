@@ -1,0 +1,186 @@
+{
+  "shared_snapshot_file": "D:\\RobotSim\\results\\measured_anchored_contact_20261012\\workspace_source.json",
+  "pre_run_shared_python_files": 38,
+  "shared_python_files_changed_during_batch": [],
+  "additional_workspace_python_files": [
+    {
+      "file": "check_environment.py",
+      "source": "D:\\RobotSim\\nmpcc_share_20260913\\check_environment.py",
+      "sha256": "ea68f5b9e217d7d8e918835f80ccfad093ed14b1ec6b7edefb6662bfa626a081",
+      "matches_prepare_rule_source": true
+    },
+    {
+      "file": "flat/exp2_nmpcc_latest.py",
+      "source": "D:\\RobotSim\\nmpcc_share_20260913\\flat\\exp2_nmpcc_latest.py",
+      "sha256": "933449e39b55a90109160251b5b020f46ad4a104afa2ff43cf1de95021c2c955",
+      "matches_prepare_rule_source": true
+    },
+    {
+      "file": "flat/exp2_slender_scene.py",
+      "source": "D:\\RobotSim\\openarmx_mujoco\\exp2_slender_scene.py",
+      "sha256": "bdf80e00809c9ab64d65ee894402475a7b154b343cd48e4c9506f0d0d6294235",
+      "matches_prepare_rule_source": true
+    },
+    {
+      "file": "flat/floor_mount.py",
+      "source": "D:\\RobotSim\\openarmx_mujoco\\floor_mount.py",
+      "sha256": "b8d977ccca059c75a884132a5d36a13fab9eb39a431162c2a49117d5484915dc",
+      "matches_prepare_rule_source": true
+    },
+    {
+      "file": "flat/grasp_pose_static.py",
+      "source": "D:\\RobotSim\\openarmx_mujoco\\grasp_pose_static.py",
+      "sha256": "c67d73183a7e5ddd37ee4206262405a6a07df00a4fce3bc68642661032dd78ed",
+      "matches_prepare_rule_source": true
+    },
+    {
+      "file": "flat/ik.py",
+      "source": "D:\\RobotSim\\openarmx_mujoco\\ik.py",
+      "sha256": "1bdaa09888e305df4765356a466f112bcbba7c02bb85fff1cb3bc822634474a6",
+      "matches_prepare_rule_source": true
+    },
+    {
+      "file": "flat/ikforce.py",
+      "source": "D:\\RobotSim\\openarmx_mujoco\\ikforce.py",
+      "sha256": "9d39a8d055e2ac96ef8ab5ec01eaf31e0a33f4f8cfb9bf8b5142b792f55f0e04",
+      "matches_prepare_rule_source": true
+    },
+    {
+      "file": "flat/plot_exp2_fig12.py",
+      "source": "D:\\RobotSim\\openarmx_mujoco\\plot_exp2_fig12.py",
+      "sha256": "0abc6ef075c5c62e7eb76885802be2ea5db41da6d61b93396a0873eb55b369e0",
+      "matches_prepare_rule_source": true
+    },
+    {
+      "file": "flat/plot_exp2_motion_force.py",
+      "source": "D:\\RobotSim\\openarmx_mujoco\\plot_exp2_motion_force.py",
+      "sha256": "ce0e0cb589fd36356ac214ebe2b2ab98f003fd62911b065d302b1d6da9f69099",
+      "matches_prepare_rule_source": true
+    },
+    {
+      "file": "flat/run_flat_disturbance.py",
+      "source": "D:\\RobotSim\\openarmx_mujoco\\run_flat_disturbance.py",
+      "sha256": "8a64163dc9ac35749421de69585e66a59facc3eba15ca5b7cf31297b9ed149ab",
+      "matches_prepare_rule_source": true
+    },
+    {
+      "file": "flat/run_handheld_disturbance.py",
+      "source": "D:\\RobotSim\\openarmx_mujoco\\run_handheld_disturbance.py",
+      "sha256": "dc711b14dab6b316cfbfb0a7b1499640d0a4fdbb3b35833e87d878ece4064078",
+      "matches_prepare_rule_source": true
+    },
+    {
+      "file": "flat/view_ros2_visual_meshes.py",
+      "source": "D:\\RobotSim\\openarmx_mujoco\\view_ros2_visual_meshes.py",
+      "sha256": "bf20628aa2fa4f9784fb073ab6a4bf079474756792d063ca048838fb7f5e728d",
+      "matches_prepare_rule_source": true
+    },
+    {
+      "file": "handheld/exp2_nmpcc_latest_grasp_pose.py",
+      "source": "D:\\RobotSim\\nmpcc_share_20260913\\handheld\\exp2_nmpcc_latest_grasp_pose.py",
+      "sha256": "ace1eb082ec2529092dd5f6a12538933bdfbaa1183c6e7a8be60d2e698c9ed99",
+      "matches_prepare_rule_source": true
+    },
+    {
+      "file": "handheld/grasp_pose_static.py",
+      "source": "D:\\RobotSim\\openarmx_mujoco\\grasp_pose_static.py",
+      "sha256": "c67d73183a7e5ddd37ee4206262405a6a07df00a4fce3bc68642661032dd78ed",
+      "matches_prepare_rule_source": true
+    },
+    {
+      "file": "handheld/ik.py",
+      "source": "D:\\RobotSim\\openarmx_mujoco\\ik.py",
+      "sha256": "1bdaa09888e305df4765356a466f112bcbba7c02bb85fff1cb3bc822634474a6",
+      "matches_prepare_rule_source": true
+    },
+    {
+      "file": "handheld/plot_exp2_fig12.py",
+      "source": "D:\\RobotSim\\openarmx_mujoco\\plot_exp2_fig12.py",
+      "sha256": "0abc6ef075c5c62e7eb76885802be2ea5db41da6d61b93396a0873eb55b369e0",
+      "matches_prepare_rule_source": true
+    },
+    {
+      "file": "handheld/plot_exp2_motion_force.py",
+      "source": "D:\\RobotSim\\openarmx_mujoco\\plot_exp2_motion_force.py",
+      "sha256": "ce0e0cb589fd36356ac214ebe2b2ab98f003fd62911b065d302b1d6da9f69099",
+      "matches_prepare_rule_source": true
+    },
+    {
+      "file": "handheld/run_handheld_disturbance.py",
+      "source": "D:\\RobotSim\\openarmx_mujoco\\run_handheld_disturbance.py",
+      "sha256": "dc711b14dab6b316cfbfb0a7b1499640d0a4fdbb3b35833e87d878ece4064078",
+      "matches_prepare_rule_source": true
+    },
+    {
+      "file": "handheld/view_ros2_visual_meshes.py",
+      "source": "D:\\RobotSim\\openarmx_mujoco\\view_ros2_visual_meshes.py",
+      "sha256": "bf20628aa2fa4f9784fb073ab6a4bf079474756792d063ca048838fb7f5e728d",
+      "matches_prepare_rule_source": true
+    }
+  ],
+  "coverage_note": "38 shared Python files had a stored pre-run snapshot; 19 scene/entry files were checked after the run against their documented assembly sources. This does not create a historical all-workspace snapshot.",
+  "project_vs_experimental_shared_source_differences": [
+    "experiments/scenes/flat_cli.py"
+  ],
+  "project_difference_note": "Only flat_cli.py --kx help wording was clarified after the workspace copy; no executable behavior differs.",
+  "modified_original_source_files": [
+    "README.md",
+    "diagnostics/tests/test_cli_contracts.py",
+    "diagnostics/tests/test_runner_contracts.py",
+    "diagnostics/tests/test_shared_core.py",
+    "experiments/legacy/flat_output.py",
+    "experiments/legacy/handheld_output.py",
+    "experiments/recording.py",
+    "experiments/scene.py",
+    "experiments/scenes/flat_cli.py",
+    "experiments/scenes/handheld_cli.py",
+    "nmpcc/config.py",
+    "nmpcc/controller.py",
+    "nmpcc/data.py",
+    "nmpcc/model.py",
+    "nmpcc/ocp.py",
+    "nmpcc/parameters.py"
+  ],
+  "current_project_python_sha256": {
+    "nmpcc/__init__.py": "1164035157b7daad5a402963f83ac8eb783055dbf82b16f0b339ca8f2671e643",
+    "nmpcc/config.py": "6901fba2442295f3ecb0b575bb461fcb7d285dbfd4c6b23aca31229e20f4569a",
+    "nmpcc/controller.py": "6476deb901fd4ee924b6b4d4cf2e818b900cdd9ba557feca6aba3440b9d76514",
+    "nmpcc/data.py": "cc90ec471be18dbc1722379cf18641f1b10079d1270313b01f9f08329c6a870c",
+    "nmpcc/kinematics.py": "d498405335e1daea38a8c8ebd97abc5b1df4f01217cfc9bc45be461e91e96d13",
+    "nmpcc/model.py": "ca20f6312f7d259b9afa34d9059af87ea53879df10f6e86e84c4b2d1d95f2df7",
+    "nmpcc/ocp.py": "8348891562624907adbcda963e51d7846fed1915177f8d8203f448bc359d87d1",
+    "nmpcc/parameters.py": "a4b9f8eb0ac84c6e9ea30d2adc6693af133012c245148a256dfab143721175a7",
+    "experiments/__init__.py": "c6c2428edcb0adbc3e416c3ba5cb6b9b9bade95b193a41cdef7161fe38d105a1",
+    "experiments/cli.py": "3a82114987eb6c85c6be32f6b0cb7c9e504ac1e3a3959306aa59438bc2818c87",
+    "experiments/data.py": "8f05a8d4b5b2f29fecdb2056af46aa5d5caa5a8a9dd6ce565f2df351659e7b64",
+    "experiments/disturbance.py": "111c23628fdabde9a88c088ec57526145061e624e1321b5e294d5b8eacb84db7",
+    "experiments/legacy/__init__.py": "c6c2428edcb0adbc3e416c3ba5cb6b9b9bade95b193a41cdef7161fe38d105a1",
+    "experiments/legacy/flat_output.py": "67a4a44249a38a2722ff9d8c51f9dce9083ec8f6702fce6337f3b819165711a6",
+    "experiments/legacy/handheld_output.py": "74d27121c5b13d1bf9577c64880a1efc10c57aa6d5b5efbab00ceb83c1ae07d1",
+    "experiments/motion_trace.py": "5581f17adeac1ceaf338845f8b1fbc847a3cc2c93c44deb6397b40e36b3b1d1c",
+    "experiments/recording.py": "4ae3be60f9cff655e95b8bb6b2c776e3920ae9dac9a30dc0c7835cee1f117ce7",
+    "experiments/reference.py": "2ad1f094f5ef7db8c561a7a8be8e70e8cd54a7c9a00892a0811dd2e778f8ac05",
+    "experiments/runner.py": "ea8762b1980a170b9a0a094accb770279f6241e5c31921dc92a90483350f2cf2",
+    "experiments/scene.py": "90cfe5c138e778d6d8d2036a08bf75f1282a51fc20fcf1ab01f536c453c58b9c",
+    "experiments/scenes/__init__.py": "c6c2428edcb0adbc3e416c3ba5cb6b9b9bade95b193a41cdef7161fe38d105a1",
+    "experiments/scenes/flat.py": "4be3e9acc7260d4868b6650a3e46dfb86d74d295eb300f9fd8e395dc0b18bab5",
+    "experiments/scenes/flat_cli.py": "1f3f67667268cdc934f539f4930252c28833c5d22baca92850d3fd1a33a75736",
+    "experiments/scenes/handheld.py": "b248bbac194118562810d6e0fa220f74bc5dd1d0706e46af89fbe004aa8fb374",
+    "experiments/scenes/handheld_cli.py": "c6662e758b30a702b99effecc17cb726dc812d8b08efdfe211c7329a1698d8bb",
+    "experiments/sweeps.py": "4ac0ce8044ddcdf1ee897f33ac3907f3656de94acd790181a3a067ae2e0a5506",
+    "diagnostics/__init__.py": "0d62ab5cd695ed80093024d208a82e3ec07152c2dd021843795050f38c988570",
+    "diagnostics/calibration/__init__.py": "5f33abfd0ea6f3ba7bb14ba04c408414a1d32fc83867f65b862303dd20c05d63",
+    "diagnostics/calibration/calib_exp2_contact.py": "fde39434e5140dfa8e7e836896cd0ef25003db846943dd899cdf183f9332c794",
+    "diagnostics/calibration/calib_grasp_pose_contact.py": "d9afd5ebae7454a24e8fe120960015a4dc5d3802caa334cc7621170774b1d9a3",
+    "diagnostics/measurements.py": "ed5bed7023dc4b89694c09bf81c34593bf910f26ad9a1ef82887e9eaa37f6a41",
+    "diagnostics/run_checks.py": "602d2dd272ec8985166263beae03d695e054c636e0b88649005fac04a42a31c3",
+    "diagnostics/tests/__init__.py": "5f33abfd0ea6f3ba7bb14ba04c408414a1d32fc83867f65b862303dd20c05d63",
+    "diagnostics/tests/test_cli_contracts.py": "f006733750f159541f1e3180d190db454d07e34cc387737ce3cc77b676bfcd69",
+    "diagnostics/tests/test_motion_trace.py": "6aab2beb0a67439e46f2351d963098164d1e6cc518972bfa24dbdc2b373fde1a",
+    "diagnostics/tests/test_runner_contracts.py": "b00103391d383cfb23c7bbe54871d7aab74005ac28b6fa52463a5deed29ab0a6",
+    "diagnostics/tests/test_runtime_contracts.py": "8d67113c7a4575955c53b8447eed157a4fcc2c6c415e7a323f7ca1a9fe285197",
+    "diagnostics/tests/test_shared_core.py": "3519f06037df6b5d8f2f891d27de9864304b0b31b82f6cd639d64476d55b70f0"
+  },
+  "primary_head": "f75ef69eb78d4a19268c3080e91c5d026c5a5649",
+  "passed": true
+}

@@ -5,7 +5,8 @@ import mujoco
 import numpy as np
 from ik import get_ee_tip
 from nmpcc.data import JointState, DynamicsSnapshot, ReferenceHorizon, SolveResult
-from nmpcc.parameters import FULL_SIZE, encode_legacy_horizon, to_legacy, to_legacy_full
+from nmpcc.parameters import (encode_legacy_horizon, encode_shared_horizon, layout_version,
+                              parameter_size, to_legacy, to_legacy_full)
 from diagnostics.measurements import JointLimitRecorder, measure_contact, box_attitude, _rotvec_of_R, dynamics_phase
 from .data import RunResult
 from .reference import smoothstep
@@ -19,6 +20,7 @@ class Recorder:
         self.result = result
         self.joints = JointLimitRecorder(model, data, arms, dict(
             args=vars(args).copy(), config=asdict(config), model_version='typed_nmpcc_v1',
+            parameter_layout=layout_version(config), parameter_size=parameter_size(config),
             solver_model=result.metadata.get('solver_model'), joint_bounds_enabled=True,
             physics_dt=.002, control_every=3, contact_load_mode=args.contact_load_mode,
             contact_load_revision='frozen_total_minus_current_model_normal_v1' if args.contact_load_mode == 'residual' else 'tangent_v1'))
@@ -41,9 +43,16 @@ class Recorder:
             force=pred.forces.copy(), force_error=pred.force_error.copy(), position_error_x=pred.position_error_x.copy(),
             eps_x=residual.copy(), epsd_x=residual_rate.copy(), u=pred.controls.copy(),
             u_ref=dynamics.gravity.reshape(14).copy(), solver_status=solved.status)
-        if self.variant == 'handheld':
-            row.update(parameters=encode_legacy_horizon(state, dynamics, references, solved.anchoring,
-                solved.contact_load, self.config, self.variant, options), state=pred.states.copy())
+        # 旧 parameters 字段供历史工具读取；完整布局必须单独保存，包含新律的锚点。
+        shared = encode_shared_horizon(state, dynamics, references, solved.anchoring,
+                                       solved.contact_load, self.config, options)
+        row.update(parameters=to_legacy(shared, self.variant), parameters_shared_full=shared,
+                   parameter_layout=layout_version(self.config), state=pred.states.copy())
+        if getattr(pred, 'force_rates', None) is not None:
+            row['force_pred_dot'] = pred.force_rates.copy()
+        if 'anchor_gap' in solved.anchoring:
+            row.update(force_anchor_gap=solved.anchoring['anchor_gap'].copy(),
+                       force_anchor_normal=solved.anchoring['anchor_normal'].copy())
         if self.args.contact_load_mode == 'residual':
             row['contact_load'] = {key: value.reshape(-1).copy() for key, value in solved.contact_load.items()}
         started = time.perf_counter()
@@ -57,17 +66,20 @@ class Recorder:
     def warmup(self, state, dynamics, references, solved, options):
         self.solution = solved
         self.recovered_failure(solved, 0.)
-        if self.variant == 'handheld':
-            self.result.startup.append(dict(x=solved.prediction.states.copy(), u=solved.prediction.controls.copy(),
-                parameters=encode_legacy_horizon(state, dynamics, references, solved.anchoring,
-                    solved.contact_load, self.config, self.variant, options),
-                force=solved.prediction.forces.copy(), status=solved.status))
+        shared = encode_shared_horizon(state, dynamics, references, solved.anchoring,
+                                       solved.contact_load, self.config, options)
+        self.result.startup.append(dict(x=solved.prediction.states.copy(), u=solved.prediction.controls.copy(),
+            parameters=to_legacy(shared, self.variant), parameters_shared_full=shared,
+            parameter_layout=layout_version(self.config),
+            force=solved.prediction.forces.copy(), status=solved.status))
 
     def _legacy_failure_context(self, context):
         """只在日志边界转换参数布局；求解器返回的原始快照不作修改。"""
         converted = dict(context)
         for name in ('p_full', 'first_p_full'):
             if name in converted:
+                raw_name = 'p_shared_full' if name == 'p_full' else 'first_p_shared_full'
+                converted[raw_name] = np.asarray(converted[name]).copy()
                 converted[name] = to_legacy_full(converted[name], self.variant)
         return converted
 
@@ -85,7 +97,9 @@ class Recorder:
         node_count = self.config.N + 1
         # 采样或初始化尚未完成时，保留旧字段形状，以 NaN 明确表示不可用。
         failure = dict(t=float(self.data.time), x0=current_x,
-            p=to_legacy(np.full((node_count, FULL_SIZE), np.nan), self.variant),
+            p=to_legacy(np.full((node_count, parameter_size(self.config)), np.nan), self.variant),
+            p_shared_full=np.full((node_count, parameter_size(self.config)), np.nan),
+            parameter_layout=layout_version(self.config),
             f_meas=np.full(2, np.nan),
             u_seed=np.full(current_x.size // 2, np.nan) if seed is None else np.asarray(seed).copy(),
             qpos=self.data.qpos.copy(), qvel=self.data.qvel.copy(),
@@ -97,8 +111,9 @@ class Recorder:
         if self.solution is not None:
             failure['pred_x'] = self.solution.prediction.states.copy()
             if state is not None and dynamics is not None and references is not None:
-                failure['p'] = encode_legacy_horizon(state, dynamics, references,
-                    self.solution.anchoring, self.solution.contact_load, self.config, self.variant, options)
+                failure['p_shared_full'] = encode_shared_horizon(state, dynamics, references,
+                    self.solution.anchoring, self.solution.contact_load, self.config, options)
+                failure['p'] = to_legacy(failure['p_shared_full'], self.variant)
         if self.first_failure is not None:
             first = self._legacy_failure_context(self.first_failure)
             failure.update({'first_' + key: value for key, value in first.items()})
@@ -119,16 +134,21 @@ class Recorder:
     def after_step(self, torque, step):
         self.joints.after_step(self.model, self.data, self.captured)
         self.step_contact = None
-        if self.variant == 'handheld' or step % 5 == 0:
-            started = time.perf_counter()
-            self.step_contact = measure_contact(self.model, self.data, self.arms, self.ids['box_geom'], joint_loads=False)
-            if self.variant == 'handheld':
-                self.physics.append(dict(t=self.captured[0][0], box=self.data.xpos[self.ids['box_body']].copy(),
-                    qpos=self.pre_qpos, qvel=self.pre_qvel, u=torque.copy(),
-                    rotvec=_rotvec_of_R(self.data.xmat[self.ids['box_body']].reshape(3, 3)),
-                    tipL=get_ee_tip(self.data, self.arms[0]['body_id']).copy(),
-                    tipR=get_ee_tip(self.data, self.arms[1]['body_id']).copy(),
-                    force=self.step_contact.normal_magnitude.copy(), diagnostic_ms=(time.perf_counter()-started)*1000.))
+        # 两场景均保留每个 2 ms 物理步，避免 10 ms 抽样漏掉短暂单侧失接触。
+        started = time.perf_counter()
+        self.step_contact = measure_contact(self.model, self.data, self.arms, self.ids['box_geom'], joint_loads=False)
+        counts = np.zeros(2, dtype=int)
+        for contact in self.data.contact[:self.data.ncon]:
+            for i, arm in enumerate(self.arms):
+                if {int(contact.geom1), int(contact.geom2)} == {arm['pad_id'], self.ids['box_geom']}:
+                    counts[i] += 1
+        self.physics.append(dict(t=self.captured[0][0], box=self.data.xpos[self.ids['box_body']].copy(),
+            qpos=self.pre_qpos, qvel=self.pre_qvel, u=torque.copy(),
+            rotvec=_rotvec_of_R(self.data.xmat[self.ids['box_body']].reshape(3, 3)),
+            tipL=get_ee_tip(self.data, self.arms[0]['body_id']).copy(),
+            tipR=get_ee_tip(self.data, self.arms[1]['body_id']).copy(),
+            force=self.step_contact.normal_magnitude.copy(), contact_count=counts,
+            diagnostic_ms=(time.perf_counter()-started)*1000.))
         if step % 5 == 0:
             # 复用已有步前状态与本次 Euler 接触力，10 ms 一行；速度在退出后重放计算。
             self.motion_rows.append(dict(step=step, t=self.captured[0][0],
@@ -154,7 +174,9 @@ class Recorder:
         nodes = [0, self.args.N//2, self.args.N]
         inputs = [0, self.args.N//2, self.args.N-1]
         pred = solved.prediction
-        anchoring = {k: (v[:, 0] if self.variant == 'flat' else v.reshape(12)).copy() for k,v in solved.anchoring.items()}
+        anchoring = {k: (solved.anchoring[k][:, 0] if self.variant == 'flat'
+                         else solved.anchoring[k].reshape(12)).copy()
+                     for k in ('nominal', 'measured', 'bias', 'anchored')}
         residual = pred.residuals.reshape(-1, 12)
         residual_rate = pred.residual_rates.reshape(-1, 12)
         is_control = not settling and step % 3 == 0
@@ -210,10 +232,15 @@ class Recorder:
         mujoco.mj_forward(self.model, self.shadow)
         dofs = np.concatenate([a['dofs'] for a in self.arms])
         actual = self.shadow.qacc[dofs].copy()
-        current_p = encode_legacy_horizon(state, dynamics, references, solution.anchoring, solution.contact_load, self.config, self.variant, options)[0]
-        old_p = encode_legacy_horizon(state, old, references, solution.anchoring, solution.contact_load, self.config, self.variant, options)[0]
+        current_shared = encode_shared_horizon(state, dynamics, references, solution.anchoring,
+                                               solution.contact_load, self.config, options)[0]
+        old_shared = encode_shared_horizon(state, old, references, solution.anchoring,
+                                           solution.contact_load, self.config, options)[0]
+        current_p, old_p = to_legacy(current_shared, self.variant), to_legacy(old_shared, self.variant)
         self.dynamics_rows.append(dict(t=float(t), phase=dynamics_phase(self.reference,t), x=state.vector(), u=torque.copy(),
-            p_old=old_p, p_current=current_p, mass_old=old.mass.copy(), mass_current=dynamics.mass.copy(),
+            p_old=old_p, p_current=current_p, p_old_shared_full=old_shared,
+            p_current_shared_full=current_shared, parameter_layout=layout_version(self.config),
+            mass_old=old.mass.copy(), mass_current=dynamics.mass.copy(),
             acceleration_old=a_old, acceleration_current=a_current, acceleration_mujoco=actual,
             error_old=a_old-actual, error_current=a_current-actual,
             sampling_diagnostic_ms=mass_snapshot['sampling_diagnostic_ms'], diagnostic_ms=(time.perf_counter()-started)*1000.))

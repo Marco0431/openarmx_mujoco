@@ -16,9 +16,9 @@ from experiments.data import RunPaths, RunResult
 from experiments.legacy import flat_output, handheld_output
 from experiments.reference import PhaseReference, motion_timing
 from experiments.scenes import flat_cli, handheld_cli
-from nmpcc.config import ControllerConfig
+from nmpcc.config import ControllerConfig, NormalForceLaw
 from nmpcc.data import Prediction, SolveResult
-from nmpcc.parameters import FULL_SIZE, to_legacy, to_legacy_full
+from nmpcc.parameters import FULL_SIZE, parameter_size, to_legacy, to_legacy_full
 
 
 def small_scene(variant):
@@ -58,8 +58,8 @@ def small_scene(variant):
 
 
 class FakeController:
-    def __init__(self, scene, mode="ok"):
-        self.config = ControllerConfig(N=2)
+    def __init__(self, scene, mode="ok", law=NormalForceLaw.SMOOTH_POSITIVE):
+        self.config = ControllerConfig(N=2, normal_force_law=law)
         self.node_times = np.linspace(0., .1, 3)
         self.scene, self.mode, self.calls = scene, mode, []
 
@@ -78,11 +78,14 @@ class FakeController:
             np.zeros((3, 2)), np.zeros((3, 2)), zeros, zeros)
         statistics = dict(solver_ms=0., qp_iter=1, time_qp=0., time_sim=0., time_lin=0.)
         anchoring = {key: np.zeros((2, 6)) for key in ("nominal", "measured", "bias", "anchored")}
+        if self.config.normal_force_law == NormalForceLaw.MEASURED_ANCHORED_IDEAL:
+            anchoring.update(anchor_gap=np.array([.24]), anchor_normal=np.array([10., 11.]))
+            prediction.force_rates = np.zeros((3, 2, 6))
         status = 4 if self.mode in ("warmup", "retry_failure") else 0
         first = None
         if self.mode in ("recovered", "retry_failure", "rebuild_exception"):
             first = dict(status=4, x0=state.vector(),
-                p_full=np.tile(np.arange(FULL_SIZE, dtype=float), (3, 1)),
+                p_full=np.tile(np.arange(parameter_size(self.config), dtype=float), (3, 1)),
                 x=np.ones((3, 28)), u=np.ones((2, 14)))
             prediction.states[:] = 2.
         if self.mode == "rebuild_exception":
@@ -104,7 +107,7 @@ class RunnerContractTests(unittest.TestCase):
         self.stop_file.touch()
         self.paths = RunPaths(self.output, self.output / "cache", self.output, self.output / "entry.py")
 
-    def run_mock(self, variant, mode="ok"):
+    def run_mock(self, variant, mode="ok", law=NormalForceLaw.SMOOTH_POSITIVE):
         scene = small_scene(variant)
         parser = (flat_cli if variant == "flat" else handheld_cli).make_parser()
         args = parser.parse_args(["--no_viewer", "--no_csv", "--hold_only", "--N", "2", "--steps", "1"])
@@ -113,7 +116,7 @@ class RunnerContractTests(unittest.TestCase):
             args.settle_time = 1. if mode == "settle" else 0.
         positions = {side: np.zeros(3) for side in ("left", "right")}
         reference = PhaseReference(10., 0., 0., .5, .1, positions, positions, positions, args.f_start)
-        result, controller, steps = RunResult(), FakeController(scene, mode), []
+        result, controller, steps = RunResult(), FakeController(scene, mode, law), []
 
         def step(model, data):
             steps.append(data.time)
@@ -134,7 +137,10 @@ class RunnerContractTests(unittest.TestCase):
                 self.assertIsNone(error)
                 self.assertEqual(steps, [0.])
                 self.assertEqual([(t, n) for t, n, _ in controller.calls], [(0., 3)] * 3)
-                self.assertEqual(len(result.startup), 2 if variant == "handheld" else 0)
+                self.assertEqual(len(result.startup), 2)
+                self.assertEqual(result.horizon[0]['parameters_shared_full'].shape, (3, FULL_SIZE))
+                self.assertEqual(result.startup[0]['parameters_shared_full'].shape, (3, FULL_SIZE))
+                self.assertEqual(len(result.physics_trace['t']), 1)
                 self.assertEqual(result.horizon[0]["force_ref"].shape, (3, 2))
                 self.assertEqual(result.horizon[0]["reference"].shape, (3, 36))
                 self.assertEqual(result.horizon[0]["force_ref_dot"].shape, (3, 12))
@@ -151,6 +157,33 @@ class RunnerContractTests(unittest.TestCase):
                     self.assertTrue(result.failure)
                     self.assertIn("failure_message", result.joint_limit_trace)
                     self.assertEqual(result.startup, [])
+
+    def test_measured_anchor_raw_parameters_and_derivatives_are_recorded_both_scenes(self):
+        for variant in ('flat', 'handheld'):
+            with self.subTest(variant=variant):
+                _, _, _, result, _, _, error = self.run_mock(
+                    variant, law=NormalForceLaw.MEASURED_ANCHORED_IDEAL)
+                self.assertIsNone(error)
+                row = result.horizon[0]
+                self.assertEqual(row['parameters_shared_full'].shape, (3, 228))
+                np.testing.assert_array_equal(row['parameters_shared_full'][:, 225:],
+                                              np.tile([.24, 10., 11.], (3, 1)))
+                np.testing.assert_array_equal(row['force_anchor_normal'], [10., 11.])
+                self.assertEqual(row['force_pred_dot'].shape, (3, 2, 6))
+                self.assertEqual(result.startup[0]['parameters_shared_full'].shape, (3, 228))
+
+    def test_measured_anchor_failure_preserves_raw_228_and_old_compatibility_view(self):
+        for variant, old_width in (('flat', 215), ('handheld', 225)):
+            with self.subTest(variant=variant):
+                _, _, _, result, _, steps, error = self.run_mock(
+                    variant, 'rebuild_exception', law=NormalForceLaw.MEASURED_ANCHORED_IDEAL)
+                self.assertIsNotNone(error)
+                self.assertEqual(steps, [])
+                trace = result.joint_limit_trace
+                self.assertEqual(trace['failure_p_full'].shape, (3, old_width))
+                raw = np.tile(np.arange(228), (3, 1))
+                np.testing.assert_array_equal(trace['failure_p_shared_full'], raw+1000.)
+                np.testing.assert_array_equal(trace['failure_first_p_shared_full'], raw)
 
     def test_recovered_failure_keeps_legacy_full_parameter_width(self):
         for variant, width in (("flat", 215), ("handheld", 225)):

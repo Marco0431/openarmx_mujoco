@@ -1,0 +1,7 @@
+{
+  "command": "D:/acados_env/python.exe -B -X utf8 D:/RobotSim/scratch/measured_anchored_contact_20261012/audit_nodes.py",
+  "started_utc": "2026-10-12T13:27:19.2161069Z",
+  "finished_utc": "2026-10-12T13:27:57.2409234Z",
+  "elapsed_s": 38.0247082,
+  "exit_code": 0
+}

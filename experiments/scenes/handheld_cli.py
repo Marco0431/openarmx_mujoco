@@ -1,5 +1,6 @@
 """手持场景命令行：保留历史默认，并支持显式指定静态协作/力系数。"""
 import argparse
+from nmpcc.config import NormalForceLaw
 from experiments.legacy import handheld_output as experiment_tools
 from experiments import disturbance as disturbance_tools
 from .flat_cli import unit_coefficient
@@ -21,9 +22,10 @@ def make_parser():
     parser.add_argument("--kx_model", type=float, default=K_STIFF,
                         help="预测弹簧刚度 (N/m)，默认保留手持标定2419.3；力残差不再除以kx。"
                              "本轮不调整该参数或物理接触标定。")
-    parser.add_argument("--normal_force_law", choices=['smooth_positive', 'ideal_unilateral'],
+    parser.add_argument("--normal_force_law", choices=[law.value for law in NormalForceLaw],
                         default='smooth_positive',
-                        help="预测名义接触力模型；默认保留平滑模型，ideal_unilateral 为实验选项")
+                        help="法向力预测：smooth_positive=旧平滑；ideal_unilateral=旧截断；"
+                             "measured_anchored_ideal=测量预载加间距增量后截断。默认保留旧平滑")
     parser.add_argument("--eta_cop_y", type=unit_coefficient, default=0.8,
                         help="协作映射 eta_cop 的 y 分量；0=绝对 y 跟踪，0.8=同步优先")
     parser.add_argument("--If1_x", "--eta_f_x", dest="If1_x", type=unit_coefficient, default=0.8,

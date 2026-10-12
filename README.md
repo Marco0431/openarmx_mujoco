@@ -55,6 +55,9 @@ D:\acados_env\python.exe exp2_nmpcc_latest_grasp_pose.py --help
 实施经验及验证结果分别在 `docs/共用核心重构记录.md`、`docs/共用核心验收结果.md`。
 新增图的数据定义、采样时刻、输出位置和重绘命令见 `docs/速度与夹持力绘图.md`。
 本次对照结果与既有控制限制见 `docs/速度与夹持力验收记录.md`。
+三种接触力预测模型的选择、完整日志布局及适用范围见
+`docs/测量锚定接触模型.md`。两版都支持 `--normal_force_law measured_anchored_ideal`，
+默认继续使用原平滑模型；新选项使用测量预载与预测间距增量计算理想弹簧力。
 
 已有回归检查可从 CMD 执行：
 

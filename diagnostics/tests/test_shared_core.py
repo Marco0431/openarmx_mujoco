@@ -17,7 +17,8 @@ sys.path.insert(0, str(ROOT))
 from openarmx_mujoco.nmpcc import (BiasPolicy, ContactLoadMode, ContactMeasurement, Controller,
     ControllerConfig, DynamicsSnapshot, ForceFeedbackSource, NormalForceLaw, JointState, ReferenceHorizon, RuntimeWeights, SolveOptions, SolverError)
 from openarmx_mujoco.nmpcc.ocp import Bounds, cost_weights, create_solver, solver_identity
-from openarmx_mujoco.nmpcc.parameters import encode, from_legacy, to_legacy, to_legacy_full, view
+from openarmx_mujoco.nmpcc.parameters import (encode, encode_legacy_horizon, encode_shared_horizon,
+    from_legacy, to_legacy, to_legacy_full, view, parameter_size, layout_version)
 from openarmx_mujoco.nmpcc.kinematics import mujoco_fk_symbols, pad_contact_offsets, rotvec_of_R
 
 
@@ -195,7 +196,7 @@ class SharedCoreTests(unittest.TestCase):
         ctrl = self.controller(restored)
         x = self.state.vector()
         np.testing.assert_array_equal(ctrl.symbolic.nominal_force(x), self.ctrl.symbolic.nominal_force(x))
-        for law in NormalForceLaw:
+        for law in (NormalForceLaw.SMOOTH_POSITIVE, NormalForceLaw.IDEAL_UNILATERAL):
             cfg = replace(restored, normal_force_law=law)
             p = self.controller(cfg)._prepare(self.state, self.dyn, self.refs, SolveOptions()).parameters
             self.assertEqual(p.shape, (4, 225))
@@ -209,12 +210,168 @@ class SharedCoreTests(unittest.TestCase):
         ideal = self.controller(replace(self.cfg, normal_force_law='ideal_unilateral'))
         self.assertNotEqual(smooth.name, ideal.name)
         self.assertNotEqual(smooth._json_file.parent, ideal._json_file.parent)
-        self.assertIn('shared_v2', ideal.name)
+        self.assertIn('shared_v3', ideal.name)
         self.assertEqual(ideal.metadata['config']['normal_force_law'], 'ideal_unilateral')
         self.assert_close(smooth.metadata['W'], ideal.metadata['W'])
         self.assert_close(smooth.metadata['W_e'], ideal.metadata['W_e'])
         with self.assertRaises(ValueError):
             replace(self.cfg, normal_force_law='unknown')
+
+    def test_measured_anchor_total_force_has_independent_clipping_and_no_rest_gap_dependence(self):
+        cfg = replace(self.cfg, normal_force_law=NormalForceLaw.MEASURED_ANCHORED_IDEAL)
+        ctrl = self.controller(cfg)
+        prepared = ctrl._prepare(self.state, self.dyn, self.refs, SolveOptions())
+        x0, p = prepared.state, prepared.parameters[0]
+        anchor = prepared.anchoring
+        self.assert_close(anchor['anchor_normal'], [10., 11.])
+        self.assert_close(anchor['anchored'], anchor['measured'])
+        self.assert_close(prepared.parameters[:, 225:], np.tile(np.r_[anchor['anchor_gap'], anchor['anchor_normal']], (4, 1)))
+        # Opening by 0.105 m unloads the left side and leaves 0.5 N on the right.
+        for opening in (-.03, 0., .105, .12):
+            x = x0.copy()
+            x[14] += opening
+            expected = np.maximum(np.array([10., 11.])-cfg.kx*opening, 0.)*[-1., 1.]
+            self.assert_close(np.asarray(ctrl.symbolic.predicted_force(x, p)).ravel()[[0, 6]], expected)
+            self.assert_close(np.asarray(ctrl.symbolic.diagnostic_fn(x, p)[3]).ravel(), expected)
+        other = self.controller(replace(cfg, rest_gap=cfg.rest_gap+1.))
+        other_p = other._prepare(self.state, self.dyn, self.refs, SolveOptions()).parameters[0]
+        x = x0.copy()
+        x[14] += .105
+        self.assert_close(ctrl.symbolic.predicted_force(x, p), other.symbolic.predicted_force(x, other_p))
+
+    def test_measured_anchor_zero_boundary_and_total_force_rate_jacobian(self):
+        cfg = replace(self.cfg, normal_force_law=NormalForceLaw.MEASURED_ANCHORED_IDEAL,
+                      eta_f=np.ones((2, 6)), kx=128.)
+        ctrl = self.controller(cfg)
+        refs = ReferenceHorizon(self.refs.node_times, *(np.zeros((4, 2, 6)) for _ in range(4)))
+        p = encode(self.dyn, refs, np.zeros((2, 6)), np.zeros((2, 7)), cfg,
+                   anchor_gap=.5, anchor_normal=np.array([8., 16.]))[0]
+        sym = ctrl.symbolic
+        force = sym.predicted_force(sym.x, sym.p)
+        jac = ca.Function('anchored_jac', [sym.x, sym.p], [ca.jacobian(force, sym.x)])
+        model_jac = ca.Function('anchored_model_jac', [sym.x, sym.u, sym.p],
+            [ca.jacobian(sym.dynamics, sym.x), ca.jacobian(sym.residual, sym.x)])
+        for gap, active in ((.5, [True, True]), (.5625, [False, True]), (.625, [False, False]), (.75, [False, False])):
+            x = np.zeros(28)
+            x[14], x[7], x[8], x[21], x[22] = gap, .02, .03, -.01, -.04
+            dg = x[21]+.04*x[22]-x[7]-.03*x[8]
+            expected_rate = np.zeros(12)
+            expected_rate[[0, 6]] = np.array([-1., 1.])*(-cfg.kx*dg)*active
+            self.assert_close(sym.force_rate_fn(x, p), expected_rate[:, None])
+            self.assert_close(sym.diagnostic_fn(x, p)[7], -cfg.kf_scale*expected_rate[:, None])
+            for derivative in model_jac(x, np.zeros(14), p):
+                self.assertTrue(np.isfinite(np.asarray(derivative)).all())
+            expected_jac = np.zeros((12, 28))
+            for side, row in enumerate((0, 6)):
+                if active[side]:
+                    expected_jac[row, [0, 1, 14, 15]] = [-1., 1.][side]*cfg.kx*np.array([1., .03, -1., -.04])
+            self.assert_close(jac(x, p), expected_jac)
+        # Zero measured force at its anchor really is zero with the chosen zero derivative.
+        p[226:228] = 0.
+        x = np.zeros(28)
+        x[14] = .5
+        self.assert_close(sym.predicted_force(x, p), np.zeros((12, 1)))
+        self.assert_close(jac(x, p), np.zeros((12, 28)))
+        # Nonlinear geometry, away from either kink: derivative of the actual total force.
+        x = self.state.vector()
+        p[225], p[226:228] = float(sym.contact_gap(x)), [8., 16.]
+        direction = np.zeros(28)
+        direction[:7], direction[14:21] = x[7:14], x[21:28]
+        h = 1e-5
+        finite_rate = (np.asarray(sym.predicted_force(x+h*direction, p))
+                       -np.asarray(sym.predicted_force(x-h*direction, p)))/(2*h)
+        np.testing.assert_allclose(sym.diagnostic_fn(x, p)[7], -cfg.kf_scale*finite_rate, atol=1e-10, rtol=1e-8)
+
+    def test_measured_anchor_rejects_wrong_sign_measurement_and_missing_parameters(self):
+        cfg = replace(self.cfg, normal_force_law=NormalForceLaw.MEASURED_ANCHORED_IDEAL,
+                      force_feedback_source=ForceFeedbackSource.WORLD_FORCE_X)
+        ctrl = self.controller(cfg)
+        force = self.dyn.contact.force_world.copy()
+        force[0, 0] = .01
+        bad = replace(self.dyn, contact=replace(self.dyn.contact, force_world=force))
+        with self.assertRaisesRegex(ValueError, 'negative normal-force anchor'):
+            ctrl._prepare(self.state, bad, self.refs, SolveOptions())
+        force[0, 0] = 1e-12
+        tiny = replace(self.dyn, contact=replace(self.dyn.contact, force_world=force))
+        prepared = ctrl._prepare(self.state, tiny, self.refs, SolveOptions())
+        self.assertEqual(prepared.anchoring['anchor_normal'][0], 0.)
+        self.assertEqual(prepared.anchoring['measured'][0, 0], 1e-12)
+        with self.assertRaisesRegex(ValueError, 'requires finite anchor_gap'):
+            encode(self.dyn, self.refs, np.zeros((2, 6)), np.zeros((2, 7)), cfg)
+
+    def test_measured_anchor_preserves_legacy_slots_and_requires_anchor_for_legacy_replay(self):
+        cfg = replace(self.cfg, normal_force_law=NormalForceLaw.MEASURED_ANCHORED_IDEAL)
+        ctrl = self.controller(cfg)
+        prepared = ctrl._prepare(self.state, self.dyn, self.refs, SolveOptions())
+        p = prepared.parameters
+        self.assertEqual(p.shape, (4, 228))
+        self.assertEqual(parameter_size(self.cfg), 225)
+        self.assertNotEqual(layout_version(cfg), layout_version(self.cfg))
+        old = encode(self.dyn, self.refs, prepared.anchoring['bias'],
+                     prepared.contact_load['frozen_residual'], self.cfg)
+        np.testing.assert_array_equal(p[:, :225], old)
+        get = ca.Function('get_anchor_layout', [ctrl.symbolic.p],
+                          [view(ctrl.symbolic.p).anchor_gap, view(ctrl.symbolic.p).anchor_normal])
+        values = get(p[0])
+        self.assert_close(values[0], p[0, 225])
+        self.assert_close(np.asarray(values[1]).ravel(), p[0, 226:228])
+        for variant in ('flat', 'handheld'):
+            legacy = encode_legacy_horizon(self.state, self.dyn, self.refs, prepared.anchoring,
+                                            prepared.contact_load, cfg, variant)
+            self.assert_close(legacy, to_legacy(old, variant))
+            self.assert_close(to_legacy_full(p, variant), to_legacy_full(old, variant))
+            with self.assertRaisesRegex(ValueError, 'requires finite anchor_gap'):
+                from_legacy(legacy, variant, cfg)
+            self.assert_close(from_legacy(legacy, variant, cfg,
+                anchor_gap=prepared.anchoring['anchor_gap'], anchor_normal=prepared.anchoring['anchor_normal']), p)
+
+    def test_measured_anchor_six_axis_residual_seed_and_frozen_changed_state(self):
+        cfg = replace(self.cfg, normal_force_law=NormalForceLaw.MEASURED_ANCHORED_IDEAL,
+                      force_feedback_source=ForceFeedbackSource.WORLD_FORCE_X,
+                      bias_policy=BiasPolicy.LEGACY_SIX_AXIS)
+        ctrl = self.controller(cfg)
+        options = SolveOptions(kf_scale=.017)
+        solved = ctrl.solve(self.state, self.dyn, self.refs, options)
+        self.assertEqual(solved.prediction.force_rates.shape, (4, 2, 6))
+        self.assert_close(solved.anchoring['anchored'][:, 1:3], self.dyn.contact.force_world[:, 1:3])
+        self.assert_close(solved.anchoring['anchored'][:, 3:], self.dyn.contact.contact_torque_world)
+        self.assert_close(solved.contact_load['model_normal']+solved.contact_load['frozen_residual'], self.dyn.contact.joint_load)
+        seed = ctrl.equilibrium_seed(self.state, self.dyn, self.refs, options)
+        self.assert_close(ctrl.acceleration(self.state, self.dyn, self.refs, seed, options), np.zeros((2, 7)))
+        q = self.state.q.copy()
+        q[1, 0] += .11
+        changed = JointState(q, self.state.dq)
+        dynamics = replace(self.dyn, mass=self.dyn.mass*.73)
+        torque = np.linspace(-2., 2., 14)
+        parameters = encode_shared_horizon(changed, dynamics, self.refs, solved.anchoring, solved.contact_load, cfg, options)
+        self.assert_close(parameters[:, 225:], np.tile(np.r_[solved.anchoring['anchor_gap'], solved.anchoring['anchor_normal']], (4, 1)))
+        with patch.object(ctrl, '_prepare', side_effect=AssertionError('must not reanchor')):
+            actual = ctrl.acceleration(changed, dynamics, self.refs, torque, options, frozen_solution=solved)
+        derivative = np.asarray(ctrl.symbolic.dynamics_fn(changed.vector(), torque, parameters[0])).ravel()
+        self.assert_close(actual, np.stack((derivative[7:14], derivative[21:28])))
+        predicted = np.asarray(ctrl.symbolic.predicted_force(changed.vector(), parameters[0])).reshape(2, 6)
+        self.assert_close(predicted[:, 1:], solved.anchoring['measured'][:, 1:])
+        self.assert_close(predicted[:, 0], [0., 1.])
+
+    def test_measured_anchor_cache_constraints_weights_and_failure_rebuild(self):
+        cfg = replace(self.cfg, normal_force_law=NormalForceLaw.MEASURED_ANCHORED_IDEAL)
+        ctrl = self.controller(cfg)
+        self.assertNotEqual(ctrl.name, self.ctrl.name)
+        self.assertNotEqual(ctrl.name, self.controller(replace(cfg, normal_force_law=NormalForceLaw.IDEAL_UNILATERAL)).name)
+        self.assertEqual(ctrl.metadata['parameter_size'], 228)
+        self.assert_close(ctrl.metadata['W'], self.ctrl.metadata['W'])
+        self.assert_close(ctrl.metadata['W_e'], self.ctrl.metadata['W_e'])
+        for field in ('idxbx', 'idxbx_e', 'lbx', 'ubx', 'lbu', 'ubu', 'lh', 'uh'):
+            self.assert_close(getattr(ctrl._ocp.constraints, field), getattr(self.ctrl._ocp.constraints, field))
+        failed = ctrl._solver
+        failed.status = 4
+        solved = ctrl.solve(self.state, self.dyn, self.refs, SolveOptions(u_lim=3., u_prev=np.zeros(14), du_max=.2))
+        self.assertEqual(solved.status, 0)
+        self.assertEqual(solved.failure['p_full'].shape, (4, 228))
+        self.assert_close(ctrl._solver.constraints[0, 'lbu'], np.full(14, -.2))
+        self.assert_close(ctrl._solver.constraints[0, 'ubu'], np.full(14, .2))
+        for node in range(4):
+            self.assert_close(ctrl._solver.values[node, 'p'], failed.values[node, 'p'])
 
     def test_original_oracle_dynamics_residual_jacobian_constraints_and_weights(self):
         for variant in ("flat", "handheld"):
@@ -495,7 +652,7 @@ class SharedCoreTests(unittest.TestCase):
     def test_cache_static_identity_runtime_exclusion(self):
         bounds = Bounds.create()
         identity = solver_identity(self.cfg, toy_fk(), bounds)
-        self.assertIn("shared_v2", identity)
+        self.assertIn("shared_v3", identity)
         self.assertEqual(identity, solver_identity(replace(self.cfg, kf_scale=3.), toy_fk(), bounds))
         for cfg in (replace(self.cfg, kx=101.), replace(self.cfg, contact_load_mode=ContactLoadMode.TANGENT),
                     replace(self.cfg, bias_policy=BiasPolicy.LEGACY_SIX_AXIS), replace(self.cfg, sim_method_num_steps=3)):

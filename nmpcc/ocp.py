@@ -11,9 +11,9 @@ from acados_template import AcadosModel, AcadosOcp, AcadosOcpSolver
 from .config import ControllerConfig, RuntimeWeights
 from .data import Array
 from .model import SymbolicModel
-from .parameters import FULL_SIZE, LAYOUT_VERSION
+from .parameters import layout_version, parameter_size
 
-MODEL_VERSION = "shared_v2"
+MODEL_VERSION = "shared_v3"
 
 
 @dataclass(slots=True)
@@ -59,7 +59,7 @@ def solver_identity(cfg: ControllerConfig, fk: dict[str, Any], bounds: Bounds) -
     # 运行时 kf、eta 和失败策略不影响生成代码；其余结构均进入指纹。
     for key in ("kf_scale", "eta_cop", "eta_f", "fail_on_nonzero_status", "rebuild_on_failure"):
         settings.pop(key)
-    payload = {"version": MODEL_VERSION, "layout": LAYOUT_VERSION, "settings": settings,
+    payload = {"version": MODEL_VERSION, "layout": layout_version(cfg), "settings": settings,
                "bounds": {key: value.tolist() for key, value in asdict(bounds).items()},
                "tips": fk["tips_fn"].serialize(),
                "contacts": fk["contact_tips_fn"].serialize() if "contact_tips_fn" in fk else None}
@@ -96,7 +96,7 @@ def build_ocp(cfg: ControllerConfig, symbolic: SymbolicModel, bounds: Bounds,
     ocp.constraints.lh = np.array([0., 0., -cfg.vz_max, -cfg.vz_max])
     ocp.constraints.uh = np.array([cfg.vmax, cfg.vmax, cfg.vz_max, cfg.vz_max])
     ocp.constraints.x0 = np.zeros(28)
-    ocp.parameter_values = np.zeros(FULL_SIZE)
+    ocp.parameter_values = np.zeros(parameter_size(cfg))
     options.nlp_solver_type = "SQP_RTI"
     options.qp_solver = cfg.qp_solver
     options.qp_solver_iter_max = cfg.qp_solver_iter_max

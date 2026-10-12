@@ -101,6 +101,7 @@ class Prediction:
     position_error_x: Array
     residuals: Array
     residual_rates: Array
+    force_rates: Array | None = None
 
 
 @dataclass(slots=True)

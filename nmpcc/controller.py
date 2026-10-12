@@ -5,11 +5,11 @@ from pathlib import Path
 from typing import Any, Callable
 import time
 import numpy as np
-from .config import BiasPolicy, ContactLoadMode, ControllerConfig, ForceFeedbackSource, SolveOptions
+from .config import BiasPolicy, ContactLoadMode, ControllerConfig, ForceFeedbackSource, NormalForceLaw, SolveOptions
 from .data import Array, DynamicsSnapshot, JointState, Prediction, ReferenceHorizon, SolveResult, checked
 from .model import build_model
 from .ocp import Bounds, build_ocp, cost_weights, create_solver, solver_identity
-from .parameters import encode, view
+from .parameters import checked_anchor, encode, encode_shared_horizon, layout_version, parameter_size, view
 
 
 class SolverError(RuntimeError):
@@ -51,7 +51,8 @@ class Controller:
     def metadata(self) -> dict[str, Any]:
         weights, terminal_weights = cost_weights(self.config)
         return {"name": self.name, "W": weights, "W_e": terminal_weights,
-                "config": asdict(self.config)}
+                "config": asdict(self.config), "parameter_layout": layout_version(self.config),
+                "parameter_size": parameter_size(self.config)}
 
     def reset(self) -> None:
         """丢弃热启动与首次失败现场；下一次求解写满所有 N+1 状态节点。"""
@@ -77,8 +78,12 @@ class Controller:
             # 保留手持旧反馈口径；真实接触面 wrench 不进入旧控制反馈。
             measured[:, 3:] = contact.contact_torque_world
         bias = measured - nominal
+        anchor = {}
+        if self.config.normal_force_law == NormalForceLaw.MEASURED_ANCHORED_IDEAL:
+            gap, normal = checked_anchor(float(self.symbolic.contact_gap(x)), measured[:, 0]*[-1., 1.])
+            anchor = {"anchor_gap": np.array([gap]), "anchor_normal": normal}
         tangent = contact.tangent_joint_load.copy()
-        p = encode(dynamics, references, bias, tangent, self.config, options)
+        p = encode(dynamics, references, bias, tangent, self.config, options, **anchor)
         # 按动力学回算法保留负载抵消的浮点顺序；矩阵使用参数中的列主序视图。
         current = p[0].copy()
         params = view(current)
@@ -90,9 +95,10 @@ class Controller:
                   + np.r_[*params.damping] * state.dq.ravel()).reshape(2, 7)
         residual = contact.joint_load - normal if self.config.contact_load_mode == ContactLoadMode.FULL_RESIDUAL else tangent
         # 同一周期只求一次当前法向负载，并把差值冻结到包括终端的所有节点。
-        p = encode(dynamics, references, bias, residual, self.config, options)
+        p = encode(dynamics, references, bias, residual, self.config, options, **anchor)
+        anchored = np.asarray(self.symbolic.predicted_force(x, p[0]), float).reshape(2, 6)
         return PreparedCycle(x, p,
-                             {"nominal": nominal, "measured": measured, "bias": bias, "anchored": nominal+bias},
+                             {"nominal": nominal, "measured": measured, "bias": bias, "anchored": anchored, **anchor},
                              {"full_contact": contact.joint_load.copy(), "model_normal": normal,
                               "tangent_contact": tangent, "frozen_residual": residual,
                               "correction": residual-tangent})
@@ -115,8 +121,8 @@ class Controller:
             x, parameters = prepared.state, prepared.parameters
         else:
             x = state.vector()
-            parameters = encode(dynamics, references, frozen_solution.anchoring["bias"],
-                                frozen_solution.contact_load["frozen_residual"], self.config, options)
+            parameters = encode_shared_horizon(state, dynamics, references, frozen_solution.anchoring,
+                                               frozen_solution.contact_load, self.config, options)
         derivative = np.asarray(self.symbolic.dynamics_fn(x, checked(torque, (14,), "torque"), parameters[0]), float).ravel()
         return np.stack((derivative[7:14], derivative[21:28]))
 
@@ -215,6 +221,8 @@ class Controller:
         fields = [np.array([row[i] for row in diagnostics]) for i in range(8)]
         prediction = Prediction(states, controls, references, fields[0].reshape(-1, 2, 6),
                                 fields[1].reshape(-1, 2, 6), fields[2], fields[3], fields[4], fields[5],
-                                fields[6].reshape(-1, 2, 6), fields[7].reshape(-1, 2, 6))
+                                fields[6].reshape(-1, 2, 6), fields[7].reshape(-1, 2, 6),
+                                np.array([np.asarray(self.symbolic.force_rate_fn(x, p), float).reshape(2, 6)
+                                          for x, p in zip(states, prepared.parameters)]))
         return SolveResult(controls[0].copy(), prediction, status, initial_status, statistics,
                            self._first_failure, prepared.anchoring, prepared.contact_load)

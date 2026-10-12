@@ -115,8 +115,7 @@ def controller_config(scene: Scene, args) -> ControllerConfig:
         qp_solver_cond_N=getattr(args, 'qp_solver_cond_N', None), nlp_solver_max_iter=getattr(args, 'nlp_solver_max_iter', 20),
         force_feedback_source=ForceFeedbackSource.WORLD_FORCE_X if is_handheld else ForceFeedbackSource.NORMAL_MAGNITUDE,
         bias_policy=BiasPolicy.LEGACY_SIX_AXIS if is_handheld else BiasPolicy.X_ONLY,
-        normal_force_law=NormalForceLaw(getattr(args, 'normal_force_law', NormalForceLaw.SMOOTH_POSITIVE))
-        if is_handheld else NormalForceLaw.SMOOTH_POSITIVE,
+        normal_force_law=NormalForceLaw(getattr(args, 'normal_force_law', NormalForceLaw.SMOOTH_POSITIVE)),
         contact_load_mode=ContactLoadMode.FULL_RESIDUAL if args.contact_load_mode == 'residual' else ContactLoadMode.TANGENT)
 
 

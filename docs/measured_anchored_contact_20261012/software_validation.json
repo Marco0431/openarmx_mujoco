@@ -1,0 +1,24 @@
+{
+  "command": [
+    "D:\\acados_env\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "diagnostics/tests",
+    "-t",
+    ".",
+    "-v"
+  ],
+  "cwd": "D:\\RobotSim\\openarmx_mujoco",
+  "exitcode": 0,
+  "tests_run": 60,
+  "elapsed_s": 7.467665600001055,
+  "raw_output": "D:\\RobotSim\\results\\measured_anchored_contact_20261012\\software_validation.log",
+  "passed": true,
+  "closed_loop_batch_finished_before_tests": true,
+  "review_note": "Raw Windows CRCRLF line endings normalized for summary parsing; all 60 tests already exited 0 and OK. No test rerun needed."
+}

@@ -26,6 +26,7 @@ class ContactLoadMode(StrEnum):
 class NormalForceLaw(StrEnum):
     SMOOTH_POSITIVE = "smooth_positive"
     IDEAL_UNILATERAL = "ideal_unilateral"
+    MEASURED_ANCHORED_IDEAL = "measured_anchored_ideal"
 
 
 @dataclass(slots=True)

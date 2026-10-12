@@ -163,6 +163,19 @@ def summarize(log, args, initial_box_y, move_duration=None, *, box_center, hold_
 def finish_run(log, horizon_log, m, args, result, tag, dt, output_dir, entry_file):
     """打印结果并按原格式导出；绘图失败不影响已完成的仿真。"""
     from experiments.motion_trace import save_motion_outputs
+    # 完整节点参数独立于旧 CSV，测量锚定律的额外参数不能在旧布局转换中丢失。
+    if horizon_log:
+        os.makedirs(output_dir, exist_ok=True)
+        packed = {k: np.asarray([row[k] for row in horizon_log])
+                  for k in horizon_log[0] if k != 'contact_load'}
+        if 'contact_load' in horizon_log[0]:
+            packed.update({'contact_' + k: np.asarray([row['contact_load'][k] for row in horizon_log])
+                           for k in horizon_log[0]['contact_load']})
+        np.savez_compressed(Path(output_dir) / 'prediction.npz', **packed)
+        np.savez_compressed(Path(output_dir) / 'physics.npz', **result.physics_trace)
+        if result.startup:
+            np.savez_compressed(Path(output_dir) / 'startup.npz',
+                **{k: np.asarray([row[k] for row in result.startup]) for k in result.startup[0]})
     # 1. 独立诊断和首次失败现场，即使禁用 CSV 也按原选项保存。
     if args.dynamics_diag:
         os.makedirs(output_dir, exist_ok=True)

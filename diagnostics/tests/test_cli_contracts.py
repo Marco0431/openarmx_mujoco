@@ -43,9 +43,8 @@ class CliContractTests(unittest.TestCase):
             for action in parser._actions:
                 options, choices, value_type = action.option_strings, action.choices, action.type
                 if current and action.dest == 'normal_force_law':
-                    self.assertEqual(variant, 'handheld')
                     self.assertEqual(action.default, 'smooth_positive')
-                    self.assertEqual(action.choices, ['smooth_positive', 'ideal_unilateral'])
+                    self.assertEqual(action.choices, [law.value for law in NormalForceLaw])
                     continue
                 if current and action.dest in ('eta_cop_y', 'If1_x'):
                     self.assertEqual(action.default, .8)
@@ -84,17 +83,19 @@ class CliContractTests(unittest.TestCase):
                         np.testing.assert_array_equal(config.eta_cop, np.tile([0., cop, 0., 0., 0., 0.], (2, 1)))
                         np.testing.assert_array_equal(config.eta_f, np.tile([force, 0., 0., 0., 0., 0.], (2, 1)))
 
-    def test_handheld_normal_force_law_selection_and_legacy_args(self):
-        parser = handheld_cli.make_parser()
-        scene = SimpleNamespace(variant='handheld', contact_rest_gap=.248)
-        for law in NormalForceLaw:
-            with self.subTest(law=law):
-                args = parser.parse_args(['--normal_force_law', law.value])
-                self.assertEqual(controller_config(scene, args).normal_force_law, law)
-        args = parser.parse_args([])
-        del args.normal_force_law
-        self.assertEqual(controller_config(scene, args).normal_force_law,
-                         NormalForceLaw.SMOOTH_POSITIVE)
+    def test_normal_force_law_selection_and_legacy_args_both_scenes(self):
+        for variant, module in [('flat', flat_cli), ('handheld', handheld_cli)]:
+            parser = module.make_parser()
+            scene = SimpleNamespace(variant=variant, contact_rest_gap=.248,
+                                    geometry=SimpleNamespace(K_STIFF=module.K_STIFF))
+            for law in NormalForceLaw:
+                with self.subTest(variant=variant, law=law):
+                    args = parser.parse_args(['--normal_force_law', law.value])
+                    self.assertEqual(controller_config(scene, args).normal_force_law, law)
+            args = parser.parse_args([])
+            del args.normal_force_law
+            self.assertEqual(controller_config(scene, args).normal_force_law,
+                             NormalForceLaw.SMOOTH_POSITIVE)
 
     def test_handheld_rejects_invalid_normal_force_law(self):
         parser = handheld_cli.make_parser()

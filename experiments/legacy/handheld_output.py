@@ -405,6 +405,9 @@ def save_run(output, args, model, data, arms, ids, result, reference, log, horiz
                     j = max(0, int(np.searchsorted([h['t'] for h in horizon], physics['t'][i], side='right')-1))
                     event.update(parameters=horizon[j]['parameters'], prediction=horizon[j]['state'],
                                  control_time=horizon[j]['t'])
+                    if 'parameters_shared_full' in horizon[j]:
+                        event.update(parameters_shared_full=horizon[j]['parameters_shared_full'],
+                                     parameter_layout=horizon[j]['parameter_layout'])
                 np.savez_compressed(output / 'first_physical_event.npz', **event)
             print(f"[physical checks] {metadata['physical_checks']}")
     # 3. 预测与观测按字段堆叠，NPZ 字段名和数组轴顺序保持兼容。

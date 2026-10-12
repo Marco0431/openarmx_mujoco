@@ -1,0 +1,793 @@
+{
+  "description": "Independent saved-state/index/bound checks and temporal localization; no simulation or controller retuning.",
+  "scenarios": {
+    "handheld_cop08_f02_move05": [
+      {
+        "case_id": "smooth_positive_handheld_cop08_f02_move05",
+        "law": "smooth_positive",
+        "mapping": {
+          "metadata_names_match_saved_model": true,
+          "joint_ids": [
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "qpos_indices": [
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13
+          ],
+          "joint_names": [
+            "openarmx_right_joint1",
+            "openarmx_right_joint2",
+            "openarmx_right_joint3",
+            "openarmx_right_joint4",
+            "openarmx_right_joint5",
+            "openarmx_right_joint6",
+            "openarmx_right_joint7",
+            "openarmx_left_joint1",
+            "openarmx_left_joint2",
+            "openarmx_left_joint3",
+            "openarmx_left_joint4",
+            "openarmx_left_joint5",
+            "openarmx_left_joint6",
+            "openarmx_left_joint7"
+          ],
+          "qmin_vs_model_max_abs_rad": 0.0,
+          "qmax_vs_model_max_abs_rad": 0.0,
+          "recorded_q_vs_physics_qpos_max_abs_rad": 0.0,
+          "recorded_t_vs_physics_t_max_abs_s": 0.0,
+          "lower_margin_recompute_max_abs_rad": 0.0,
+          "upper_margin_recompute_max_abs_rad": 0.0
+        },
+        "initial_minimum_joint_margin_rad": 0.07501956837846946,
+        "actual_limit_active_steps": 0,
+        "actual_minimum_margin_rad": 0.00011640416208724691,
+        "predicted_maximum_bound_violation_rad": 0.0,
+        "predicted_future_maximum_bound_violation_rad": 0.0,
+        "joints_with_limit_events": [],
+        "same_initial_conditions_vs_smooth": {
+          "qpos_max_abs_difference": 0.0,
+          "qvel_max_abs_difference": 0.0,
+          "seed_max_abs_difference": 0.0,
+          "first_control_x_max_abs_difference": 0.0,
+          "first_control_u_max_abs_difference": 0.0,
+          "first_warmup_u_max_abs_difference": 0.0,
+          "first_mass_gravity_load_reference_damping_max_abs_difference": 0.0
+        }
+      },
+      {
+        "case_id": "ideal_unilateral_handheld_cop08_f02_move05",
+        "law": "ideal_unilateral",
+        "mapping": {
+          "metadata_names_match_saved_model": true,
+          "joint_ids": [
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "qpos_indices": [
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13
+          ],
+          "joint_names": [
+            "openarmx_right_joint1",
+            "openarmx_right_joint2",
+            "openarmx_right_joint3",
+            "openarmx_right_joint4",
+            "openarmx_right_joint5",
+            "openarmx_right_joint6",
+            "openarmx_right_joint7",
+            "openarmx_left_joint1",
+            "openarmx_left_joint2",
+            "openarmx_left_joint3",
+            "openarmx_left_joint4",
+            "openarmx_left_joint5",
+            "openarmx_left_joint6",
+            "openarmx_left_joint7"
+          ],
+          "qmin_vs_model_max_abs_rad": 0.0,
+          "qmax_vs_model_max_abs_rad": 0.0,
+          "recorded_q_vs_physics_qpos_max_abs_rad": 0.0,
+          "recorded_t_vs_physics_t_max_abs_s": 0.0,
+          "lower_margin_recompute_max_abs_rad": 0.0,
+          "upper_margin_recompute_max_abs_rad": 0.0
+        },
+        "initial_minimum_joint_margin_rad": 0.07501956837846946,
+        "actual_limit_active_steps": 28,
+        "actual_minimum_margin_rad": -0.00012240085307924087,
+        "predicted_maximum_bound_violation_rad": 0.00012240085307924087,
+        "predicted_future_maximum_bound_violation_rad": 0.0,
+        "joints_with_limit_events": [
+          {
+            "column": 5,
+            "physical_joint_name": "openarmx_right_joint6",
+            "controller_side": "left",
+            "intervals": [
+              {
+                "start_s": 4.91999999999968,
+                "last_sample_s": 4.973999999999674,
+                "steps": 28,
+                "duration_s": 0.056
+              }
+            ],
+            "active_steps": 28,
+            "minimum_lower_margin_rad": 1.3988365125580127,
+            "minimum_upper_margin_rad": -0.00012240085307924087,
+            "qmin_rad": -0.75,
+            "qmax_rad": 0.75,
+            "first_active_q_rad": 0.7500019884630482,
+            "first_active_v_rad_per_s": 0.03232161049597906,
+            "first_active_limit_torque_Nm": 0.0,
+            "maximum_abs_limit_torque_Nm": 0.004877011093863965,
+            "first_below_0p01rad_margin_s": 4.3719999999997405,
+            "last_control_before_first_event": {
+              "update": 819,
+              "t_s": 4.914,
+              "current_q_rad": 0.7497391270660498,
+              "min_prediction_q_rad": 0.7497391270660498,
+              "max_prediction_q_rad": 0.7499841304266406,
+              "prediction_lower_margin_min_rad": 1.4997391270660498,
+              "prediction_upper_margin_min_rad": 1.586957335941719e-05,
+              "future_prediction_upper_margin_min_rad": 1.586957335941719e-05,
+              "solver_status": 0
+            }
+          }
+        ],
+        "same_initial_conditions_vs_smooth": {
+          "qpos_max_abs_difference": 0.0,
+          "qvel_max_abs_difference": 0.0,
+          "seed_max_abs_difference": 0.0,
+          "first_control_x_max_abs_difference": 0.0,
+          "first_control_u_max_abs_difference": 0.00021856643007289733,
+          "first_warmup_u_max_abs_difference": 8.078254756505032e-05,
+          "first_mass_gravity_load_reference_damping_max_abs_difference": 0.0
+        }
+      },
+      {
+        "case_id": "measured_anchored_ideal_handheld_cop08_f02_move05",
+        "law": "measured_anchored_ideal",
+        "mapping": {
+          "metadata_names_match_saved_model": true,
+          "joint_ids": [
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "qpos_indices": [
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13
+          ],
+          "joint_names": [
+            "openarmx_right_joint1",
+            "openarmx_right_joint2",
+            "openarmx_right_joint3",
+            "openarmx_right_joint4",
+            "openarmx_right_joint5",
+            "openarmx_right_joint6",
+            "openarmx_right_joint7",
+            "openarmx_left_joint1",
+            "openarmx_left_joint2",
+            "openarmx_left_joint3",
+            "openarmx_left_joint4",
+            "openarmx_left_joint5",
+            "openarmx_left_joint6",
+            "openarmx_left_joint7"
+          ],
+          "qmin_vs_model_max_abs_rad": 0.0,
+          "qmax_vs_model_max_abs_rad": 0.0,
+          "recorded_q_vs_physics_qpos_max_abs_rad": 0.0,
+          "recorded_t_vs_physics_t_max_abs_s": 0.0,
+          "lower_margin_recompute_max_abs_rad": 0.0,
+          "upper_margin_recompute_max_abs_rad": 0.0
+        },
+        "initial_minimum_joint_margin_rad": 0.07501956837846946,
+        "actual_limit_active_steps": 25,
+        "actual_minimum_margin_rad": -7.875742995278046e-05,
+        "predicted_maximum_bound_violation_rad": 7.875742995278046e-05,
+        "predicted_future_maximum_bound_violation_rad": 0.0,
+        "joints_with_limit_events": [
+          {
+            "column": 5,
+            "physical_joint_name": "openarmx_right_joint6",
+            "controller_side": "left",
+            "intervals": [
+              {
+                "start_s": 4.567999999999719,
+                "last_sample_s": 4.615999999999714,
+                "steps": 25,
+                "duration_s": 0.05
+              }
+            ],
+            "active_steps": 25,
+            "minimum_lower_margin_rad": 1.3822613783068682,
+            "minimum_upper_margin_rad": -7.875742995278046e-05,
+            "qmin_rad": -0.75,
+            "qmax_rad": 0.75,
+            "first_active_q_rad": 0.7500205045596144,
+            "first_active_v_rad_per_s": 0.01987060259146563,
+            "first_active_limit_torque_Nm": 0.0,
+            "maximum_abs_limit_torque_Nm": 0.004504611073915612,
+            "first_below_0p01rad_margin_s": 4.091999999999771,
+            "last_control_before_first_event": {
+              "update": 761,
+              "t_s": 4.566,
+              "current_q_rad": 0.7499807633544315,
+              "min_prediction_q_rad": 0.7499148317106613,
+              "max_prediction_q_rad": 0.7499807633544315,
+              "prediction_lower_margin_min_rad": 1.4999148317106612,
+              "prediction_upper_margin_min_rad": 1.9236645568465605e-05,
+              "future_prediction_upper_margin_min_rad": 2.636015880097542e-05,
+              "solver_status": 0
+            }
+          }
+        ],
+        "same_initial_conditions_vs_smooth": {
+          "qpos_max_abs_difference": 0.0,
+          "qvel_max_abs_difference": 0.0,
+          "seed_max_abs_difference": 0.0,
+          "first_control_x_max_abs_difference": 0.0,
+          "first_control_u_max_abs_difference": 0.00021856643007511778,
+          "first_warmup_u_max_abs_difference": 8.078254756505032e-05,
+          "first_mass_gravity_load_reference_damping_max_abs_difference": 0.0
+        }
+      }
+    ],
+    "handheld_cop00_f00_move05_hold0": [
+      {
+        "case_id": "smooth_positive_handheld_cop00_f00_move05_hold0",
+        "law": "smooth_positive",
+        "mapping": {
+          "metadata_names_match_saved_model": true,
+          "joint_ids": [
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "qpos_indices": [
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13
+          ],
+          "joint_names": [
+            "openarmx_right_joint1",
+            "openarmx_right_joint2",
+            "openarmx_right_joint3",
+            "openarmx_right_joint4",
+            "openarmx_right_joint5",
+            "openarmx_right_joint6",
+            "openarmx_right_joint7",
+            "openarmx_left_joint1",
+            "openarmx_left_joint2",
+            "openarmx_left_joint3",
+            "openarmx_left_joint4",
+            "openarmx_left_joint5",
+            "openarmx_left_joint6",
+            "openarmx_left_joint7"
+          ],
+          "qmin_vs_model_max_abs_rad": 0.0,
+          "qmax_vs_model_max_abs_rad": 0.0,
+          "recorded_q_vs_physics_qpos_max_abs_rad": 0.0,
+          "recorded_t_vs_physics_t_max_abs_s": 0.0,
+          "lower_margin_recompute_max_abs_rad": 0.0,
+          "upper_margin_recompute_max_abs_rad": 0.0
+        },
+        "initial_minimum_joint_margin_rad": 0.07501956837846946,
+        "actual_limit_active_steps": 46,
+        "actual_minimum_margin_rad": -0.000400208059928131,
+        "predicted_maximum_bound_violation_rad": 0.00028237399532360374,
+        "predicted_future_maximum_bound_violation_rad": 0.0,
+        "joints_with_limit_events": [
+          {
+            "column": 5,
+            "physical_joint_name": "openarmx_right_joint6",
+            "controller_side": "left",
+            "intervals": [
+              {
+                "start_s": 0.8540000000000006,
+                "last_sample_s": 0.8760000000000007,
+                "steps": 12,
+                "duration_s": 0.024
+              },
+              {
+                "start_s": 1.0000000000000007,
+                "last_sample_s": 1.0140000000000007,
+                "steps": 8,
+                "duration_s": 0.016
+              },
+              {
+                "start_s": 1.0720000000000007,
+                "last_sample_s": 1.0980000000000008,
+                "steps": 14,
+                "duration_s": 0.028
+              }
+            ],
+            "active_steps": 34,
+            "minimum_lower_margin_rad": 1.42481122390693,
+            "minimum_upper_margin_rad": -0.000400208059928131,
+            "qmin_rad": -0.75,
+            "qmax_rad": 0.75,
+            "first_active_q_rad": 0.7500683176904288,
+            "first_active_v_rad_per_s": 0.03989865705646205,
+            "first_active_limit_torque_Nm": 0.0,
+            "maximum_abs_limit_torque_Nm": 0.1231726340791281,
+            "first_below_0p01rad_margin_s": 0.7580000000000006,
+            "last_control_before_first_event": {
+              "update": 142,
+              "t_s": 0.852,
+              "current_q_rad": 0.7499885203763159,
+              "min_prediction_q_rad": 0.7493980255959689,
+              "max_prediction_q_rad": 0.7499999998587515,
+              "prediction_lower_margin_min_rad": 1.499398025595969,
+              "prediction_upper_margin_min_rad": 1.4124845737484293e-10,
+              "future_prediction_upper_margin_min_rad": 1.4124845737484293e-10,
+              "solver_status": 0
+            }
+          },
+          {
+            "column": 12,
+            "physical_joint_name": "openarmx_left_joint6",
+            "controller_side": "right",
+            "intervals": [
+              {
+                "start_s": 0.9840000000000008,
+                "last_sample_s": 0.9920000000000008,
+                "steps": 5,
+                "duration_s": 0.01
+              },
+              {
+                "start_s": 1.0540000000000007,
+                "last_sample_s": 1.0660000000000007,
+                "steps": 7,
+                "duration_s": 0.014
+              }
+            ],
+            "active_steps": 12,
+            "minimum_lower_margin_rad": -5.5588639774062365e-05,
+            "minimum_upper_margin_rad": 1.4249804316215307,
+            "qmin_rad": -0.75,
+            "qmax_rad": 0.75,
+            "first_active_q_rad": -0.7500145165507116,
+            "first_active_v_rad_per_s": -0.01708857220845161,
+            "first_active_limit_torque_Nm": 0.0,
+            "maximum_abs_limit_torque_Nm": 0.0071435204044331966,
+            "first_below_0p01rad_margin_s": 0.8700000000000007,
+            "last_control_before_first_event": {
+              "update": 164,
+              "t_s": 0.984,
+              "current_q_rad": -0.7500145165507116,
+              "min_prediction_q_rad": -0.7500145165507116,
+              "max_prediction_q_rad": -0.7496163812290905,
+              "prediction_lower_margin_min_rad": -1.4516550711607401e-05,
+              "prediction_upper_margin_min_rad": 1.4996163812290906,
+              "future_prediction_upper_margin_min_rad": 1.4996163812290906,
+              "solver_status": 0
+            }
+          }
+        ],
+        "same_initial_conditions_vs_smooth": {
+          "qpos_max_abs_difference": 0.0,
+          "qvel_max_abs_difference": 0.0,
+          "seed_max_abs_difference": 0.0,
+          "first_control_x_max_abs_difference": 0.0,
+          "first_control_u_max_abs_difference": 0.0,
+          "first_warmup_u_max_abs_difference": 0.0,
+          "first_mass_gravity_load_reference_damping_max_abs_difference": 0.0
+        }
+      },
+      {
+        "case_id": "ideal_unilateral_handheld_cop00_f00_move05_hold0",
+        "law": "ideal_unilateral",
+        "mapping": {
+          "metadata_names_match_saved_model": true,
+          "joint_ids": [
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "qpos_indices": [
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13
+          ],
+          "joint_names": [
+            "openarmx_right_joint1",
+            "openarmx_right_joint2",
+            "openarmx_right_joint3",
+            "openarmx_right_joint4",
+            "openarmx_right_joint5",
+            "openarmx_right_joint6",
+            "openarmx_right_joint7",
+            "openarmx_left_joint1",
+            "openarmx_left_joint2",
+            "openarmx_left_joint3",
+            "openarmx_left_joint4",
+            "openarmx_left_joint5",
+            "openarmx_left_joint6",
+            "openarmx_left_joint7"
+          ],
+          "qmin_vs_model_max_abs_rad": 0.0,
+          "qmax_vs_model_max_abs_rad": 0.0,
+          "recorded_q_vs_physics_qpos_max_abs_rad": 0.0,
+          "recorded_t_vs_physics_t_max_abs_s": 0.0,
+          "lower_margin_recompute_max_abs_rad": 0.0,
+          "upper_margin_recompute_max_abs_rad": 0.0
+        },
+        "initial_minimum_joint_margin_rad": 0.07501956837846946,
+        "actual_limit_active_steps": 104,
+        "actual_minimum_margin_rad": -0.0006784095099557907,
+        "predicted_maximum_bound_violation_rad": 0.0006784095099557907,
+        "predicted_future_maximum_bound_violation_rad": 0.0,
+        "joints_with_limit_events": [
+          {
+            "column": 5,
+            "physical_joint_name": "openarmx_right_joint6",
+            "controller_side": "left",
+            "intervals": [
+              {
+                "start_s": 0.8740000000000007,
+                "last_sample_s": 0.8900000000000007,
+                "steps": 9,
+                "duration_s": 0.018000000000000002
+              },
+              {
+                "start_s": 0.9080000000000007,
+                "last_sample_s": 0.9140000000000007,
+                "steps": 4,
+                "duration_s": 0.008
+              },
+              {
+                "start_s": 0.9680000000000007,
+                "last_sample_s": 0.9800000000000008,
+                "steps": 7,
+                "duration_s": 0.014
+              },
+              {
+                "start_s": 0.9960000000000008,
+                "last_sample_s": 1.0060000000000007,
+                "steps": 6,
+                "duration_s": 0.012
+              },
+              {
+                "start_s": 1.1140000000000008,
+                "last_sample_s": 1.1300000000000008,
+                "steps": 9,
+                "duration_s": 0.018000000000000002
+              },
+              {
+                "start_s": 4.303999999999748,
+                "last_sample_s": 4.321999999999746,
+                "steps": 10,
+                "duration_s": 0.02
+              },
+              {
+                "start_s": 4.363999999999741,
+                "last_sample_s": 4.37799999999974,
+                "steps": 8,
+                "duration_s": 0.016
+              },
+              {
+                "start_s": 4.7719999999996965,
+                "last_sample_s": 4.839999999999689,
+                "steps": 35,
+                "duration_s": 0.07
+              }
+            ],
+            "active_steps": 88,
+            "minimum_lower_margin_rad": 1.4126009327641054,
+            "minimum_upper_margin_rad": -0.0006784095099557907,
+            "qmin_rad": -0.75,
+            "qmax_rad": 0.75,
+            "first_active_q_rad": 0.7500063109030723,
+            "first_active_v_rad_per_s": 0.005027683337331185,
+            "first_active_limit_torque_Nm": 0.0,
+            "maximum_abs_limit_torque_Nm": 0.07267553290924372,
+            "first_below_0p01rad_margin_s": 0.7660000000000006,
+            "last_control_before_first_event": {
+              "update": 145,
+              "t_s": 0.87,
+              "current_q_rad": 0.7499805931314347,
+              "min_prediction_q_rad": 0.7493567439410452,
+              "max_prediction_q_rad": 0.7499999933969358,
+              "prediction_lower_margin_min_rad": 1.4993567439410453,
+              "prediction_upper_margin_min_rad": 6.603064206522902e-09,
+              "future_prediction_upper_margin_min_rad": 6.603064206522902e-09,
+              "solver_status": 0
+            }
+          },
+          {
+            "column": 12,
+            "physical_joint_name": "openarmx_left_joint6",
+            "controller_side": "right",
+            "intervals": [
+              {
+                "start_s": 0.9900000000000008,
+                "last_sample_s": 1.0080000000000007,
+                "steps": 10,
+                "duration_s": 0.02
+              },
+              {
+                "start_s": 1.1760000000000008,
+                "last_sample_s": 1.1840000000000008,
+                "steps": 5,
+                "duration_s": 0.01
+              },
+              {
+                "start_s": 1.2240000000000009,
+                "last_sample_s": 1.2260000000000009,
+                "steps": 2,
+                "duration_s": 0.004
+              },
+              {
+                "start_s": 1.2480000000000009,
+                "last_sample_s": 1.256000000000001,
+                "steps": 5,
+                "duration_s": 0.01
+              }
+            ],
+            "active_steps": 22,
+            "minimum_lower_margin_rad": -3.7113753687978424e-05,
+            "minimum_upper_margin_rad": 1.30133694534649,
+            "qmin_rad": -0.75,
+            "qmax_rad": 0.75,
+            "first_active_q_rad": -0.7500071499834826,
+            "first_active_v_rad_per_s": -0.008138508662013683,
+            "first_active_limit_torque_Nm": 0.0,
+            "maximum_abs_limit_torque_Nm": 0.0021923683079766217,
+            "first_below_0p01rad_margin_s": 0.8600000000000007,
+            "last_control_before_first_event": {
+              "update": 165,
+              "t_s": 0.99,
+              "current_q_rad": -0.7500071499834826,
+              "min_prediction_q_rad": -0.7500071499834826,
+              "max_prediction_q_rad": -0.749770458474654,
+              "prediction_lower_margin_min_rad": -7.149983482612754e-06,
+              "prediction_upper_margin_min_rad": 1.499770458474654,
+              "future_prediction_upper_margin_min_rad": 1.499770458474654,
+              "solver_status": 0
+            }
+          }
+        ],
+        "same_initial_conditions_vs_smooth": {
+          "qpos_max_abs_difference": 0.0,
+          "qvel_max_abs_difference": 0.0,
+          "seed_max_abs_difference": 0.0,
+          "first_control_x_max_abs_difference": 0.0,
+          "first_control_u_max_abs_difference": 0.0005696910833856705,
+          "first_warmup_u_max_abs_difference": 0.0001790444639748756,
+          "first_mass_gravity_load_reference_damping_max_abs_difference": 0.0
+        }
+      },
+      {
+        "case_id": "measured_anchored_ideal_handheld_cop00_f00_move05_hold0",
+        "law": "measured_anchored_ideal",
+        "mapping": {
+          "metadata_names_match_saved_model": true,
+          "joint_ids": [
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "qpos_indices": [
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13
+          ],
+          "joint_names": [
+            "openarmx_right_joint1",
+            "openarmx_right_joint2",
+            "openarmx_right_joint3",
+            "openarmx_right_joint4",
+            "openarmx_right_joint5",
+            "openarmx_right_joint6",
+            "openarmx_right_joint7",
+            "openarmx_left_joint1",
+            "openarmx_left_joint2",
+            "openarmx_left_joint3",
+            "openarmx_left_joint4",
+            "openarmx_left_joint5",
+            "openarmx_left_joint6",
+            "openarmx_left_joint7"
+          ],
+          "qmin_vs_model_max_abs_rad": 0.0,
+          "qmax_vs_model_max_abs_rad": 0.0,
+          "recorded_q_vs_physics_qpos_max_abs_rad": 0.0,
+          "recorded_t_vs_physics_t_max_abs_s": 0.0,
+          "lower_margin_recompute_max_abs_rad": 0.0,
+          "upper_margin_recompute_max_abs_rad": 0.0
+        },
+        "initial_minimum_joint_margin_rad": 0.07501956837846946,
+        "actual_limit_active_steps": 18,
+        "actual_minimum_margin_rad": -0.0003761858431320375,
+        "predicted_maximum_bound_violation_rad": 0.0003736845408446321,
+        "predicted_future_maximum_bound_violation_rad": 0.0,
+        "joints_with_limit_events": [
+          {
+            "column": 5,
+            "physical_joint_name": "openarmx_right_joint6",
+            "controller_side": "left",
+            "intervals": [
+              {
+                "start_s": 1.0260000000000007,
+                "last_sample_s": 1.0380000000000007,
+                "steps": 7,
+                "duration_s": 0.014
+              },
+              {
+                "start_s": 1.1580000000000008,
+                "last_sample_s": 1.1780000000000008,
+                "steps": 11,
+                "duration_s": 0.022
+              }
+            ],
+            "active_steps": 18,
+            "minimum_lower_margin_rad": 1.42481122390693,
+            "minimum_upper_margin_rad": -0.0003761858431320375,
+            "qmin_rad": -0.75,
+            "qmax_rad": 0.75,
+            "first_active_q_rad": 0.7500369085391865,
+            "first_active_v_rad_per_s": 0.02313947603580997,
+            "first_active_limit_torque_Nm": 0.0,
+            "maximum_abs_limit_torque_Nm": 0.011381877050201144,
+            "first_below_0p01rad_margin_s": 0.9040000000000007,
+            "last_control_before_first_event": {
+              "update": 171,
+              "t_s": 1.026,
+              "current_q_rad": 0.7500369085391865,
+              "min_prediction_q_rad": 0.749585544997385,
+              "max_prediction_q_rad": 0.7500369085391865,
+              "prediction_lower_margin_min_rad": 1.499585544997385,
+              "prediction_upper_margin_min_rad": -3.690853918647541e-05,
+              "future_prediction_upper_margin_min_rad": 5.7998002289672e-08,
+              "solver_status": 0
+            }
+          }
+        ],
+        "same_initial_conditions_vs_smooth": {
+          "qpos_max_abs_difference": 0.0,
+          "qvel_max_abs_difference": 0.0,
+          "seed_max_abs_difference": 0.0,
+          "first_control_x_max_abs_difference": 0.0,
+          "first_control_u_max_abs_difference": 0.0005696910833856705,
+          "first_warmup_u_max_abs_difference": 0.0001790444639748756,
+          "first_mass_gravity_load_reference_damping_max_abs_difference": 0.0
+        }
+      }
+    ]
+  },
+  "interpretation": "Identical saved initial q/v, first state, bounds and M/G/load/reference/damping exclude an initial-state or joint-index change when their measured differences are zero. Control torque and later trajectories may change because cost/dynamics derivatives change even though current force/qdd/E match. This is evidence for a closed-loop model/constraint-tracking difference, not a proof of a single causal mechanism. MuJoCo active limit rows and negative measured margins are physical simulation violations; solver status zero does not certify physical bounds. Predicted violations including node zero and future nodes are separated: node zero is fixed to the measured state and can already be outside the limit. The 10 ms prediction-node spacing also does not constrain every 2 ms plant sample; these data do not isolate intersample excursion from model/RTI mismatch."
+}
