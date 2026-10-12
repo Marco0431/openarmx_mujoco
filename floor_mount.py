@@ -26,6 +26,7 @@ def generate_floor_runtime_xml(base_x: float = 0.45, z_mount: float = 0.06,
                                mount_roll: float = 0.0, mount_pitch: float = 0.0,
                                mount_yaw: float | dict = 0.0,
                                pad_fix: dict | None = None,
+                               pad_half_w: float = 0.030, pad_half_h: float = 0.030,
                                out: Path = FLOOR_RUNTIME) -> Path:
     """生成地面安装版 runtime XML。
 
@@ -34,6 +35,8 @@ def generate_floor_runtime_xml(base_x: float = 0.45, z_mount: float = 0.06,
     mount_roll / mount_pitch / mount_yaw: 臂安装滚转/俯仰/偏航角（rad，滚转/偏航支持
               dict 每侧独立取值）——调整安装姿态；link0 基座壳跟随 yaw 但不跟随 roll/pitch。
     pad_fix : 可选 {side: (quat_wxyz, pos_xyz)} —— 垫片斜角安装（斜角转接板）。
+    pad_half_w / pad_half_h: 垫片横向/竖直半尺寸（m）。加宽垫片 = 更大接触面 → 更强
+              摩擦容量与抗滚转力臂（箱面 12×8cm，默认 6×6cm）。
     """
     runtime_xml = generate_runtime_xml()          # 重新从 URDF 生成（含端面垫片）
     strip_ee_geoms(runtime_xml)                   # 删手/指网格（无夹具顶夹）
@@ -41,6 +44,9 @@ def generate_floor_runtime_xml(base_x: float = 0.45, z_mount: float = 0.06,
 
     tree = ET.parse(runtime_xml)
     root = tree.getroot()
+    for g in root.iter("geom"):                   # 垫片尺寸参数化（默认 6cm 见方保持不变）
+        if (g.get("name") or "").endswith("_ee_pad"):
+            g.set("size", f"{pad_half_w:.4f} {pad_half_h:.4f} 0.004")
     worldbody = root.find("worldbody")
     yaw_root = next(b for b in worldbody.findall("body")
                     if b.get("name") == "openarmx_robot_yaw_root")

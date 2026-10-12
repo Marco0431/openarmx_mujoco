@@ -48,6 +48,9 @@ GRIP_Z_OFFSET = 0.02           # 垫片接触高度相对箱体重心的竖直�
                                # 正偏移 → 箱体重心悬挂在夹持线下方 → 重力成为恢复力矩（摆式稳定），
                                # 同时约束箱体 y 漂移；负偏移 → 顶重倒摆（_probe_grip_z 实测放大滚转）。
                                # 垫片半高 0.015、箱面半高 0.04 → 偏移须 ∈ [-0.025, +0.025] 才满接触。
+PAD_HALF_W = 0.030             # 垫片横向半尺寸（m，垫片局部 x = 世界箱宽 y 方向）；
+PAD_HALF_H = 0.030             # 垫片竖直半尺寸（m）。加宽垫片（横向 0.030→0.060 覆盖箱面全宽）
+                               # 增大摩擦容量与抗滚转力臂，且不占用摆式偏移的垂直空间。
 
 # ---------- 细长箱参数（论文 Fig.11 等比缩小版） ----------
 SLENDER_HALF = np.array([0.25, 0.06, 0.04], dtype=np.float64)  # 半尺寸：x=长(夹持轴) y=宽 z=厚
@@ -104,7 +107,8 @@ def build_scene(pad_fix: dict | None = None) -> tuple:
     """生成场景 XML：地面安装双臂（矮基座+镜像侧装） + 细长箱(freejoint) + 4 罐(freejoint)在箱顶。"""
     runtime_xml = generate_floor_runtime_xml(base_x=BASE_X, z_mount=Z_MOUNT,
                                              mount_roll=MOUNT_ROLL, mount_pitch=MOUNT_PITCH,
-                                             mount_yaw=MOUNT_YAW, pad_fix=pad_fix)
+                                             mount_yaw=MOUNT_YAW, pad_fix=pad_fix,
+                                             pad_half_w=PAD_HALF_W, pad_half_h=PAD_HALF_H)
     inject_motors(runtime_xml)
     bx, by, bz = BOX_CENTER
     hx, hy, hz = SLENDER_HALF

@@ -18,11 +18,13 @@ from __future__ import annotations
 
 import argparse
 import csv
+import json
 from pathlib import Path
 
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from matplotlib.ticker import AutoMinorLocator, MaxNLocator
 import numpy as np
 
 
@@ -73,6 +75,60 @@ def add_limit(ax, value: float, label: str, color: str) -> None:
     ax.axhline(-value, color=color, ls="--", lw=0.9, alpha=0.8)
 
 
+def refine_force_axis(ax, error: np.ndarray) -> tuple[float, float]:
+    """按完整数据范围细化力误差纵轴；阈值线不再把小误差压成直线。"""
+    finite = error[np.isfinite(error)]
+    low = min(0.0, float(finite.min())) if finite.size else 0.0
+    high = max(0.0, float(finite.max())) if finite.size else 0.0
+    # 保留零点和全部峰值，不滤波、不截掉启动尖峰；常值曲线也留可读范围。
+    padding = max((high - low) * 0.15, 0.005)
+    limits = (low - padding, high + padding)
+    ax.set_ylim(*limits)
+    ax.yaxis.set_major_locator(MaxNLocator(nbins=8, steps=[1, 2, 2.5, 5, 10]))
+    ax.yaxis.set_minor_locator(AutoMinorLocator(2))
+    ax.ticklabel_format(axis="y", style="plain", useOffset=False)
+    ax.grid(axis="y", which="minor", alpha=0.12, linestyle=":")
+    return limits
+
+
+def draw_disturbance(axes, path: Path) -> str:
+    """按实际外力日志标记一次脉冲；右轴显示扰动力，左轴仍为夹持力差。"""
+    with np.load(path, allow_pickle=False) as log:
+        t = log['t'].copy()
+        forces = log['force_world'].copy()
+        meta = json.loads(str(log['metadata_json'].item()))
+    if forces.shape != (len(t), 3) or not np.isfinite(forces).all() or not np.isfinite(t).all():
+        raise ValueError('Invalid disturbance time/force data')
+    axis = str(meta['axis'])
+    force = forces[:, 'xyz'.index(axis)]
+    active = np.flatnonzero(force != 0)
+    target = str(meta['body']).replace('openarmx_', '').replace('_', ' ')
+    if not active.size:
+        return f'Disturbance: {target}, world {axis}; no nonzero force applied'
+    start = max(float(meta['start_s']), float(t[0]))
+    end = min(float(meta['start_s']) + float(meta['duration_s']), float(t[-1]) + float(meta['timestep']))
+    peak = float(force[np.argmax(np.abs(force))])
+    color = '#9c2780'
+    for ax in axes:
+        ax.axvspan(start, end, color=color, alpha=0.14, zorder=1)
+        for boundary in (start, end):
+            ax.axvline(boundary, color=color, ls=':', lw=0.85, alpha=0.8)
+    right = axes[-1].twinx()
+    line, = right.step(t, force, where='post', color=color, ls='--', lw=1.3,
+                       label=f'Applied F{axis} (right axis)')
+    span = max(float(np.ptp(force)), abs(peak), 0.01)
+    right.set_ylim(min(0, float(force.min())) - 0.10 * span,
+                   max(0, float(force.max())) + 0.35 * span)
+    right.set_ylabel(f'Applied F{axis} [N]', color=color)
+    right.tick_params(axis='y', colors=color)
+    right.yaxis.set_major_locator(MaxNLocator(nbins=5))
+    right.ticklabel_format(axis='y', style='plain', useOffset=False)
+    handles, labels = axes[-1].get_legend_handles_labels()
+    axes[-1].legend(handles + [line], labels + [line.get_label()], fontsize=7, loc='upper right')
+    partial = ' (interrupted)' if end < float(meta['start_s']) + float(meta['duration_s']) - 1e-10 else ''
+    return f'Single pulse: {target}, world {axis}, peak {peak:+.3g} N | {start:g}-{end:g} s{partial}'
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description="Create Fig. 12(a)-(d) from exp2 CSV")
     ap.add_argument("csv", type=Path, help="exp2_nmpcc_latest CSV")
@@ -85,6 +141,8 @@ def main() -> None:
     ap.add_argument("--force_limit_n", type=float, default=2.0,
                     help="force synchronization limit for panel (d), default 2 N")
     ap.add_argument("--title", default="Experiment II: Cooperative grasping and transport")
+    ap.add_argument('--disturbance_log', type=Path, default=None,
+                    help='actual disturbance NPZ; mark pulse interval and plot external force on right axis')
     args = ap.parse_args()
 
     indices = [int(x.strip()) for x in args.torque_indices.split(",")]
@@ -142,19 +200,28 @@ def main() -> None:
 
     # (d) force synchronization error; keep signed curve and show absolute limit
     ax_d.plot(t, force_error_n, color="#1746d1", lw=1.0, label=r"$F_L-F_R$")
-    add_limit(ax_d, args.force_limit_n, r"$\pm 2$ N limit", "#b71c1c")
+    add_limit(ax_d, args.force_limit_n, f"±{args.force_limit_n:g} N limit", "#b71c1c")
     ax_d.axhline(0.0, color="#555555", lw=0.7)
     add_phase_spans(ax_d, t, d["phase"])
     ax_d.set_xlabel("t [s]")
     ax_d.set_ylabel(r"$F_L-F_R$ [N]")
     ax_d.set_title("(d) Contact-force synchronization error")
     ax_d.grid(alpha=0.3)
+    low, high = refine_force_axis(ax_d, force_error_n)
+    if not (low <= -abs(args.force_limit_n) and high >= abs(args.force_limit_n)):
+        ax_d.text(0.01, 0.04, f"Limit: ±{args.force_limit_n:g} N (outside view)",
+                  transform=ax_d.transAxes, ha="left", va="bottom", fontsize=8,
+                  color="#b71c1c", bbox=dict(facecolor="white", alpha=0.75, edgecolor="none"))
     ax_d.legend(fontsize=8, loc="best")
     ax_d.text(0.99, 0.04, f"max |error| = {np.max(np.abs(force_error_n)):.2f} N",
               transform=ax_d.transAxes, ha="right", va="bottom", fontsize=8,
               bbox=dict(facecolor="white", alpha=0.75, edgecolor="none"))
 
-    fig.suptitle(args.title, fontsize=14)
+    if args.disturbance_log is not None:
+        caption = draw_disturbance([ax_b, ax_c, ax_d], args.disturbance_log)
+        fig.suptitle(args.title + '\n' + caption, fontsize=12)
+    else:
+        fig.suptitle(args.title, fontsize=14)
     out = args.out or args.csv.with_name("fig12_exp2")
     out.parent.mkdir(parents=True, exist_ok=True)
     png = out.with_suffix(".png")
