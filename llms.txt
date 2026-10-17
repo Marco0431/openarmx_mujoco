@@ -1,0 +1,32 @@
+# OpenArmX MuJoCo
+
+> Experimental OpenArmX dual-arm robotics workspace: MuJoCo simulation, inverse kinematics, impedance control, cooperative manipulation, and acados-based nonlinear model predictive cooperative control (NMPCC). Documentation is available in English and Chinese.
+
+Repository: https://github.com/Marco0431/openarmx_mujoco
+Documented branch: 6.0_basic
+Upstream fork source: https://github.com/openarmx/openarmx_mujoco
+
+This is a factual project index. The repository contains simulation and numerical research scripts, not a validated hardware deployment package. The basic IK demo and the acados-based experiments have different dependencies. Historical outputs mentioned in research notes are not all included in the repository.
+
+## Start here
+
+- [README and quick start](https://github.com/Marco0431/openarmx_mujoco/blob/6.0_basic/README.md): Setup, model check, interactive demo, experiment map and limitations.
+- [Dual-arm inverse kinematics](https://github.com/Marco0431/openarmx_mujoco/blob/6.0_basic/ik.py): Position-driven interactive IK; `python ik.py --check` builds and loads the model without opening a viewer.
+- [URDF and visual mesh conversion](https://github.com/Marco0431/openarmx_mujoco/blob/6.0_basic/view_ros2_visual_meshes.py): Converts the included ROS2-exported model and meshes for MuJoCo.
+- [Source robot URDF](https://github.com/Marco0431/openarmx_mujoco/blob/6.0_basic/openarmx_robot.urdf): Robot description used by the conversion script.
+
+## Control and contact experiments
+
+- [Force-control experiment](https://github.com/Marco0431/openarmx_mujoco/blob/6.0_basic/ikforce.py): Torque/force-control experiment with model-check and headless modes.
+- [Impedance experiment](https://github.com/Marco0431/openarmx_mujoco/blob/6.0_basic/ikforce_impedance.py): Impedance-control scene and logic.
+- [Box-clamping demo](https://github.com/Marco0431/openarmx_mujoco/blob/6.0_basic/grasp_box_demo.py): Position-driven contact experiment using arm-end pads.
+
+## NMPCC research
+
+- [Two-link numerical experiment guide](https://github.com/Marco0431/openarmx_mujoco/blob/6.0_basic/EXPERIMENT2_GUIDE.md): Research context, documented implementation differences, author-machine commands and unfinished work.
+- [NMPCC implementation](https://github.com/Marco0431/openarmx_mujoco/blob/6.0_basic/nmpcc.py): CasADi/acados implementation including the two-link plant.
+- [Two-link environment-force experiment](https://github.com/Marco0431/openarmx_mujoco/blob/6.0_basic/exp_sim2_nmpcc.py): Numerical experiment separate from the OpenArmX contact scenes.
+- [OpenArmX cooperative controller](https://github.com/Marco0431/openarmx_mujoco/blob/6.0_basic/nmpcc_cart.py): Cooperative controller with joint-space states and Cartesian task terms.
+- [OpenArmX manipulation experiment](https://github.com/Marco0431/openarmx_mujoco/blob/6.0_basic/exp2_nmpcc_latest.py): Box manipulation and configurable experimental runs.
+- [Diagnostics](https://github.com/Marco0431/openarmx_mujoco/blob/6.0_basic/exp2_diagnostics.py): Checks used by the manipulation experiments.
+- [Issue tracker](https://github.com/Marco0431/openarmx_mujoco/issues): Bug reports and questions.
