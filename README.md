@@ -6,6 +6,14 @@
 
 [Quick start / 快速开始](#quick-start--快速开始) · [Experiment map / 实验导航](#experiment-map--实验导航) · [Troubleshooting / 运行排障](#first-run-troubleshooting--首次运行排障) · [Feedback / 使用反馈](https://github.com/Marco0431/openarmx_mujoco/issues/new/choose)
 
+| Included model / 仓库模型 | Shared-target IK / 双臂跟随目标 |
+| :---: | :---: |
+| ![OpenArmX model at its resting joint positions, rendered in MuJoCo](docs/media/openarmx-model.png) | ![OpenArmX arms follow an automatically moving red target using the repository's IK solver](docs/media/openarmx-ik.gif) |
+
+Actual MuJoCo renders of the included assets. The 5-second GIF uses `ik.py`'s position solver with an automatically moving target: a kinematic demonstration, not a dynamics benchmark or hardware recording. [How these previews are generated](docs/README.md).
+
+以上由仓库真实模型在 MuJoCo 中渲染。右侧为 5 秒自动目标运动与现有 IK 求解器的演示，直接更新关节位置，不代表动力学性能或实机验证。[生成方法](docs/README.md)。
+
 This repository is an experimental fork of [openarmx/openarmx_mujoco](https://github.com/openarmx/openarmx_mujoco). It contains simulation and numerical research scripts, robot assets, and working notes; it is not a hardware deployment package. The documented branch is `6.0_basic`.
 
 本仓库基于上述上游项目，收集了仿真脚本、机器人模型和研究笔记。当前文档对应 `6.0_basic` 分支；这些实验用于仿真与数值研究，不代表已经在真实机器人上验证。
